@@ -1,0 +1,161 @@
+/*
+
+#Nombre{
+    -fx-text-fill: #C3C;
+    !* Fuente de 45*!
+    -fx-font-size: 45px;
+    -fx-font-family: "PixelifySans";
+}
+*/
+#h1{
+    -fx-font-size: 18px;
+    -fx-font-weight: bold 2%;
+    -fx-text-fill: rgb(255, 255, 255);
+
+}
+#LabelRegistro{
+    -fx-font-size: 20px;
+
+}
+/* no es label, es un textfield */
+#LabelInicio{
+
+    -fx-text-fill: #000000;
+    -fx-font-size: 15px;
+    -fx-prompt-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 0 0 1 0; /* Configura el grosor del borde inferior a 2px */
+    -fx-padding: 0 0 15 0;
+}
+#pregunta{
+    -fx-font-weight: bold;
+    -fx-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-scale: italic;
+
+}
+#PanelLogin{
+    -fx-opacity: 200%;
+    -fx-background-color: #04417c;
+}
+#BotonSuperior{
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-border-color: #1b74bc;
+    -fx-border: 50%;
+    -fx-border-radius: 0px;
+    -fx-display: flex;
+    -fx-background-color: #156baa;
+    -fx-border-width: 1px;
+    -fx-padding: 9 20 9 20;
+    -fx-font-size: 13px;
+}
+#BotonInferior{
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-border-color: #1b74bc;
+    -fx-border: 50%;
+    -fx-border-radius: 0px;
+    -fx-display: flex;
+    -fx-background-color: #156baa;
+    -fx-border-width: 1px;
+    -fx-padding: 9 9 9 9;
+    -fx-font-size: 13px;
+}
+#BotonEntrar{
+    -fx-font-weight: bold;
+
+    -fx-background-color: #799bc4;
+    -fx-text-fill: white;
+
+    -fx-border-color: #799bc4;
+
+    -fx-border: 50%;
+    -fx-border-radius: 0px;
+    -fx-padding: 12 43 12 43;
+    -fx-display: flex;
+    -fx-font-size: 14px;
+
+
+
+}
+#BotonOlvido{
+    -fx-background-color: transparent;
+    -fx-font-weight: bold;
+    -fx-border-width: 0;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 10 10 10 10;
+
+    -fx-border-color: transparent;
+
+
+    -fx-border-radius: 8px;
+
+    -fx-display: flex;
+    -fx-font-size: 13px;
+
+}
+
+#Footer{
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+
+    -fx-padding: 10 10 10 10;
+
+    -fx-border-color: transparent;
+
+
+    -fx-border-radius: 8px;
+
+    -fx-display: flex;
+    -fx-font-size: 15px;
+}
+#Pane{
+-fx-background-color: rgba(180, 180, 180, 0.56);
+    -fx-font-weight: bold;
+}
+#Boton-Continuar-Registro{
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-border-color: #1b74bc;
+    -fx-border: 50%;
+    -fx-border-radius: 0px;
+    -fx-display: flex;
+    -fx-background-color: #156baa;
+    -fx-border-width: 1px;
+    -fx-padding: 10 70 10 70;
+    -fx-font-size: 13px;
+}
+#PaneSuperior{
+    -fx-background-color: #062540;
+}
+
+#PanelRegistroPersona{
+    -fx-background-color: rgba(0, 68, 129, 0.95);
+
+}
+#h1_Registro{
+    -fx-font-size: 17px;
+    -fx-font-weight: bold 0.5;
+    -fx-text-fill: white;
+}
+#h3-RegistroPersona{
+    -fx-font-size: 14px;
+    -fx-text-fill: #eff3f6;
+}
+#PanelIdentificate{
+    -fx-background-color: #043464;
+}
+
+#TextFieldNumeroCelularRegistro{
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: white;
+    -fx-background-color: rgba(20, 74, 127, 0.98);
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 0 0 1 0; /* Configura el grosor del borde inferior a 2px */
+    -fx-padding: 15 125 15 10;
+}
+
+
