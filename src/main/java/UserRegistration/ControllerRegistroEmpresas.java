@@ -1,13 +1,16 @@
-package Controllers;
+package UserRegistration;
 
-import Interfaces.MetodosAB;
+import Interfaces.MetodosRegistro;
 import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.Pane;
 
-public class ControllerOpciones implements MetodosAB {
+/**
+ *  Clase que contiene los metodos para la vista de opciones
+ */
+
+public class ControllerRegistroEmpresas implements MetodosRegistro {
     Pane mainLayout4;
-    public ControllerOpciones(){
+    public ControllerRegistroEmpresas(){
         setupIU();
     }
     private void setupIU(){
@@ -24,7 +27,7 @@ public class ControllerOpciones implements MetodosAB {
 
 
 
-    public Pane getMainLayout4() {
+    public Pane getRoot() {
         return mainLayout4;
     }
 }

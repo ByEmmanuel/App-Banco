@@ -7,6 +7,8 @@
     -fx-font-family: "PixelifySans";
 }
 */
+
+
 #h1{
     -fx-font-size: 18px;
     -fx-font-weight: bold 2%;
@@ -48,10 +50,10 @@
     -fx-display: flex;
     -fx-background-color: #156baa;
     -fx-border-width: 1px;
-    -fx-padding: 9 20 9 20;
+    -fx-padding: 9 20 9 20; /* top, right, bottom, left */
     -fx-font-size: 13px;
 }
-#BotonInferior{
+#BotonInferior {
     -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-border-color: #1b74bc;
@@ -129,6 +131,8 @@
 }
 #PaneSuperior{
     -fx-background-color: #062540;
+    -fx-padding: 10px 200px -20px 10px;  /* top, right, bottom, left */
+    -fx-end-margin: 10px;
 }
 
 #PanelRegistroPersona{
@@ -148,9 +152,9 @@
     -fx-background-color: #043464;
 }
 
-#TextFieldNumeroCelularRegistro{
+#TextFieldNumeroCelularRegistro {
     -fx-text-fill: #000000;
-    -fx-font-size: 14px;
+    -fx-font-size: 13px;
     -fx-prompt-text-fill: white;
     -fx-background-color: rgba(20, 74, 127, 0.98);
     -fx-border-color: transparent transparent white transparent;
@@ -158,4 +162,138 @@
     -fx-padding: 15 125 15 10;
 }
 
+#InfoRegistroPersona{
+    -fx-background-color: white;
+    -fx-shape: "M 0 50 C 0 22.3858 22.3858 0 50 0 C 77.6142 0 100 22.3858 100 50 C 100 77.6142 77.6142 100 50 100 C 22.3858 100 0 77.6142 0 50 Z";
+    -fx-background-radius: 5em;
+    -fx-min-width: 17px;
+    -fx-min-height: 17px;
+    -fx-max-width: 17px;
+    -fx-max-height: 17px;
+    -fx-padding: 0;
+}
+#BotonNoTengoTarjeta{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+#campoRegistroDatosUsuario{
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+    -fx-border-color: transparent transparent black transparent;
+    -fx-border-width: 0 0 1 0; /* Configura el grosor del borde inferior a 2px */
 
+    -fx-prompt-text-fill: black;
+    -fx-background-color: rgba(180, 180, 180, 0.32);
+    -fx-padding: 10 10 20 20; /* top, right, bottom, left */
+
+}
+#BotonContinuar{
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-border-color: #1b74bc;
+    -fx-border: 50%;
+    -fx-border-radius: 0px;
+    -fx-display: flex;
+    -fx-background-color: #156baa;
+    -fx-border-width: 1px;
+    -fx-padding: 12 43 12 43; /* top, right, bottom, left */
+    -fx-font-size: 13px;
+}
+
+
+
+#Boton-Registro-Tarjetas  {
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-prompt-text-fill: white;
+    -fx-background-color: rgba(20, 74, 127, 0.98);
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 0 0 1 0; /* Configura el grosor del borde inferior a 2px */
+    -fx-padding: 15 20 15 20;
+
+
+}
+
+    #Boton-Registro-Tarjetas .list-cell:hover {
+        -fx-background-color: #1b74bc; /* Estilo de fondo al pasar el ratón por encima de un elemento de la lista */
+    }
+
+
+    #Boton-Registro-Tarjetas.arrow-button {
+        -fx-background-color: black; /* Estilo de fondo del botón de flecha */
+    }
+
+    #Boton-Registro-Tarjetas.arrow {
+        -fx-background-color: #1b74bc; /* Estilo de fondo de la flecha en el botón */
+        -fx-shape: "M 0 0 L 5 5 L 10 0 Z"; /* Cambiar la forma de la flecha */
+    }
+
+
+#Boton-Registro-Tarjetas * {
+    -fx-text-fill: white;
+}
+
+#Boton-Registro-Tarjetas .list-cell{
+
+
+    -fx-background-color: rgba(20, 74, 127, 0.98);
+    -fx-text-fill: white;
+    /*-fx-border-color: red;*/
+    -fx-border-insets: 10px;
+    -fx-border: 80%;
+    -fx-border-radius: 0px;
+    -fx-display: flex;
+    -fx-border-width: 1px;
+
+    -fx-font-size: 13px;
+}
+#ErrorLayout-Mensaje , #MensajeExito{
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #156baa;
+    -fx-padding: 20px 20px 20px 20px;  /* top, right, bottom, left */
+}
+#Campo-Saldo{
+    -fx-text-fill: #000000;
+    -fx-font-size: 13px;
+    -fx-prompt-text-fill: white;
+    -fx-background-color: rgba(20, 74, 127, 0.98);
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 0 0 1 0; /* Configura el grosor del borde inferior a 2px */
+    -fx-padding: 15 20 15 20;
+}
+#CampoFirma{
+    -fx-text-fill: #000000;
+    -fx-font-size: 13px;
+    -fx-prompt-text-fill: white;
+    -fx-background-color: rgba(20, 74, 127, 0.98);
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 0 0 1 0; /* Configura el grosor del borde inferior a 2px */
+    -fx-padding: 15 10 15 10;
+}
+
+#Barra-Desplazamiento{
+
+   -fx-background-color: #156baa;
+
+
+}
+
+#Botones-Barra-Navegacion{
+    -fx-background-color: #b0d9ff;
+    -fx-spacing: 10px; /* Establece el espaciado entre elementos en píxeles */
+
+
+
+}
+
+#Pane-Dashboard{
+    -fx-padding: 10px 10px 10px 10px;  /* top, right, bottom, left */
+    -fx-end-margin: 10px;
+}
+
+#Pane-UserDashBoard{
+    -fx-background-color: #FFFFFF;
+
+    -fx-end-margin: 10px;
+}

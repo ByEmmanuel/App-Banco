@@ -1,11 +1,13 @@
-package Controllers;
+package UserRegistration;
 
-import Interfaces.MetodosAB;
+import Interfaces.MainInterfaceUser;
+import Interfaces.MetodosRegistro;
+import Interfaces.MetodosUserDashBoard;
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.util.Duration;
 
-public class Animaciones implements MetodosAB {
+public class Animaciones implements MetodosRegistro, MainInterfaceUser {
 
     public TranslateTransition moveTransition;
     public boolean haciaIzquierda = false;
@@ -136,6 +138,13 @@ public class Animaciones implements MetodosAB {
             haciaIzquierda = !haciaIzquierda;
         }
 
+    }
+
+    public void animacionesDashBoard(){
+        moveTransition = new TranslateTransition(Duration.seconds(0.7), MainInterfaceUser.vbox);
+        moveTransition.setFromY(600);
+        moveTransition.setToY(0);
+        moveTransition.play();
     }
 
     public void setEstadoBoton(boolean valor) {

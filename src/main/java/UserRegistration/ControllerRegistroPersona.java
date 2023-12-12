@@ -1,13 +1,17 @@
-package Controllers;
+package UserRegistration;
 
-import Interfaces.MetodosAB;
+import Interfaces.MetodosRegistro;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
-public class ControllerRegistroPersona implements MetodosAB {
+/**
+ * Clase que contiene los metodos para la vista de Registro de persona si tiene tarjeta
+ *  ( <---- ControllerRegistroPersona ----> )
+ */
+public class ControllerRegistroPersona implements MetodosRegistro {
 
     Cargarimagenes imagenes = new Cargarimagenes();
     Button botonMenu = imagenes.ImgMenu3();
@@ -18,7 +22,7 @@ public class ControllerRegistroPersona implements MetodosAB {
     }
     private void setupIU(){
 
-        ControllerOpciones controllerOpciones = new ControllerOpciones();
+        ControllerRegistroEmpresas controllerRegistroEmpresas = new ControllerRegistroEmpresas();
 
         this.mainLayout4 = new Pane();
         //this.mainLayout4.setId("PanelRegistroPersona");
@@ -66,7 +70,8 @@ public class ControllerRegistroPersona implements MetodosAB {
         Pane.setLayoutY(190);
         Pane.setId("PanelIdentificate");
         Pane.setPadding(new Insets(3, 330, 636, 20)); // Padding: arriba, derecha, abajo, izquierda
-        Pane.getChildren().addAll(h1Pane2(),h2Pane2(),numeroDeCelular(),NumeroDeTarjeta());
+        Pane.getChildren().addAll(h1Pane2(),h2Pane2(),numeroDeCelular(),NumeroDeTarjeta(),boton1(),boton2(),infoText(),infoText2(),
+                continuar(),AvisoDePrivacidad(),label2(),noTengoTarjeta());
 
         return Pane;
     }
@@ -93,7 +98,7 @@ public class ControllerRegistroPersona implements MetodosAB {
         textField.setId("TextFieldNumeroCelularRegistro");
         textField.setPromptText("Número de celular");
         textField.setLayoutX(17);
-        textField.setLayoutY(125);
+        textField.setLayoutY(105);
 
 
         return textField;
@@ -108,6 +113,88 @@ public class ControllerRegistroPersona implements MetodosAB {
 
         return textField;
     }
+    private Button boton1 (){
+        Button boton = new Button();
+        boton.setId("InfoRegistroPersona");
+        boton.setLayoutX(25);
+        boton.setLayoutY(160);
+        boton.setText("¡");
+
+
+        return boton;
+    }
+    private Button boton2 (){
+        Button boton = new Button();
+        boton.setId("InfoRegistroPersona");
+        boton.setLayoutX(25);
+        boton.setLayoutY(260);
+        boton.setText("¡");
+
+
+        return boton;
+    }
+
+    private Label infoText(){
+        Label label = new Label();
+        label.setStyle("-fx-font-size: 11px; -fx-text-fill: white;");
+        label.setText("Escribe el número celular registrado (o que deseas \n" +
+                "   registrar) en tu cuenta Apple Bank.");
+        label.setLayoutX(45);
+        label.setLayoutY(162);
+
+        return label;
+    }
+    private Label infoText2(){
+        Label label = new Label();
+        label.setStyle("-fx-font-size: 11px; -fx-text-fill: white;");
+        label.setText("Escribe los 16 dígitos o toma una foto de tu tarjeta.");
+        label.setLayoutX(45);
+        label.setLayoutY(263);
+
+        return label;
+    }
+    private Button continuar(){
+        Button button = new Button();
+        button.setText("Entrar");
+        button.setId("BotonEntrar");
+        button.setLayoutX(100);
+        button.setLayoutY(375);
+
+        return button;
+    }
+    private Button AvisoDePrivacidad(){
+        Button button = new Button();
+        button.setText("Aviso De Privacidad");
+        button.setId("BotonAvisoDePrivacidad");
+        button.setLayoutX(10);
+        button.setLayoutY(305);
+
+        return button;
+    }
+    private Label label2(){
+        Label label = new Label();
+        label.setStyle("-fx-text-fill: white");
+        label.setLayoutX(20);
+        label.setLayoutY(340);
+        label.setText("Al continuar confirmas que eres cliente APPLE BANK");
+
+        return label;
+    }
+    private Button noTengoTarjeta(){
+        Button button = new Button();
+        button.setText("¿No Tienes Tarjeta, !Da Click Aqui¡ ?");
+        button.setId("BotonNoTengoTarjeta");
+        button.setLayoutX(10);
+        button.setLayoutY(419);
+        button.setOnAction( event ->{
+            cargarPaginaRegistroDatos();
+        });
+
+        return button;
+    }
+
+
+
 
 
     public Pane getRoot(){
@@ -115,3 +202,5 @@ public class ControllerRegistroPersona implements MetodosAB {
     }
 
 }
+
+

@@ -1,14 +1,16 @@
-package Controllers;
-import Interfaces.MetodosAB;
+package UserRegistration;
+import Interfaces.MetodosRegistro;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 
-public class Controller1 implements MetodosAB {
+
+/**
+ *  Clase que contiene los metodos para la pantalla de bienvenida
+ *  ( <---- Pantalla 1 ----> )
+ */
+public class Controller1 implements MetodosRegistro {
     private Pane mainLayout;
 
     public Controller1(){

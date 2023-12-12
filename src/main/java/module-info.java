@@ -9,10 +9,24 @@ module applebank.appbancodefinitivo {
     requires jakarta.persistence;
 
 
-    exports Pantallas;
-    exports Controllers;
+
+    exports UserRegistration;
+    exports Cuentas;
+    exports DAO;
     exports Interfaces;
+    exports Pantallas;
+    exports PersistenceJPA;
+    exports Seguridad;
     exports Tests;
+    exports UserDashboard;
+
+
+    opens DAO to jakarta.persistence;
+    opens PersistenceJPA to org.hibernate.orm.core;
+
+
+    requires org.hibernate.orm.core;
+
 
 
 

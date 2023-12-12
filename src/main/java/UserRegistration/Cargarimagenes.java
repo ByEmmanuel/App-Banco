@@ -1,5 +1,6 @@
-package Controllers;
+package UserRegistration;
 
+import Interfaces.MetodosRegistro;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
@@ -7,16 +8,28 @@ import javafx.scene.image.ImageView;
 
 import java.net.URL;
 
-public class Cargarimagenes {
+
+/**
+ *  Clase que contiene los metodos para cargar las imagenes
+ */
+public class Cargarimagenes implements MetodosRegistro {
     Animaciones animaciones = new Animaciones();
     public ImageView bienvenidaLogo() {
-        URL Img = getClass().getResource("/imagenes/appleBck.jpg");
-        Image background = new Image(Img.toString(),330, 316, false, true);
-        ImageView bienvenidaLogo = new ImageView(background);
-        bienvenidaLogo.setLayoutX(0); // Izquierda A derecha ( X )
-        bienvenidaLogo.setLayoutY(0);  // Arriba A Abajo ( Y )
-        bienvenidaLogo.setOpacity(0.75);
-        return bienvenidaLogo;
+        // Asumiendo que tu clase actual está en el mismo paquete que la carpeta "imagenes"
+        URL imgURL = getClass().getResource("/imagenes/appleBack.jpg");
+
+        if (imgURL != null) {
+            Image background = new Image(imgURL.toString(), 330, 316, false, true);
+            ImageView bienvenidaLogo = new ImageView(background);
+            bienvenidaLogo.setLayoutX(0); // Izquierda A derecha ( X )
+            bienvenidaLogo.setLayoutY(0); // Arriba A Abajo ( Y )
+            bienvenidaLogo.setOpacity(0.75);
+            return bienvenidaLogo;
+        } else {
+            // Manejar el caso en el que la imagen no se encuentra
+            System.out.println("No se pudo cargar la imagen.");
+            return null;
+        }
     }
 
     /**
@@ -26,7 +39,7 @@ public class Cargarimagenes {
     public Button ImgMenu1() {
         Button ImgButton = new Button();
         ImgButton.setId("Boton-Menu");
-        URL loginImgUrl = getClass().getResource("/imagenes/burger-menuu.png");
+        URL loginImgUrl = getClass().getResource("/imagenes/burger-menu.png");
         Image loginImage = new Image(loginImgUrl.toString(), 20, 20, false, true);
         ImgButton.setGraphic(new ImageView(loginImage));
         ImgButton.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
@@ -47,7 +60,7 @@ public class Cargarimagenes {
 
         ToggleButton ImgButton = new ToggleButton();
         ImgButton.setId("Boton-Menu");
-        URL loginImgUrl = getClass().getResource("/imagenes/burger-menuu.png");
+        URL loginImgUrl = getClass().getResource("/imagenes/burger-menu.png");
         Image loginImage = new Image(loginImgUrl.toString(), 20, 20, false, true);
         ImgButton.setGraphic(new ImageView(loginImage));
         ImgButton.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
@@ -108,7 +121,7 @@ public class Cargarimagenes {
     public Button ImgMenu3() {
         Button ImgButton = new Button();
         ImgButton.setId("Boton-Menu");
-        URL loginImgUrl = getClass().getResource("/imagenes/burger-menuu.png");
+        URL loginImgUrl = getClass().getResource("/imagenes/burger-menu.png");
         Image loginImage = new Image(loginImgUrl.toString(), 20, 20, false, true);
         ImgButton.setGraphic(new ImageView(loginImage));
         ImgButton.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
@@ -126,7 +139,7 @@ public class Cargarimagenes {
     public Button tokenMovilIMg() {
         Button boton = new Button();
         boton.setId("Boton-Menu");
-        URL Img = getClass().getResource("/imagenes/tokenMovil.png");
+        URL Img = getClass().getResource("/imagenes/tokenMovi.png");
         boton.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
         Image loginImage = new Image(Img.toString(), 77.6, 65, false, true);
         boton.setGraphic(new ImageView(loginImage));
@@ -189,7 +202,26 @@ public class Cargarimagenes {
 
         return imgL;
     }
+    public Button botonQuitarVentanaEmergente() {
+        Button boton = new Button();
+        boton.setId("Boton-Menu");
+        URL Img = getClass().getResource("/imagenes/X.png");
+        Image loginImage = new Image(Img.toString(), 54, 58, false, true);
+        //boton.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
+        boton.setGraphic(new ImageView(loginImage));
+        boton.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
+        boton.setOnAction(Event -> {
 
+
+
+        });
+        // Establecer las coordenadas x e y del botón en el Pane
+        boton.setLayoutX(210); // Ajusta la coordenada x según sea necesario
+        boton.setLayoutY(235); // Ajusta la coordenada y según sea necesario
+
+
+        return boton;
+    }
 
     public void setActualizarValorBoton(boolean booleano) {
         botonSeleccionado = booleano;

@@ -1,7 +1,6 @@
 package Seguridad;
 
-import PersistenceJPA.JPAclientes;
-import PersistenceJPA.JPAcuentas;
+import PersistenceJPA.JpaClientes;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
@@ -21,9 +20,9 @@ public class AutenticacionUtilDAO {
         this.contraseña = contraseña;
     }
 
-    public List<JPAclientes> buscarPorEmailYContraseña(String email, String contraseña) {
+    public List<JpaClientes> buscarPorEmailYContraseña(String email, String contraseña) {
         String jpql = "SELECT u FROM JPAUsuarios u WHERE u.email = :email AND u.contraseña = :contraseña";
-        TypedQuery<JPAclientes> query = em.createQuery(jpql, JPAclientes.class);
+        TypedQuery<JpaClientes> query = em.createQuery(jpql, JpaClientes.class);
         query.setParameter("email", email);
         query.setParameter("contraseña", contraseña);
         return query.getResultList();

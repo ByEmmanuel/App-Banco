@@ -1,11 +1,11 @@
 package Cuentas;
 
-import PersistenceJPA.JPAclientes;
+import java.util.Random;
 
-public abstract class Cuenta{
-
+public class Cuenta{
+/*
     protected double saldo;
-    private int numeroDeCuenta;
+    private Cuenta numeroDeCuenta;
     private JPAclientes titular = new JPAclientes();
     public int getSaldo;
     private static int total;
@@ -14,7 +14,7 @@ public abstract class Cuenta{
 
     }
 
-    public Cuenta(int numero)throws Exception{
+    public Cuenta(Cuenta numero)throws Exception{
         if (numero <= 0){
             throw new Exception();
         }else{
@@ -64,7 +64,7 @@ public abstract class Cuenta{
         }
     }
 
-    /*public void setAgencia(int agencia) {
+    *//*public void setAgencia(int agencia) {
         if (agencia > 0 ){
             this.agencia = agencia;
         }else{
@@ -74,7 +74,7 @@ public abstract class Cuenta{
     public int getAgencia(){
         return agencia;
     }
-    */
+    *//*
 
 
     public void setSaldo(int valor) {
@@ -99,5 +99,24 @@ public abstract class Cuenta{
     public boolean equals(Object obj){
         Cuenta cuenta = (Cuenta) obj;
         return this.numeroDeCuenta == getnumero();
+    }*/
+
+    //public abstract void depositar(double valor);
+    public String setNumeroDeCuenta() {
+        String fixedDigits = "4010"; // Los primeros 4 dígitos que siempre serán los mismos
+        Random random = new Random();
+        long randomNumber = (long) (Math.pow(10, 11) * random.nextDouble());
+        String sixteenDigitNumber = fixedDigits + String.format("%012d", randomNumber);
+        System.out.println(sixteenDigitNumber);
+        return sixteenDigitNumber;
     }
+
+
+        public static void main(String[] args) {
+            String fixedDigits = "4010"; // Los primeros 4 dígitos que siempre serán los mismos
+            Random random = new Random();
+            long randomNumber = (long) (Math.pow(10, 11) * random.nextDouble());
+            String sixteenDigitNumber = fixedDigits + String.format(" 2%011d", randomNumber);
+            System.out.println(sixteenDigitNumber);
+        }
 }

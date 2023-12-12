@@ -1,6 +1,9 @@
-package Controllers;
+package UserRegistration;
 
-import Interfaces.MetodosAB;
+import Excepciones.ErrorDesconocido;
+import Interfaces.MetodosRegistro;
+import Interfaces.MetodosUserDashBoard;
+import UserDashboard.ControllerDash1;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -13,12 +16,16 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 
-
-public class Controller2 implements MetodosAB {
+/**
+ *  Clase que contiene los metodos para la pantalla de Login
+ *  ( <---- Pantalla 2 ----> )
+ */
+public class Controller2 implements MetodosRegistro , MetodosUserDashBoard  {
     private Pane mainLayout2;
     private Button botonEntrar;
-    private TextField emailField;
-    PasswordField passwordField;
+    private static final TextField numeroDeCelular = new TextField();
+    private PasswordField passwordField;
+    private String nombreUsuario;
 
     public Controller2(){
         setupIU();
@@ -38,14 +45,14 @@ public class Controller2 implements MetodosAB {
 
 
     private TextField CampoEmail(){
-        emailField = new TextField();
-        emailField.setPrefWidth(230);
-        emailField.setId("LabelInicio");
-        emailField.setPromptText("Número celular");
-        emailField.setLayoutX(42);
-        emailField.setLayoutY(250);
 
-        return emailField;
+        numeroDeCelular.setPrefWidth(230);
+        numeroDeCelular.setId("LabelInicio");
+        numeroDeCelular.setPromptText("Número celular");
+        numeroDeCelular.setLayoutX(42);
+        numeroDeCelular.setLayoutY(250);
+
+        return numeroDeCelular;
     }
     private Label Contraseña(){
         Label label = new Label("Contraseña");
@@ -95,16 +102,15 @@ public class Controller2 implements MetodosAB {
 
 
         // Agregar oyentes al TextField y al PasswordField
-        emailField.textProperty().addListener((observable, oldValue, newValue) -> {
+        numeroDeCelular.textProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("Texto en el TextField: " + newValue);
 
-            if (!emailField.getText().isEmpty() && !passwordField.getText().isEmpty()) {
+            if (!numeroDeCelular.getText().isEmpty() && !passwordField.getText().isEmpty()) {
                 botonEntrar.setDisable(false);
                 botonEntrar.setOpacity(1);
             } else {
                 botonEntrar.setOpacity(0.5);
                 botonEntrar.setDisable(true);
-                System.out.println("Valores no introducidos");
             }
 
         });
@@ -112,7 +118,7 @@ public class Controller2 implements MetodosAB {
         passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("Contraseña en el PasswordField: " + newValue);
 
-            if (!emailField.getText().isEmpty() && !passwordField.getText().isEmpty()) {
+            if (!numeroDeCelular.getText().isEmpty() && !passwordField.getText().isEmpty()) {
                 botonEntrar.setDisable(false);
                 botonEntrar.setOpacity(1);
             } else {
@@ -123,7 +129,21 @@ public class Controller2 implements MetodosAB {
         });
 
         botonEntrar.setOnAction(event -> {
-            System.out.println("Entrar");
+
+            String numeroUsuario = numeroDeCelular.getText();
+            String contraseñaUsuario = passwordField.getText();
+            if (clientesDAO.existeElUsuario(mainLayout2,numeroUsuario) && clientesDAO.existeLaContraseña(mainLayout2,contraseñaUsuario)) {
+
+                System.out.println("Inicio de sesión exitoso");
+
+                cargarDashBoard();
+                Animaciones animaciones = new Animaciones();
+                animaciones.animacionesDashBoard();
+
+            } else {
+                throw new ErrorDesconocido(mainLayout2,"Numero de celular invalido \n o el usuario no existe");
+            }
+
         });
 
         return botonEntrar;
@@ -168,6 +188,13 @@ public class Controller2 implements MetodosAB {
         }
     }
 
+    public String  getNumeroDeCelular() {
+        return numeroDeCelular.getText();
+    }
+
+    public String getNombreUsuario() {
+        return null ;
+    }
 
     public Pane getRoot() {
         return mainLayout2;

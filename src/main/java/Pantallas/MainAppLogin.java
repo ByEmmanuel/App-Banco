@@ -1,10 +1,10 @@
 package Pantallas;
 
-import Interfaces.MetodosAB;
+import Interfaces.MetodosRegistro;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class MainApp extends Application implements MetodosAB {
+public class MainAppLogin extends Application implements MetodosRegistro {
     public static void main(String[] args) {
         launch(args);
     }

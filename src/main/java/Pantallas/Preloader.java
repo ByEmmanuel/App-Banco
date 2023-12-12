@@ -1,13 +1,13 @@
 package Pantallas;
 
 
-import Interfaces.MetodosAB;
+import Interfaces.MetodosRegistro;
 
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Preloader extends javafx.application.Preloader implements MetodosAB {
+public class Preloader extends javafx.application.Preloader implements MetodosRegistro {
 
     public Preloader() {
         // Constructor vacío

@@ -1,11 +1,13 @@
 package Seguridad;
 
-import PersistenceJPA.JPAUtils;
-import PersistenceJPA.JPAclientes;
+import PersistenceJPA.JpaUtils;
 import jakarta.persistence.EntityManager;
 
 public interface Autenticable {
-    EntityManager em = JPAUtils.getEntityManager();
+    EntityManager em = JpaUtils.getEntityManager();
 
+    default EntityManager getEntityManager() {
+        return em;
+    }
 }
 

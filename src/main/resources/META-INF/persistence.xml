@@ -8,7 +8,7 @@
 
 
 
-        <validation-mode>AUTO</validation-mode>
+        <validation-mode>NONE</validation-mode>
 
 
         <properties>

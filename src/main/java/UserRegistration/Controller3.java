@@ -1,12 +1,17 @@
-package Controllers;
+package UserRegistration;
 
-import Interfaces.MetodosAB;
+import Interfaces.MetodosRegistro;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
-public class Controller3 implements MetodosAB {
+/**
+ *  Clase que contiene los metodos para la pantalla opciones de registro usuario
+ *  ( <---- Pantalla 3 ----> )
+ *  (<---- Persona fisica o persona moral  ---->)
+ */
+public class Controller3 implements MetodosRegistro {
     Cargarimagenes imagenes = new Cargarimagenes();
     Button botonMenu = imagenes.ImgMenu3();
     Pane mainLayout3;
@@ -16,12 +21,12 @@ public class Controller3 implements MetodosAB {
     }
     private void setupIU(){
 
-        ControllerOpciones controllerOpciones = new ControllerOpciones();
+        ControllerRegistroEmpresas controllerRegistroEmpresas = new ControllerRegistroEmpresas();
         Button botonMenu = Controller1.controller1.botonInicio();
         this.mainLayout3 = new Pane();
         this.mainLayout3.setId("PanelRegistro");
 
-        mainLayout3.getChildren().addAll(seleccionaPerfil(),leyenda(),hBox1(), hBox2(), hBox3(),botonMenu);
+        mainLayout3.getChildren().addAll(seleccionaPerfil(),leyenda(), panelSuperior(), hBox2(), hBox3(),botonMenu);
 
 
     }
@@ -41,16 +46,8 @@ public class Controller3 implements MetodosAB {
         label.setLayoutY(90);
         return label;
     }
-    private Pane hBox1(){
-        Pane Pane = new Pane();
-        Pane.setLayoutX(0);
-        Pane.setLayoutY(0);
-        Pane.setId("PaneSuperior");
-        Pane.setPadding(new Insets(3, 60, 0, 20)); // Padding: arriba, derecha, abajo, izquierda
-        Pane.getChildren().addAll(logoText(),botonMenu);
 
-        return Pane;
-    }
+
     private Pane hBox2(){
         Pane Pane = new Pane();
         Pane.setLayoutX(20);
