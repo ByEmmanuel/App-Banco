@@ -24,7 +24,7 @@ public class Controller2 implements MetodosRegistro , MetodosUserDashBoard  {
     private Pane mainLayout2;
     private Button botonEntrar;
     private static final TextField numeroDeCelular = new TextField();
-    private PasswordField passwordField;
+    private static final PasswordField passwordField = new PasswordField();
     private String nombreUsuario;
 
     public Controller2(){
@@ -63,7 +63,6 @@ public class Controller2 implements MetodosRegistro , MetodosUserDashBoard  {
         return label;
     }
     private PasswordField CampoContraseña(){
-        passwordField = new PasswordField();
         passwordField.setId("LabelInicio");
         passwordField.setPrefWidth(230); // Ancho en píxeles
         passwordField.setPromptText("Contraseña");
@@ -132,7 +131,7 @@ public class Controller2 implements MetodosRegistro , MetodosUserDashBoard  {
 
             String numeroUsuario = numeroDeCelular.getText();
             String contraseñaUsuario = passwordField.getText();
-            if (clientesDAO.existeElUsuario(mainLayout2,numeroUsuario) && clientesDAO.existeLaContraseña(mainLayout2,contraseñaUsuario)) {
+            if (clientesDAO.coincidenLosDatos(mainLayout2,numeroUsuario,contraseñaUsuario)) {
 
                 System.out.println("Inicio de sesión exitoso");
 
@@ -190,6 +189,10 @@ public class Controller2 implements MetodosRegistro , MetodosUserDashBoard  {
 
     public String  getNumeroDeCelular() {
         return numeroDeCelular.getText();
+    }
+
+    public String getContraseña() {
+        return passwordField.getText();
     }
 
     public String getNombreUsuario() {

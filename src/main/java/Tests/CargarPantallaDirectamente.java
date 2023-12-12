@@ -87,11 +87,12 @@ public class CargarPantallaDirectamente extends Application implements MetodosRe
 
         //Esta pantalla tiene que ser cargada junto con su animacion
         // y su numero de telefono; de lo contrario cargarla directamente dara error
+
         /*
+*/
         cargarDashBoard();
         Animaciones animaciones = new Animaciones();
         animaciones.animacionesDashBoard();
-*/
     }
 
 }

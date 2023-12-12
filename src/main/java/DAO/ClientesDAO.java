@@ -13,28 +13,30 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import javafx.scene.layout.Pane;
 
-public class ClientesDAO  {
+import static Interfaces.MainInterfaceLogin.controller2;
+
+public class ClientesDAO {
 
     private EntityManager em = JpaUtils.getEntityManager();
 
     private String nombreUsuario;
     private long idUsuario;
     private String numeroDeCuenta;
+    private static boolean validacion1 = false;
+    private static boolean validacion2 = false;
 
-    private static Long[] usuarioRegistrado;
+    private static Long[] arrayIdUsuario = new Long[2];
+    //private static Long[] arrayIdUsuario2 = new Long[2];
+
 
 
     /**
-     *
      * @param nombre
      * @param primerApellido
      * @param segundoApellido
      * @param nacionalidad
-     * @param fechaDeNacimiento
-     *
-     * ESTE METODO O ALGORITMO ES EL QUE HACE LA IMPLEMENTACION DE REGISTROS A
-     * LA BASE DE DATOS
-     *
+     * @param fechaDeNacimiento ESTE METODO O ALGORITMO ES EL QUE HACE LA IMPLEMENTACION DE REGISTROS A
+     *                          LA BASE DE DATOS
      */
     /*public void idk( int i ){
         clase clase = new clase(i);
@@ -52,175 +54,147 @@ public class ClientesDAO  {
             String estadoDondeNacio
             //String nacionalidad,
             //String telefono
+    ) {
+        try {
+            // Ahora puedes usar los valores pasados como parámetros
+            JpaClientes usuario = new JpaClientes(
+                    nombre,
+                    primerApellido,
+                    segundoApellido,
+                    //email,
+                    nacionalidad,
+                    fechaDeNacimiento,
+                    estadoDondeNacio
+                    //nacionalidad,
+                    //telefono
+            );
 
-    ){
+            // Iniciar una transacción
+            em.getTransaction().begin();
 
-        // Ahora puedes usar los valores pasados como parámetros
-        JpaClientes usuario = new JpaClientes(
-                nombre,
-                primerApellido,
-                segundoApellido,
-                //email,
-                nacionalidad,
-                fechaDeNacimiento,
-                estadoDondeNacio
-                //nacionalidad,
-                //telefono
+            // Persistir la entidad en la base de datos
+            em.persist(usuario);
 
-        );
+            // Confirmar la transacción
+            em.getTransaction().commit();
 
+            arrayIdUsuario[0] = usuario.getId();
 
-        
+            // Mostrar información del usuario
+            mostrarDatosUsuario(arrayIdUsuario[0]);
+            obtenerNombrePorId(arrayIdUsuario[0]);
 
+            System.out.println("El id del usuario es: " + arrayIdUsuario[0]);
 
-
-        /*
-        JpaLoginUsuarios loginUsuario = new JpaLoginUsuarios();
-        loginUsuario.setNombre_usuario(nombre);
-        usuario.setLoginUsuario(loginUsuario);
-         */
-
-        /**
-         * Aqui puedo hacer ultimas validaciones
-         * @return
-         */
-        if (nombre == null){
-            //Excepcion por agregar
-            throw new RuntimeException();
+            /*
+             * Esta validacion pasa a true para el metodo y poder avanzar con las
+             * demas operaciones
+             * si es false se deberia de borrar el usuario
+             *  DEBERIA
+             */
+            this.validacion1 = true;
+        } catch (Exception e) {
+            // Manejar la excepción según tus necesidades
+            e.printStackTrace();
         }
-
-         // Iniciar una transacción
-        em.getTransaction().begin();
-
-        // Persistir la entidad en la base de datos
-
-        em.persist(usuario);
-
-        // Confirmar la transacción
-        em.getTransaction().commit();
-
-        Long usuarioId = usuario.getId();
-
-        this.idUsuario = usuarioId;
-
-        mostrarDatosUsuario(usuarioId);
-        obtenerNombrePorId(usuarioId);
-
-        for (int i = 0; i < 2; i++) {
-
-        }
-
-        System.out.println("El id del usuario es: " + usuarioId);
-        // Cerrar el EntityManager y la fábrica de EntityManager
-
-
-        /**
-         * Esta es una mala practica ya que se esta cerrando el EntityManager solamente
-         * cuando hay que hacer un commit
-         * de Cierta forma el EntityManager se queda abierto hasta que se haga un commit
-         * (En el segundo registro de datos se cierra el EntityManager)
-         * y se tiene que cerrar cada que se hace una operacion a la base de datos
-         */
-
-
-        if (em.getTransaction().getRollbackOnly()){
-            em.close();
-        }
-
-
-        //Esta es la forma habitual de cerrar el EntityManager
-        //em.close();
-
-
-
     }
 
-    public void RegistrarDatosLoginUsuario (
+    /* 
+     * Este metodo registra los datos de inicio de sesion del usuario
+     * Si el primer metodo dio error, esto no deberia poder ejecutarse
+     * ya que no se podria obtener el id del usuario
+     */
+
+    public void RegistrarDatosLoginUsuario(
             String email,
             String contraseña,
             String numeroDeTelefono,
             String preguntaDeSeguridad,
             String respuestaDeSeguridad
             //, Long usuarioId // Debes proporcionar el ID del usuario al que deseas asociar los datos de inicio de sesión
-    ){
+    ) {
+        if (verificarTransaccion1()) {
+            try {
+                JpaLoginUsuarios loginUsuario = new JpaLoginUsuarios(
+                        email,
+                        contraseña,
+                        numeroDeTelefono,
+                        preguntaDeSeguridad,
+                        respuestaDeSeguridad
 
-        JpaLoginUsuarios loginUsuario = new JpaLoginUsuarios(
-                email,
-                contraseña,
-                numeroDeTelefono,
-                preguntaDeSeguridad,
-                respuestaDeSeguridad
+
+                );
+
+                // Obtén la entidad JpaClientes usando el ID proporcionado
+                //JpaClientes usuario = em.find(JpaClientes.class, usuarioId);
+
+                /**
+                 * Aqui puedo hacer ultimas validaciones
+                 */
+                if (email == null) {
+                    //Excepcion por agregar
+                    throw new RuntimeException();
+                }
+
+                // Iniciar una transacción
+                em.getTransaction().begin();
+
+                // Persistir la entidad en la base de datos
+
+                String nombre_usuario = BuscarPorID(arrayIdUsuario[0]);
+
+                System.out.println("El nombre de usuario es: " + nombre_usuario);
+
+                loginUsuario.setNombre_usuario(nombre_usuario);
 
 
+                em.persist(loginUsuario);
 
-        );
+                // Confirmar la transacción
+                em.getTransaction().commit();
 
-// Obtén la entidad JpaClientes usando el ID proporcionado
-        //JpaClientes usuario = em.find(JpaClientes.class, usuarioId);
 
-        /**
-         * Aqui puedo hacer ultimas validaciones
-         */
-        if (email == null){
-            //Excepcion por agregar
-            throw new RuntimeException();
+                //Long usuarioId = loginUsuario.getId();
+
+                arrayIdUsuario[1] = loginUsuario.getId();
+                obtenerNombrePorId(arrayIdUsuario[1]);
+
+                // Cerrar el EntityManager y la fábrica de EntityManager
+
+                /*
+                 * esto no se si sirva jaja salu2
+                 */
+                if (em.getTransaction().getRollbackOnly()) {
+                    // no se si sirve esto xd después lo pruebo
+                    em.remove(idUsuario);
+                    em.close();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            /*
+             * Esta validacion pasa a true para el metodo y poder avanzar con las
+             * siguientes operaciones
+             *
+             */
+            this.validacion2 = true;
+        } else {
+            System.out.println("No se pudo registrar el usuario");
+            //Borrar el usuario
+
         }
-
-
-        //String usuarioAutenticado = BuscarPorNombre(Controller6.getNombre()); // Obtén el usuario autenticado de alguna manera
-
-        // Establece la relación entre JpaClientes y JpaLoginUsuarios
-        //loginUsuario.setNombre_usuario(nombreUsuario);
-
-        /*
-        String usuarioAutenticado = BuscarPorNombre(Controller4.getCampoNombre());
-        loginUsuario.setNombre_usuario(usuarioAutenticado); // Establece el usuario autenticado en la clase JpaLoginUsuarios
-        if (usuarioAutenticado == null) {
-            throw new RuntimeException("No se encontró el usuario autenticado");
-        }
-
-        */
-
-
-
-        // Iniciar una transacción
-        em.getTransaction().begin();
-
-        // Persistir la entidad en la base de datos
-
-        String nombre_usuario = BuscarPorID(this.idUsuario);
-
-        System.out.println("El nombre de usuario es: " + nombre_usuario);
-
-        loginUsuario.setNombre_usuario(nombre_usuario);
-
-
-
-        em.persist(loginUsuario);
-
-        // Confirmar la transacción
-        em.getTransaction().commit();
-
-
-
-        Long usuarioId = loginUsuario.getId();
-
-        this.idUsuario = usuarioId;
-        obtenerNombrePorId(usuarioId);
-
-        // Cerrar el EntityManager y la fábrica de EntityManager
-
-
-        if(em.getTransaction().getRollbackOnly()){
-            em.close();
-            // no se si sirve esto xd después lo pruebo
-            em.remove(idUsuario);
-        }
-
     }
 
 
+    /*
+     * Este metodo registra los datos bancarios del usuario
+     * Si el segundo metodo dio error, esto no deberia poder ejecutarse 
+     * y mucho menos si el segundo dio error
+     */
+
     public void RegistrarDatosBancariosUsuario (
+        
             //Long numeroDeCuenta,
             String titular,
             double saldo,
@@ -228,67 +202,79 @@ public class ClientesDAO  {
             String firmaUsuario
             //, Long usuarioId // Debes proporcionar el ID del usuario al que deseas asociar los datos de inicio de sesión
     ){
+        if (verificarTransaccion2()){
+            try {
+                Cuenta cuenta = new Cuenta();
+                numeroDeCuenta = cuenta.setNumeroDeCuenta();
 
-        Cuenta cuenta = new Cuenta();
-        numeroDeCuenta = cuenta.setNumeroDeCuenta();
-
-        JpaCuentas cuentasClientes = new JpaCuentas(
-                numeroDeCuenta, // Añadido automaticamente
-                //titular, (es añadido automaticamente)
-                saldo, //El usuario debe ingresar un numero no mayor a 200
-                tipoDeCuenta, //El usuario debe ingresar un tipo de cuenta
-                firmaUsuario //El usuario debe ingresar una firma
-
-
-
-        );
-
-// Obtén la entidad JpaClientes usando el ID proporcionado
-        //JpaClientes usuario = em.find(JpaClientes.class, usuarioId);
+                JpaCuentas cuentasClientes = new JpaCuentas(
+                        numeroDeCuenta, // Añadido automaticamente
+                        //titular, (es añadido automaticamente)
+                        saldo, //El usuario debe ingresar un numero no mayor a 200
+                        tipoDeCuenta, //El usuario debe ingresar un tipo de cuenta
+                        firmaUsuario //El usuario debe ingresar una firma
 
 
 
-        /**
-         * Aqui puedo hacer ultimas validaciones
+                );
+
+                // Obtén la entidad JpaClientes usando el ID proporcionado
+                //JpaClientes usuario = em.find(JpaClientes.class, usuarioId);
+
+
+
+                /**
+                 * Aqui puedo hacer ultimas validaciones
+                 */
+                if (firmaUsuario == null){
+                    //Excepcion por agregar
+                    throw new RuntimeException();
+                }
+
+                // Iniciar una transacción
+                em.getTransaction().begin();
+
+                // Persistir la entidad en la base de datos
+
+                // String nombre_usuario = BuscarPorID(arrayIdUsuario[1]);
+
+                // obtenerNombrePorId(arrayIdUsuario[1]);
+
+                // System.out.println("El nombre de usuario es: " + nombre_usuario);
+
+                String nombre_usuario = BuscarPorID(arrayIdUsuario[0]);
+
+                System.out.println("El nombre de usuario es: " + nombre_usuario);
+
+                cuentasClientes.setNombre_usuario(nombre_usuario);
+
+                em.persist(cuentasClientes);
+
+                // Confirmar la transacción
+                em.getTransaction().commit();
+
+                // Cerrar el EntityManager y la fábrica de EntityManager
+
+                if(em.getTransaction().getRollbackOnly()){
+                    // no se si sirve esto xd después lo pruebo
+                    em.remove(idUsuario);
+                    em.close();
+                }
+            obtenerIds();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }else {
+            System.out.println("No se pudo registrar el usuario");
+            //Borrar el usuario
+
+        }
+
+        /*
+         * Al final de todos los registros se va a imprimir el id
+         * del array donde se guardan los diferentes nombres (por id)
+         * de cada registro
          */
-        if (firmaUsuario == null){
-            //Excepcion por agregar
-            throw new RuntimeException();
-        }
-
-        // Iniciar una transacción
-        em.getTransaction().begin();
-
-
-        // Persistir la entidad en la base de datos
-
-
-        String nombre_usuario = BuscarPorID(this.idUsuario);
-
-        obtenerNombrePorId(this.idUsuario );
-
-        System.out.println("El nombre de usuario es: " + nombre_usuario);
-
-        cuentasClientes.setNombre_usuario(nombre_usuario);
-
-        em.persist(cuentasClientes);
-
-        // Confirmar la transacción
-        em.getTransaction().commit();
-
-
-
-
-
-        // Cerrar el EntityManager y la fábrica de EntityManager
-
-
-        if(em.getTransaction().getRollbackOnly()){
-            // no se si sirve esto xd después lo pruebo
-            em.remove(idUsuario);
-            em.close();
-        }
-
     }
 
     public String BuscarPorNombre(String nombre) {
@@ -394,9 +380,9 @@ public class ClientesDAO  {
          *
          *
          */
-        //numeroDeTelefono = controller2.getNumeroDeCelular();
+        numeroDeTelefono = controller2.getNumeroDeCelular();
 
-        numeroDeTelefono = "11";
+        //numeroDeTelefono = "11";
         String jpql = "SELECT u FROM JpaLoginUsuarios u WHERE u.numeroDeTelefono = :numeroDeTelefono";
         TypedQuery<JpaLoginUsuarios> query = em.createQuery(jpql, JpaLoginUsuarios.class);
         query.setParameter("numeroDeTelefono", numeroDeTelefono);
@@ -414,6 +400,38 @@ public class ClientesDAO  {
 
 
     }
+    public boolean coincidenLosDatos(Pane panel,String numeroDeTelefono , String contraseña) {
+
+        /**
+         *
+         *   Esto esta desactivado para fines de testeo
+         *   ya que si no se carga el controller2
+         *   dara error
+         *
+         *
+         */
+        numeroDeTelefono = controller2.getNumeroDeCelular();
+        contraseña = controller2.getContraseña();
+
+        String jpql = "SELECT u FROM JpaLoginUsuarios u WHERE u.numeroDeTelefono = :numeroDeTelefono AND u.contraseña = :contraseña";
+        TypedQuery<JpaLoginUsuarios> query = em.createQuery(jpql, JpaLoginUsuarios.class);
+        query.setParameter("numeroDeTelefono", numeroDeTelefono);
+        query.setParameter("contraseña", contraseña);
+        try {
+            JpaLoginUsuarios usuario = query.getSingleResult();
+
+            if (usuario.getNombre_usuario() == null){
+                throw new ErrorDesconocido(panel,"No se encontro el usuario");
+            }else {
+                return true;
+            }
+        }catch (Exception e){
+            return false;
+        }
+
+
+    }
+
     public String BuscarPorID(long id) {
         // No es necesario asignar id = idUsuario; ya que el parámetro id ya tiene el valor correcto
 
@@ -467,5 +485,26 @@ public class ClientesDAO  {
       EntityManager em = JpaUtils.getEntityManager();
       
       nombreUsuario = em.find(JpaClientes.class, id).getNombre();
+    }
+
+    public boolean verificarTransaccion1(){
+        if(validacion1){
+            return true;
+        }else {
+            return false;
+        }
+    }
+    public boolean verificarTransaccion2(){
+        if(validacion2){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    private void obtenerIds(){
+        for (int i = 0; i < 3; i++) {
+            System.out.println(arrayIdUsuario[i]);
+        }
     }
 }
