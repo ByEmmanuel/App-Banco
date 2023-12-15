@@ -1,5 +1,6 @@
 package Interfaces;
 
+import UserRegistration.Animaciones;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -17,11 +18,14 @@ public interface MetodosUserDashBoard extends MainInterfaceUser {
         //Establecer el titulo
         primaryStage.setTitle("Apple Bank");
         //Agregar Los Controles
+        Pane pane = new Pane();
+        //Agregar animaciones
+        Animaciones animaciones = new Animaciones();
+        animaciones.animacionesDashBoard(pane);
 
-
-        vbox.getChildren().addAll(dashBoard1.getRoot(),panelInferior());
+        pane.getChildren().addAll(dashBoard1.getRoot(),cargarPanelInferior());
         //Crear La escena
-        Scene scene = new Scene(vbox, 328, 636);
+        Scene scene = new Scene(pane, 328, 636);
         //Agregar los estilos CSS
         String CSS = String.valueOf(MetodosRegistro.class.getResource("/Styles/styles.css"));
         scene.getStylesheets().add(CSS);
@@ -36,7 +40,7 @@ public interface MetodosUserDashBoard extends MainInterfaceUser {
      * agregar a cada pantalla del dashBoard
      * @return
      */
-    default Pane panelInferior(){
+    default Pane cargarPanelInferior(){
 
         Pane Pane = new Pane();
 
@@ -49,4 +53,66 @@ public interface MetodosUserDashBoard extends MainInterfaceUser {
 
         return Pane;
     }
+
+    default void cargarVidaFinanciera(){
+        //Establecer el titulo
+        primaryStage.setTitle("Apple Bank");
+        //Agregar Los Controles
+        Pane pane = new Pane();
+        pane.getChildren().addAll(dashBoard2.getRoot(),cargarPanelInferior());
+        //Crear La escena
+        Scene scene = new Scene(pane, 328, 636);
+        //Agregar los estilos CSS
+        String CSS = String.valueOf(MetodosRegistro.class.getResource("/Styles/styles.css"));
+        scene.getStylesheets().add(CSS);
+        //Mostrar La escena
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+    default void cargarOportunidades(){
+        //Establecer el titulo
+        primaryStage.setTitle("Apple Bank");
+        //Agregar Los Controles
+        Pane pane = new Pane();
+        pane.getChildren().addAll(dashBoard3.getRoot(),cargarPanelInferior());
+        //Crear La escena
+        Scene scene = new Scene(pane, 328, 636);
+        //Agregar los estilos CSS
+        String CSS = String.valueOf(MetodosRegistro.class.getResource("/Styles/styles.css"));
+        scene.getStylesheets().add(CSS);
+        //Mostrar La escena
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+    default void cargarNotificaciones(){
+        //Establecer el titulo
+        primaryStage.setTitle("Apple Bank");
+        //Agregar Los Controles
+        Pane pane = new Pane();
+        pane.getChildren().addAll(dashBoard4.getRoot(),cargarPanelInferior());
+        //Crear La escena
+        Scene scene = new Scene(pane, 328, 636);
+        //Agregar los estilos CSS
+        String CSS = String.valueOf(MetodosRegistro.class.getResource("/Styles/styles.css"));
+        scene.getStylesheets().add(CSS);
+        //Mostrar La escena
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+    default void cargarAyuda(){
+        //Establecer el titulo
+        primaryStage.setTitle("Apple Bank");
+        //Agregar Los Controles
+        Pane pane = new Pane();
+        pane.getChildren().addAll(dashBoard5.getRoot(),cargarPanelInferior());
+        //Crear La escena
+        Scene scene = new Scene(pane, 328, 636);
+        //Agregar los estilos CSS
+        String CSS = String.valueOf(MetodosRegistro.class.getResource("/Styles/styles.css"));
+        scene.getStylesheets().add(CSS);
+        //Mostrar La escena
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
 }

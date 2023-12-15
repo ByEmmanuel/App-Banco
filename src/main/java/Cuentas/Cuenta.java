@@ -102,21 +102,26 @@ public class Cuenta{
     }*/
 
     //public abstract void depositar(double valor);
-    public String setNumeroDeCuenta() {
-        String fixedDigits = "4010"; // Los primeros 4 dígitos que siempre serán los mismos
+    public  String setNumeroDeCuenta() {
+        String fixedDigits = "1525"; // Los primeros 4 dígitos que siempre serán los mismos
+        Random random = new Random();
+        long randomNumber = (long) (Math.pow(12, 13) * random.nextDouble());
+        String sixteenDigitNumber = fixedDigits + String.format("%012d", randomNumber);
+        System.out.println("Numero de cuenta; "+sixteenDigitNumber);
+        return sixteenDigitNumber;
+    }
+    public  String setNumeroDeTarjeta() {
+        String fixedDigits = "0401"; // Los primeros 4 dígitos que siempre serán los mismos
         Random random = new Random();
         long randomNumber = (long) (Math.pow(10, 11) * random.nextDouble());
         String sixteenDigitNumber = fixedDigits + String.format("%012d", randomNumber);
-        System.out.println(sixteenDigitNumber);
+        System.out.println("Numero de tarjeta; "+sixteenDigitNumber);
         return sixteenDigitNumber;
     }
 
 
         public static void main(String[] args) {
-            String fixedDigits = "4010"; // Los primeros 4 dígitos que siempre serán los mismos
-            Random random = new Random();
-            long randomNumber = (long) (Math.pow(10, 11) * random.nextDouble());
-            String sixteenDigitNumber = fixedDigits + String.format(" 2%011d", randomNumber);
-            System.out.println(sixteenDigitNumber);
+            //System.out.println(setNumeroDeCuenta());
+            //System.out.println(setNumeroDeTarjeta());
         }
 }

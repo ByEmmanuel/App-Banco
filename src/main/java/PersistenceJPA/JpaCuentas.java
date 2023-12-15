@@ -12,10 +12,9 @@ public class JpaCuentas {
     @Column(updatable = false, insertable = false)
     private Long id; //AutoGenerado
     //Este es el numero de cuenta que se le asigna al cliente
-    private String titular; //Insertar el nombre del cliente
-    //Este es el nombre del cliente que posee la cuenta
     private double saldo; //Insertar el saldo inicial de la cuenta
     //Este es el saldo que posee la cuenta
+
     private static int totalTarjetas;
     //Este es el total de tarjetas que posee el cliente
     private String tipoDeCuenta;
@@ -25,8 +24,10 @@ public class JpaCuentas {
     private String nombre_usuario;
 
 
-    @Column(name = "numero_de_cuenta", length = 16)
+    @Column(name = "numero_de_cuenta", length = 19)
     private String numeroDeCuenta;  // Representación del número de cuenta como cadena de 16 dígitos
+    @Column(name = "numero_de_tarjeta", length = 16)
+    private String numeroDeTarjeta;  // Representación del número de cuenta como cadena de 16 dígitos
 
     @ManyToOne
     @JoinColumn(name = "id_cliente")
@@ -35,9 +36,9 @@ public class JpaCuentas {
     }
 
 
-    public JpaCuentas(String numeroDeCuenta , double saldo, String tipoDeCuenta, String firmaUsuario) {
+    public JpaCuentas(String numeroDeCuenta ,String numeroDeTarjeta, double saldo, String tipoDeCuenta, String firmaUsuario) {
         this.numeroDeCuenta = numeroDeCuenta;
-        //this.titular = titular;
+        this.numeroDeTarjeta = numeroDeTarjeta;
         this.saldo = saldo;
         this.tipoDeCuenta = tipoDeCuenta;
         this.firmaUsuario = firmaUsuario;
@@ -59,12 +60,12 @@ public class JpaCuentas {
         this.numeroDeCuenta = numeroDeCuenta;
     }
 
-    public String getTitular() {
-        return titular;
+    public String getNumeroDeTarjeta() {
+        return numeroDeTarjeta;
     }
 
-    public void setTitular(String titular) {
-        this.titular = titular;
+    public void setNumeroDeTarjeta(String numeroDeTarjeta) {
+        this.numeroDeTarjeta = numeroDeTarjeta;
     }
 
     public double getSaldo() {

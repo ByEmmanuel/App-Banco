@@ -6,6 +6,14 @@ import Interfaces.MetodosRegistro;
 import Interfaces.MetodosUserDashBoard;
 import UserRegistration.Animaciones;
 import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.Slider;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class CargarPantallaDirectamente extends Application implements MetodosRegistro, MetodosUserDashBoard {
@@ -65,7 +73,7 @@ public class CargarPantallaDirectamente extends Application implements MetodosRe
 
         //cargarPaginaRegistroDatos2();
 
-        cargarPaginaServiciosFinancieros();
+        //cargarPaginaServiciosFinancieros();
 
         //cargarPaginaRegistroEmpresa();
 
@@ -89,10 +97,56 @@ public class CargarPantallaDirectamente extends Application implements MetodosRe
         // y su numero de telefono; de lo contrario cargarla directamente dara error
 
         /*
-*/
+         */
         cargarDashBoard();
-        Animaciones animaciones = new Animaciones();
-        animaciones.animacionesDashBoard();
+
+        // Esto esta desactivado porque las animaciones se tienen que hacer a nivel directo de la clase
+        // Animaciones animaciones = new Animaciones();
+        //animaciones.animacionesDashBoard();
+
+       /*
+        Polygon diagonal = new Polygon(
+                20, 0,   // Punto superior izquierdo
+                300, 0,  // Punto superior derecho
+                280, 22,   // Punto inferior derecho (formando la diagonal)
+                0, 22    // Punto inferior izquierdo
+        );
+        diagonal.setLayoutX(50);
+        diagonal.setLayoutY(100);
+        diagonal.setFill(Color.valueOf("blue"));
+
+        // Crear dos rectángulos con altura de 30 pixeles
+        Rectangle rectangulo1 = crearRectangulo(30, 100, Color.BLUE);
+        Rectangle rectangulo2 = crearRectangulo(30, 100, Color.RED);
+
+        // Configurar sus posiciones
+        rectangulo1.setLayoutX(10);
+        rectangulo1.setLayoutY(50);
+        rectangulo2.setLayoutX(10);
+        rectangulo2.setLayoutY(120);
+
+        // Crear el contenedor principal
+        Pane root = new Pane(rectangulo1, rectangulo2,diagonal);
+
+        // Configurar el escenario
+        Scene scene = new Scene(root, 400, 300);
+
+        // Configurar el escenario y mostrarlo
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Rectángulo con Esquinas Recortadas");
+        primaryStage.show();
+        */
+
     }
 
+    private Rectangle crearRectangulo(double altura, double longitud, Color color) {
+        Rectangle rectangulo = new Rectangle(longitud, altura);
+        rectangulo.setFill(color);
+
+        // Aplicar esquinas recortadas
+        rectangulo.setArcWidth(20);
+        rectangulo.setArcHeight(20);
+
+        return rectangulo;
+    }
 }

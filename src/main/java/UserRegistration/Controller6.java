@@ -154,7 +154,7 @@ public class Controller6 implements MetodosRegistro {
     }
     Button continuar (){
         Button button = new Button();
-        button.setId("BotonContinuar");
+        button.setId("BotonEntrar");
         button.setText("Continuar");
         button.setLayoutX(98);
         button.setLayoutY(550);

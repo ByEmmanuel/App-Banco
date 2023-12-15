@@ -222,6 +222,81 @@ public class Cargarimagenes implements MetodosRegistro {
 
         return boton;
     }
+    public Button transferir() {
+        Button ImgButton = new Button();
+        ImgButton.setId("Boton-Menu");
+        URL loginImgUrl = getClass().getResource("/imagenes/Transferir.png");
+        Image loginImage = new Image(loginImgUrl.toString(), 80, 80, false, true);
+        ImgButton.setGraphic(new ImageView(loginImage));
+        ImgButton.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
+        ImgButton.setOnAction(Event -> {
+
+            System.out.println("BOTON TRANSFERIR CLICKEADO");
+
+        });
+        // Establecer las coordenadas x e y del botón en el Pane
+        ImgButton.setLayoutX(0); // Ajusta la coordenada x según sea necesario
+        ImgButton.setLayoutY(200); // Ajusta la coordenada y según sea necesario
+
+
+        return ImgButton;
+    }
+    public Button oportunidades() {
+        Button ImgButton = new Button();
+        ImgButton.setId("Boton-Menu");
+        URL loginImgUrl = getClass().getResource("/imagenes/Oportunidades.png");
+        Image loginImage = new Image(loginImgUrl.toString(), 90, 90, false, true);
+        ImgButton.setGraphic(new ImageView(loginImage));
+        ImgButton.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
+        ImgButton.setOnAction(Event -> {
+
+            System.out.println("BOTON OPORTUNIDADES CLICKEADO");
+        });
+        // Establecer las coordenadas x e y del botón en el Pane
+        ImgButton.setLayoutX(70); // Ajusta la coordenada x según sea necesario
+        ImgButton.setLayoutY(190); // Ajusta la coordenada y según sea necesario
+
+
+        return ImgButton;
+    }
+    public Button retiroSinTrjt() {
+        Button ImgButton = new Button();
+        ImgButton.setId("Boton-Menu");
+        URL loginImgUrl = getClass().getResource("/imagenes/RetiroSinTarjeta.png");
+        Image loginImage = new Image(loginImgUrl.toString(), 70, 70, false, true);
+        ImgButton.setGraphic(new ImageView(loginImage));
+        ImgButton.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
+        ImgButton.setOnAction(Event -> {
+
+            System.out.println("BOTON RETIRO SIN TARJETA CLICKEADO");
+        });
+        // Establecer las coordenadas x e y del botón en el Pane
+        ImgButton.setLayoutX(170); // Ajusta la coordenada x según sea necesario
+        ImgButton.setLayoutY(210); // Ajusta la coordenada y según sea necesario
+
+
+        return ImgButton;
+    }
+    public Button botonTresPuntos() {
+        Button ImgButton = new Button();
+        ImgButton.setId("Boton-Menu");
+        URL loginImgUrl = getClass().getResource("/imagenes/Trespuntos.png");
+        Image loginImage = new Image(loginImgUrl.toString(), 70, 70, false, true);
+        ImgButton.setGraphic(new ImageView(loginImage));
+        ImgButton.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
+        ImgButton.setOnAction(Event -> {
+
+
+            System.out.println("BOTON TRES PUNTOS CLICKEADO");
+        });
+        // Establecer las coordenadas x e y del botón en el Pane
+        ImgButton.setLayoutX(240); // Ajusta la coordenada x según sea necesario
+        ImgButton.setLayoutY(200); // Ajusta la coordenada y según sea necesario
+
+
+        return ImgButton;
+    }
+
 
     public void setActualizarValorBoton(boolean booleano) {
         botonSeleccionado = booleano;

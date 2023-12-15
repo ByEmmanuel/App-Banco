@@ -22,6 +22,7 @@ public class ClientesDAO {
     private String nombreUsuario;
     private long idUsuario;
     private String numeroDeCuenta;
+    private String numeroDeTarjeta;
     private static boolean validacion1 = false;
     private static boolean validacion2 = false;
 
@@ -206,9 +207,11 @@ public class ClientesDAO {
             try {
                 Cuenta cuenta = new Cuenta();
                 numeroDeCuenta = cuenta.setNumeroDeCuenta();
+                numeroDeTarjeta = cuenta.setNumeroDeTarjeta();
 
                 JpaCuentas cuentasClientes = new JpaCuentas(
                         numeroDeCuenta, // Añadido automaticamente
+                        numeroDeTarjeta,
                         //titular, (es añadido automaticamente)
                         saldo, //El usuario debe ingresar un numero no mayor a 200
                         tipoDeCuenta, //El usuario debe ingresar un tipo de cuenta
@@ -252,6 +255,7 @@ public class ClientesDAO {
 
                 // Confirmar la transacción
                 em.getTransaction().commit();
+
 
                 // Cerrar el EntityManager y la fábrica de EntityManager
 
@@ -370,6 +374,10 @@ public class ClientesDAO {
     }
 
 
+    /*
+     * este metodo se esta usando actualmente para fines de testeo en la
+     * pagina PrincipalDashBoard
+     */
     public String BuscarNombrePorTelefono(Pane panel,String numeroDeTelefono) {
 
         /**
@@ -380,9 +388,9 @@ public class ClientesDAO {
          *
          *
          */
-        numeroDeTelefono = controller2.getNumeroDeCelular();
+        //numeroDeTelefono = controller2.getNumeroDeCelular();
 
-        //numeroDeTelefono = "11";
+        numeroDeTelefono = "111";
         String jpql = "SELECT u FROM JpaLoginUsuarios u WHERE u.numeroDeTelefono = :numeroDeTelefono";
         TypedQuery<JpaLoginUsuarios> query = em.createQuery(jpql, JpaLoginUsuarios.class);
         query.setParameter("numeroDeTelefono", numeroDeTelefono);
@@ -503,8 +511,10 @@ public class ClientesDAO {
     }
 
     private void obtenerIds(){
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < arrayIdUsuario.length; i++) {
             System.out.println(arrayIdUsuario[i]);
         }
+
+
     }
 }

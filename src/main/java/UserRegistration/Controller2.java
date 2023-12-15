@@ -3,7 +3,7 @@ package UserRegistration;
 import Excepciones.ErrorDesconocido;
 import Interfaces.MetodosRegistro;
 import Interfaces.MetodosUserDashBoard;
-import UserDashboard.ControllerDash1;
+import UserDashboard.PaginaPrincipalDashboard;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -136,9 +136,10 @@ public class Controller2 implements MetodosRegistro , MetodosUserDashBoard  {
                 System.out.println("Inicio de sesión exitoso");
 
                 cargarDashBoard();
+                /*
                 Animaciones animaciones = new Animaciones();
                 animaciones.animacionesDashBoard();
-
+                */
             } else {
                 throw new ErrorDesconocido(mainLayout2,"Numero de celular invalido \n o el usuario no existe");
             }

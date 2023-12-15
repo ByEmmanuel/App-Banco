@@ -120,7 +120,7 @@ public class Controller4 implements MetodosRegistro {
     }
     private Button botonContinuar(){
         Button boton = new Button("Continuar");
-        boton.setId("BotonContinuarRegistro");
+        boton.setId("BotonEntrar");
         boton.setLayoutX(95);
         boton.setLayoutY(570);
         boton.setDisable(true);

@@ -42,6 +42,8 @@ public class PruebasBaseDeDatos  {
          */
 
         registrarTodoUnUsuario();
+
+
     }
 
     private static void buscarUsuarioPorNumero(Pane pane){
@@ -50,6 +52,8 @@ public class PruebasBaseDeDatos  {
         String nombre = clientesDAO.BuscarNombrePorTelefono(pane,"11111111111");
 
         System.out.printf("El nombre buscado es: " + nombre);
+
+
 
     }
 

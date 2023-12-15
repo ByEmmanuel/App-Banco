@@ -1,7 +1,7 @@
 package Interfaces;
 
-import UserDashboard.BarraNavegacion;
-import UserDashboard.ControllerDash1;
+import UserDashboard.*;
+import UserDashboard.PaginaPrincipalDashboard;
 import UserRegistration.Controller2;
 import javafx.scene.layout.VBox;
 
@@ -15,7 +15,24 @@ public interface MainInterfaceUser {
      * coloco el usuario
      *
      */
-    ControllerDash1 dashBoard1 = new ControllerDash1();
+    PaginaPrincipalDashboard dashBoard1 = new PaginaPrincipalDashboard();
+    /*
+     * Este controller es la pantalla de vida financiera
+     */
+    VidaFinanciera dashBoard2 = new VidaFinanciera();
+    /*
+     * Este controller es la pantalla de Oportunidades
+     */
+    Oportunidades dashBoard3 = new Oportunidades();
+    /*
+     * Este controller es la pantalla de notificaciones
+     */
+    Notificaciones dashBoard4 = new Notificaciones();
+    /*
+     * Este controller es la pantalla de Ayuda Ejecutiva
+     */
+    Ayuda dashBoard5 = new Ayuda();
+
 
     /**
      *  Este controller es la barra de navegacion del usuario - app
@@ -27,5 +44,6 @@ public interface MainInterfaceUser {
      * del user dashboard
      */
 
-    VBox vbox = new VBox();
+
+    //VBox vbox = new VBox();
 }

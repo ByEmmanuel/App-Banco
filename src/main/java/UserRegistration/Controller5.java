@@ -40,7 +40,7 @@ public class Controller5 implements MetodosRegistro {
         Controller1 controller1 = new Controller1();
         mainLayout6 = new Pane();
         mainLayout6.setId("PanelRegistro");
-        mainLayout6.getChildren().addAll(controller1.botonInicio(),label1(),botonComprobar(),botonRegresar(), panelSuperior(),campoEmail(),campoContraseña(),campoConfirmarContraseña(),campoNumeroTelefono(),campoPreguntaDeSeguridad(),campoRespuestaDeSeguridad(),botonContinuar());
+        mainLayout6.getChildren().addAll(controller1.botonInicio(),label1(),botonRegresar(), panelSuperior(),campoEmail(),campoContraseña(),campoConfirmarContraseña(),campoNumeroTelefono(),campoPreguntaDeSeguridad(),campoRespuestaDeSeguridad(),botonContinuar());
     }
 
     private Button botonComprobar(){
@@ -158,7 +158,7 @@ public class Controller5 implements MetodosRegistro {
 
     private Button botonContinuar(){
         Button boton = new Button("Continuar");
-        boton.setId("BotonContinuarRegistro");
+        boton.setId("BotonEntrar");
         boton.setLayoutX(95);
         boton.setLayoutY(570);
         boton.setDisable(true);
