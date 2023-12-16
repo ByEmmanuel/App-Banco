@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
-import static Interfaces.MainInterfaceLogin.clientesDAO;
+//import static Interfaces.MainInterfaceLogin.clientesDAO;
 
 
 public class PaginaPrincipalDashboard implements MainInterfaceUser {
@@ -171,7 +171,7 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
          *  El parametro telefono llega null siempre por si despues tengo
          *  que hacer ajustes
          */
-        label.setText("Hola, " + clientesDAO.BuscarNombrePorTelefono(mainLayout1,telefono));
+        //label.setText("Hola, " + clientesDAO.BuscarNombrePorTelefono(mainLayout1,telefono));
         label.setLayoutX(100);
         label.setLayoutY(20);
 

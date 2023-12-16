@@ -166,24 +166,17 @@ public class Controller4 implements MetodosRegistro {
                 System.out.println("Lugar Mal");
             } else {
 
+//
+//                clientesDAO.RegistrarDatosUsuario(
+//                        campoNombre.getText(),
+//                        campoPrimerApellido.getText(),
+//                        campoSegundoApellido.getText(),
+//                        campoNacionalidad.getText(),
+//                        campoFechaDeNacimiento.getText(),
+//                        campoLugarDondeNacio.getValue().toString());
 
-                clientesDAO.RegistrarDatosUsuario(
-                        campoNombre.getText(),
-                        campoPrimerApellido.getText(),
-                        campoSegundoApellido.getText(),
-                        campoNacionalidad.getText(),
-                        campoFechaDeNacimiento.getText(),
-                        campoLugarDondeNacio.getValue().toString());
 
 
-                /*controller6.continuarRegistro(
-                        campoNombre.getText(),
-                        campoPrimerApellido.getText(),
-                        campoSegundoApellido.getText(),
-                        campoNacionalidad.getText(),
-                        campoFechaDeNacimiento.getText(),
-                        campoLugarDondeNacio.getValue().toString()
-                );*/
                 //controller6.continuarRegistro(array);
                 //controller6.continuarRegistro2(nombre, primerApellido, segundoApellido, nacionalidad, fechaDeNacimiento, lugarDondeNacio);
 

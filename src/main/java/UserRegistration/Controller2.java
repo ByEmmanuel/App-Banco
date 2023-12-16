@@ -131,19 +131,20 @@ public class Controller2 implements MetodosRegistro , MetodosUserDashBoard  {
 
             String numeroUsuario = numeroDeCelular.getText();
             String contraseñaUsuario = passwordField.getText();
-            if (clientesDAO.coincidenLosDatos(mainLayout2,numeroUsuario,contraseñaUsuario)) {
+//            if (clientesDAO.coincidenLosDatos(mainLayout2,numeroUsuario,contraseñaUsuario)) {
+//
+//                System.out.println("Inicio de sesión exitoso");
+//
+//                cargarDashBoard();
+//                /*
+//                Animaciones animaciones = new Animaciones();
+//                animaciones.animacionesDashBoard();
+//                */
+//            } else {
+//                throw new ErrorDesconocido(mainLayout2,"Numero de celular invalido \n o el usuario no existe");
+//            }
 
-                System.out.println("Inicio de sesión exitoso");
-
-                cargarDashBoard();
-                /*
-                Animaciones animaciones = new Animaciones();
-                animaciones.animacionesDashBoard();
-                */
-            } else {
-                throw new ErrorDesconocido(mainLayout2,"Numero de celular invalido \n o el usuario no existe");
-            }
-
+            cargarDashBoard();
         });
 
         return botonEntrar;

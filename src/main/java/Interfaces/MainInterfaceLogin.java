@@ -2,7 +2,7 @@ package Interfaces;
 
 import UserDashboard.BarraNavegacion;
 import UserRegistration.*;
-import DAO.ClientesDAO;
+//import DAO.ClientesDAO;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -53,7 +53,7 @@ public interface MainInterfaceLogin {
     /**
      * Este es el controller de captura de datos usuario Para la base de datos
      */
-    ClientesDAO clientesDAO = new ClientesDAO();
+    // ClientesDAO clientesDAO = new ClientesDAO();
 
     /**
      * Este es el controller de captura de Tipo de Servicios Financioeros a

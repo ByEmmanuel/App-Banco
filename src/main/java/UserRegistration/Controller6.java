@@ -1,6 +1,6 @@
 package UserRegistration;
 
-import DAO.ClientesDAO;
+//import DAO.ClientesDAO;
 import Excepciones.ErrorDesconocido;
 import Excepciones.VentanaDeExito;
 import Interfaces.MetodosRegistro;
@@ -180,9 +180,9 @@ public class Controller6 implements MetodosRegistro {
             }
             else {
                 cargarPaginaMain();
-
-                ClientesDAO clientesDAO = new ClientesDAO();
-                clientesDAO.RegistrarDatosBancariosUsuario("", Double.parseDouble(campoSaldo.getText()),tipoDeCuenta,campoFirmaContrato.getText());
+//
+//                ClientesDAO clientesDAO = new ClientesDAO();
+//                clientesDAO.RegistrarDatosBancariosUsuario("", Double.parseDouble(campoSaldo.getText()),tipoDeCuenta,campoFirmaContrato.getText());
 
                 try {
 

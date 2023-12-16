@@ -211,13 +211,13 @@ public class Controller5 implements MetodosRegistro {
                 System.out.println("Respuesta Mal");
             } else {
                 try {
-                    clientesDAO.RegistrarDatosLoginUsuario(
-                            campoEmail.getText(),
-                            campoContraseña.getText(),
-                            campoNumeroTelefono.getText(),
-                            campoPreguntaDeSeguridad.getValue().toString(),
-                            campoRespuestaDeSeguridad.getText()
-                    );
+//                    clientesDAO.RegistrarDatosLoginUsuario(
+//                            campoEmail.getText(),
+//                            campoContraseña.getText(),
+//                            campoNumeroTelefono.getText(),
+//                            campoPreguntaDeSeguridad.getValue().toString(),
+//                            campoRespuestaDeSeguridad.getText()
+//                    );
                     cargarPaginaServiciosFinancieros();
                     System.out.println("Registro Completo");
                 } catch (RuntimeException exception) {
