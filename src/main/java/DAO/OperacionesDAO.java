@@ -1,9 +1,8 @@
 package DAO;
 
 import PersistenceJPA.JpaCuentas;
-import PersistenceJPA.JpaLoginUsuarios;
 import PersistenceJPA.JpaUtils;
-import UserRegistration.Controller5;
+import UserRegistration.Controller2;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
@@ -12,22 +11,58 @@ public class OperacionesDAO {
 
 private EntityManager em = JpaUtils.getEntityManager();
 
-    public String BuscarTarjeta(String tarjeta) {
-        tarjeta = Controller5.getNombre();
-        String jpql = "SELECT u FROM JPAcuentas u WHERE u.nombre = :nombre";
+    public String BuscarTarjetaPorTelefono(String numeroDeTelefono) {
+        numeroDeTelefono = Controller2.controller2.getNumeroDeCelular();
+    String jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroDeTelefono = :numeroDeTelefono";
+    TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
+    query.setParameter("numeroDeTelefono", numeroDeTelefono);
+    try {
+        JpaCuentas usuario = query.getSingleResult();
+        String numeroDeTarjetaCompleto = usuario.getNumeroDeTarjeta();
+        String ultimosCuatroDigitos = numeroDeTarjetaCompleto.substring(numeroDeTarjetaCompleto.length() - 4);
+        return "· " + ultimosCuatroDigitos;
+    } catch (NoResultException e) {
+        // Manejar el caso en que no se encontró ningún usuario con el correo dado.
+        return null;
+    }
+}
+    public double BuscarSaldoPorTelefono(String numeroDeTelefono) {
+        /*
+         * esto se usa para cuando se tenga que utilizar en un
+         * controller en especifico
+         */
+    numeroDeTelefono = Controller2.controller2.getContraseña();
+        String jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroDeTelefono = :numeroDeTelefono";
         TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
-        query.setParameter("nombre", tarjeta);
+        query.setParameter("numeroDeTelefono", numeroDeTelefono);
         try {
             JpaCuentas usuario = query.getSingleResult();
-            if (usuario.getNombre_usuario() == null){
-                throw new RuntimeException("No se encontro el usuario");
-            }else {
-                System.out.println("Usuario encontrado");
-            }
-            return usuario.getNombre_usuario();
+
+            return usuario.getSaldo();
         } catch (NoResultException e) {
             // Manejar el caso en que no se encontró ningún usuario con el correo dado.
-            return null; // Puedes devolver null u otra indicación de que no se encontró el usuario.
+            System.out.println("no hay saldo");
+            return 0;
+        }
+    }
+    public String BuscarNumCuentaPorTelefono(String numeroDeTelefono) {
+        /*
+         * esto se usa para cuando se tenga que utilizar en un
+         * controller en especifico
+         */
+        numeroDeTelefono = Controller2.controller2.getContraseña();
+        String jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroDeTelefono = :numeroDeTelefono";
+        TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
+        query.setParameter("numeroDeTelefono", numeroDeTelefono);
+        try {
+            JpaCuentas usuario = query.getSingleResult();
+            String numeroDeTarjetaCompleto = usuario.getNumeroDeCuenta();
+            String ultimosCuatroDigitos = numeroDeTarjetaCompleto.substring(numeroDeTarjetaCompleto.length() - 4);
+            return "· " + ultimosCuatroDigitos;
+        } catch (NoResultException e) {
+            // Manejar el caso en que no se encontró ningún usuario con el correo dado.
+            System.out.println("no hay saldo");
+            return "no hay usuario o ocurrio algún error";
         }
     }
 }

@@ -1,72 +1,125 @@
 package Pantallas;
 
-import javafx.animation.TranslateTransition;
+import Interfaces.MetodosRegistro;
+import Interfaces.MetodosUserDashBoard;
+import UserRegistration.Animaciones;
+import javafx.animation.Animation;
+import javafx.animation.RotateTransition;
+import javafx.application.Platform;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.RadialGradient;
+import javafx.scene.paint.Stop;
+import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
+import static Interfaces.MainInterfaceLogin.primaryStage;
 
 public class VentanaDeCarga {
 
-    Pane mainLayout;
-
-
-    Rectangle cuadrado1 = cuadrado(0, 150, Color.RED);
-    Rectangle cuadrado2 = cuadrado(0, 150, Color.BLUE);
+    /*
+     * Esta ventana simula ser una ventana de carga, que realmente 
+     * no tiene finalidad y de momento solo 
+     * se ve al querer cargar algunas cosas
+     */
+    private Pane mainLayoutCarga;
+    double circleRadius = 25;
+    double borderWidth = 6;
 
     public VentanaDeCarga(){
-        try {
-            setupID();
-        } catch (Exception e) {}
+
+        setupUI();
+
+    }
+
+    private void setupUI(){
+        this.mainLayoutCarga = new Pane();
+        mainLayoutCarga.setMaxSize(50,50);
+        mainLayoutCarga.setLayoutX(140);
+        mainLayoutCarga.setLayoutY(238);
+        mainLayoutCarga.setId("PanelCarga");
+        mainLayoutCarga.getChildren().addAll(circuloInterno(),circuloExterno());
+        this.mainLayoutCarga.setVisible(true);
+        cargarAnimacion();
+    }
+
+    private Circle circuloInterno(){
+        Circle circuloInterno = new Circle(circleRadius);
+        RadialGradient gradient = new RadialGradient(
+                    0,    // Foco del degradado (en porcentaje)
+                    10,    // Centro del degradado (en porcentaje)
+                    0.5,  // Radio del degradado (en porcentaje)
+                    0,    // Foco del degradado exterior (en porcentaje)
+                    0.5,  // Radio del degradado exterior (en porcentaje)
+                    true, // Ciclo del degradado
+                    null, // CycleMethod (puede ser null)
+                    new Stop(0, Color.web("#156baa")),     // Color en el centro
+                    new Stop(1, Color.web("#04417c")) // Color en la mitad
+
+                    //esto es para fines de testeo
+                    //new Stop(0, Color.web("red")),     // Color en el exterior
+                    //new Stop(1, Color.web("blue"))     // Color en el exterior
+            );
+        circuloInterno.setFill(gradient);
+
+
+        circuloInterno.setId("CirculoInterno");
+        // Centrar el círculo interno en el centro del Pane
+
+        circuloInterno.centerXProperty().bind(mainLayoutCarga.widthProperty().divide(2));
+        circuloInterno.centerYProperty().bind(mainLayoutCarga.heightProperty().divide(2));
+
+
+        return circuloInterno;
+    }
+
+    private Circle circuloExterno(){
+        Circle circuloExterno = new Circle(circleRadius - borderWidth, Color.WHITE);
+        circuloExterno.centerXProperty().bind(mainLayoutCarga.widthProperty().divide(2));
+        circuloExterno.centerYProperty().bind(mainLayoutCarga.heightProperty().divide(2));
+
+        circuloExterno.setId("CirculoExterno");
+        return circuloExterno;
+    }
+    private void cargarAnimacion(){
+       // Crear una transición de rotación
+            RotateTransition rotateTransition = new RotateTransition(Duration.seconds(2), mainLayoutCarga);
+            rotateTransition.setFromAngle(0);
+
+            rotateTransition.setByAngle(360); // Gira 360 grados
+            rotateTransition.setCycleCount(Animation.INDEFINITE); // Repetir indefinidamente
+            rotateTransition.play();
+            //cerrarVentanaDeCarga();
+    }
+
+    /*
+     * Este método oculta la ventana, y esto ocasiona que no se pueda seguir viendo mas al
+     * momento de llamar a esta clase (VentanaDeCarga)
+     */
+    private void cerrarVentanaDeCarga(){
+        new Thread(() -> {
+            try {
+                Thread.sleep(2000); // Espera durante el tiempo especificado
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Platform.runLater(() -> {
+                try {
+                    //this.mainLayoutCarga.setVisible(false);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }).start();
+    }
+    public void rapida(){
 
     }
 
 
-    private void setupID() throws Exception {
-
-        this.mainLayout = new Pane();
-
-        mainLayout.getChildren().addAll(cuadrado1,cuadrado2);
-
-        //TranslateTransition translateTransition1 = crearTransicion(cuadrado1, -150);
-        //TranslateTransition translateTransition2 = crearTransicion(cuadrado2, 150);
-
-        TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(3), cuadrado1);
-        translateTransition1.setFromX(0);   // Posición inicial en X
-        translateTransition1.setFromY(208);   // Posición inicial en Y
-        translateTransition1.setToX(266);   // Posición final en X
-        translateTransition1.setToY(0);   // Posición final en Y
-        translateTransition1.setCycleCount(TranslateTransition.INDEFINITE);
-        translateTransition1.setAutoReverse(false);
-
-        TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(3), cuadrado2);
-        translateTransition2.setFromX(298);  // Posición inicial en X
-        translateTransition2.setFromY(0);  // Posición inicial en Y
-        translateTransition2.setToX(0);     // Posición final en X
-        translateTransition2.setToY(328);     // Posición final en Y
-        translateTransition2.setCycleCount(TranslateTransition.INDEFINITE);
-        translateTransition2.setAutoReverse(false);
-
-
-        translateTransition1.play();
-        translateTransition2.play();
-    }
-    // Configurar animación para el segundo cuadrado (de derecha a izquierda)
-
-
-    private Rectangle cuadrado(double x, double y, Color color) {
-        Rectangle cuadrado = new Rectangle(x, y, 50, 50);
-        cuadrado.setFill(color);
-        return cuadrado;
-    }
-
-
-
-
-
-    public Pane getRoot() {
-        return mainLayout;
+    public Pane getRoot(){
+        return mainLayoutCarga;
     }
 }
-

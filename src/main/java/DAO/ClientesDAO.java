@@ -160,6 +160,7 @@ public class ClientesDAO {
                 arrayIdUsuario[1] = loginUsuario.getId();
                 obtenerNombrePorId(arrayIdUsuario[1]);
 
+
                 // Cerrar el EntityManager y la fábrica de EntityManager
 
                 /*
@@ -216,9 +217,6 @@ public class ClientesDAO {
                         saldo, //El usuario debe ingresar un numero no mayor a 200
                         tipoDeCuenta, //El usuario debe ingresar un tipo de cuenta
                         firmaUsuario //El usuario debe ingresar una firma
-
-
-
                 );
 
                 // Obtén la entidad JpaClientes usando el ID proporcionado
@@ -247,9 +245,14 @@ public class ClientesDAO {
 
                 String nombre_usuario = BuscarPorID(arrayIdUsuario[0]);
 
+                //arrayIdUsuario[1] = cuentasClientes.getId();
+                String numeroDeTelefono = BuscarTelefonoPorID(arrayIdUsuario[1]);
+
                 System.out.println("El nombre de usuario es: " + nombre_usuario);
+                System.out.println("El Telefono de usuario es: " + numeroDeTelefono);
 
                 cuentasClientes.setNombre_usuario(nombre_usuario);
+                cuentasClientes.setNumeroDeTelefono(numeroDeTelefono);
 
                 em.persist(cuentasClientes);
 
@@ -455,6 +458,27 @@ public class ClientesDAO {
 
             // Retorna el nombre del usuario encontrado
             return usuario.getNombre();
+        } catch (NoResultException e) {
+            // Manejar el caso en que no se encontró ningún usuario con el ID dado.
+            // Puedes lanzar una excepción personalizada o devolver null según tus necesidades.
+            return null;
+        }
+    }
+    public String BuscarTelefonoPorID(long id) {
+        // No es necesario asignar id = idUsuario; ya que el parámetro id ya tiene el valor correcto
+
+        // Utiliza try-with-resources para asegurar que EntityManager se cierre correctamente
+        try {
+            // No necesitas instanciar JpaClientes aquí
+            String jpql = "SELECT u FROM JpaLoginUsuarios u WHERE u.id = :id";
+            TypedQuery<JpaLoginUsuarios> query = em.createQuery(jpql, JpaLoginUsuarios.class);
+            query.setParameter("id", id);
+
+            // Siempre maneja las excepciones de manera adecuada
+            JpaLoginUsuarios usuario = query.getSingleResult();
+
+            // Retorna el nombre del usuario encontrado
+            return usuario.getNumeroDeTelefono();
         } catch (NoResultException e) {
             // Manejar el caso en que no se encontró ningún usuario con el ID dado.
             // Puedes lanzar una excepción personalizada o devolver null según tus necesidades.

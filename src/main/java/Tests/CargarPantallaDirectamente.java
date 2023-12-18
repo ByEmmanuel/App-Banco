@@ -1,20 +1,19 @@
 package Tests;
 
 
-import DAO.ClientesDAO;
 import Interfaces.MetodosRegistro;
 import Interfaces.MetodosUserDashBoard;
-import UserRegistration.Animaciones;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.Slider;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class CargarPantallaDirectamente extends Application implements MetodosRegistro, MetodosUserDashBoard {
 
@@ -96,9 +95,7 @@ public class CargarPantallaDirectamente extends Application implements MetodosRe
         //Esta pantalla tiene que ser cargada junto con su animacion
         // y su numero de telefono; de lo contrario cargarla directamente dara error
 
-        /*
-         */
-        cargarDashBoard();
+        //cargarDashBoard();
 
         // Esto esta desactivado porque las animaciones se tienen que hacer a nivel directo de la clase
         // Animaciones animaciones = new Animaciones();
@@ -137,16 +134,29 @@ public class CargarPantallaDirectamente extends Application implements MetodosRe
         primaryStage.show();
         */
 
+        //timer();
+        cargarDashBoard();
+
+
+    }
+    private void timer() {
+        // Agrega un tiempo de espera en milisegundos (por ejemplo, 3000 ms = 3 segundos)
+        new Thread(() -> {
+            try {
+                Thread.sleep(1800); // Espera durante el tiempo especificado
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Platform.runLater(() -> {
+                //mainLayout.getChildren().clear();
+                try {
+                    cargarDashBoard();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }).start();
     }
 
-    private Rectangle crearRectangulo(double altura, double longitud, Color color) {
-        Rectangle rectangulo = new Rectangle(longitud, altura);
-        rectangulo.setFill(color);
 
-        // Aplicar esquinas recortadas
-        rectangulo.setArcWidth(20);
-        rectangulo.setArcHeight(20);
-
-        return rectangulo;
-    }
 }

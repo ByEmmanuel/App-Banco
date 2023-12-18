@@ -17,7 +17,7 @@ public class Preloader extends javafx.application.Preloader implements MetodosRe
     public void start(Stage stage) throws Exception {
 
         //StackPane root = new StackPane(new Label("Cargando..."));
-        VentanaDeCarga app = new VentanaDeCarga();
+        VentanaDeCargaPrueba app = new VentanaDeCargaPrueba();
         mainLayout.getChildren().addAll(app.getRoot());
         Scene scene = new Scene(mainLayout, 328, 636);
         primaryStage.setScene(scene);

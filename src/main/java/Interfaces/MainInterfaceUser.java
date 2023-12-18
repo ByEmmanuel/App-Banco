@@ -1,5 +1,6 @@
 package Interfaces;
 
+import Pantallas.VentanaDeCarga;
 import UserDashboard.*;
 import UserDashboard.PaginaPrincipalDashboard;
 import UserRegistration.Controller2;
@@ -43,7 +44,11 @@ public interface MainInterfaceUser {
      * Este es el componente al que se agregan los elementos
      * del user dashboard
      */
-
-
     //VBox vbox = new VBox();
+
+    /**
+     * Este controller es la pantalla de carga
+     */
+    VentanaDeCarga ventanaDeCarga = new VentanaDeCarga();
+
 }

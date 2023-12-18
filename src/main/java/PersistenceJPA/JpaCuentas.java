@@ -14,7 +14,6 @@ public class JpaCuentas {
     //Este es el numero de cuenta que se le asigna al cliente
     private double saldo; //Insertar el saldo inicial de la cuenta
     //Este es el saldo que posee la cuenta
-
     private static int totalTarjetas;
     //Este es el total de tarjetas que posee el cliente
     private String tipoDeCuenta;
@@ -22,6 +21,8 @@ public class JpaCuentas {
     private String firmaUsuario;
     //Esta es la firma del usuario que posee la cuenta
     private String nombre_usuario;
+    //Este es el nombre del usuario que posee la cuenta y se introduce en el registro
+    private String numeroDeTelefono;
 
 
     @Column(name = "numero_de_cuenta", length = 19)
@@ -36,7 +37,7 @@ public class JpaCuentas {
     }
 
 
-    public JpaCuentas(String numeroDeCuenta ,String numeroDeTarjeta, double saldo, String tipoDeCuenta, String firmaUsuario) {
+    public JpaCuentas(String numeroDeCuenta ,String numeroDeTarjeta, double saldo, String tipoDeCuenta,String firmaUsuario) {
         this.numeroDeCuenta = numeroDeCuenta;
         this.numeroDeTarjeta = numeroDeTarjeta;
         this.saldo = saldo;
@@ -90,6 +91,14 @@ public class JpaCuentas {
 
     public void setTipoDeCuenta(String tipoDeCuenta) {
         this.tipoDeCuenta = tipoDeCuenta;
+    }
+
+    public String getNumeroDeTelefono() {
+        return numeroDeTelefono;
+    }
+
+    public void setNumeroDeTelefono(String numeroDeTelefono) {
+        this.numeroDeTelefono = numeroDeTelefono;
     }
 
     public String getFirmaUsuario() {

@@ -1,7 +1,7 @@
 package UserDashboard;
 
+import DAO.OperacionesDAO;
 import Interfaces.MainInterfaceUser;
-import Interfaces.MetodosUserDashBoard;
 import UserRegistration.Animaciones;
 import UserRegistration.Cargarimagenes;
 import javafx.geometry.Insets;
@@ -18,6 +18,7 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
 
 
     Animaciones animaciones = new Animaciones();
+    OperacionesDAO operacionesDAO = new OperacionesDAO();
     private static Pane mainLayout1 = new Pane();
 
     private static String telefono = null;
@@ -204,9 +205,31 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
         //Pane.setBackground(background);
         // Configurar relleno programáticamente
         Pane.setPadding(new Insets(0, 140, 0, 15)); // Padding: arriba, derecha, abajo, izquierda
-        Pane.getChildren().addAll(label2());
+        Pane.getChildren().addAll(label2(),labelCantidad(),labelNumCuenta());
 
         return Pane;
+    }
+    private Label labelCantidad(){
+        Label label = new Label();
+        //Esto esta puesto asi por si le tengo que pasar un valor
+        String ingresos = String.valueOf(operacionesDAO.BuscarSaldoPorTelefono(""));
+        label.setText("$" + ingresos);
+        label.setLayoutX(150);
+        label.setLayoutY(30);
+        label.setStyle("-fx-font-size: 14px");
+
+        return label;
+    }
+    private Label labelNumCuenta (){
+        Label label = new Label();
+        //Esto esta puesto asi por si le tengo que pasar un valor
+        String numCuenta = operacionesDAO.BuscarNumCuentaPorTelefono("");
+        label.setText(numCuenta);
+        label.setLayoutX(15);
+        label.setLayoutY(80);
+        label.setStyle("-fx-font-size: 14px");
+
+        return label;
     }
     private Pane hBox2(){
         Pane Pane = new Pane();
@@ -218,7 +241,7 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
         //Pane.setBackground(background);
         // Configurar relleno programáticamente
         Pane.setPadding(new Insets(0, 140, 0, 15)); // Padding: arriba, derecha, abajo, izquierda
-        Pane.getChildren().addAll(label3());
+        Pane.getChildren().addAll(label3(),tarjeta());
 
         return Pane;
     }
@@ -231,10 +254,22 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
 
         return label;
     }
+
     Label label3(){
         Label label = new Label("TARJETAS");
         label.setLayoutX(15);
         label.setLayoutY(30);
+        label.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
+
+        return label;
+    }
+    private Label tarjeta(){
+        Label label = new Label();
+        //Esto esta en comillas para que no me de error de momento
+        String tarjeta = operacionesDAO.BuscarTarjetaPorTelefono("");
+        label.setText(tarjeta);
+        label.setLayoutX(15);
+        label.setLayoutY(100);
         label.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
 
         return label;
