@@ -8,6 +8,10 @@ import javafx.scene.layout.VBox;
 
 import static Interfaces.MainInterfaceLogin.controller2;
 
+/**
+ * Esta es la interfaz principal de usuarios ya registrados
+ * y aqui se cargan todas las clases que se van a utilizar
+ */
 public interface MainInterfaceUser {
 
 
@@ -50,5 +54,10 @@ public interface MainInterfaceUser {
      * Este controller es la pantalla de carga
      */
     VentanaDeCarga ventanaDeCarga = new VentanaDeCarga();
+
+    /**
+     *  Este es el controller de la pantalla de transferencias
+     */
+    Transferencias transferencias = new Transferencias();
 
 }

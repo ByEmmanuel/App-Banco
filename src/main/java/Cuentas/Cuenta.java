@@ -2,6 +2,11 @@ package Cuentas;
 
 import java.util.Random;
 
+
+/**
+ * Clase que representa las cuentas bancarias
+ *
+ */
 public class Cuenta{
 /*
     protected double saldo;

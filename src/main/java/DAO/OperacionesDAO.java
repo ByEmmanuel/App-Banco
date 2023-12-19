@@ -7,6 +7,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 
+/*
+ * Esta clase se encarga de realizar las operaciones de la base de datos
+ * De parte de operaciones de los usuarios
+ */
+
 public class OperacionesDAO {
 
 private EntityManager em = JpaUtils.getEntityManager();
@@ -18,9 +23,13 @@ private EntityManager em = JpaUtils.getEntityManager();
     query.setParameter("numeroDeTelefono", numeroDeTelefono);
     try {
         JpaCuentas usuario = query.getSingleResult();
-        String numeroDeTarjetaCompleto = usuario.getNumeroDeTarjeta();
-        String ultimosCuatroDigitos = numeroDeTarjetaCompleto.substring(numeroDeTarjetaCompleto.length() - 4);
-        return "· " + ultimosCuatroDigitos;
+        if (usuario.getNumeroDeTarjeta() == null) {
+            return "no hay tarjeta registrada";
+        }else{
+            String numeroDeTarjetaCompleto = usuario.getNumeroDeTarjeta();
+            String ultimosCuatroDigitos = numeroDeTarjetaCompleto.substring(numeroDeTarjetaCompleto.length() - 4);
+            return "· " + ultimosCuatroDigitos;
+        }
     } catch (NoResultException e) {
         // Manejar el caso en que no se encontró ningún usuario con el correo dado.
         return null;
@@ -37,11 +46,10 @@ private EntityManager em = JpaUtils.getEntityManager();
         query.setParameter("numeroDeTelefono", numeroDeTelefono);
         try {
             JpaCuentas usuario = query.getSingleResult();
-
             return usuario.getSaldo();
         } catch (NoResultException e) {
             // Manejar el caso en que no se encontró ningún usuario con el correo dado.
-            System.out.println("no hay saldo");
+            System.out.println("no hay saldo, o ocurrio algún error");
             return 0;
         }
     }
@@ -56,9 +64,13 @@ private EntityManager em = JpaUtils.getEntityManager();
         query.setParameter("numeroDeTelefono", numeroDeTelefono);
         try {
             JpaCuentas usuario = query.getSingleResult();
-            String numeroDeTarjetaCompleto = usuario.getNumeroDeCuenta();
-            String ultimosCuatroDigitos = numeroDeTarjetaCompleto.substring(numeroDeTarjetaCompleto.length() - 4);
-            return "· " + ultimosCuatroDigitos;
+            if (usuario.getNumeroDeCuenta() == null) {
+                return "no hay tarjeta registrada";
+            }else {
+                String numeroDeTarjetaCompleto = usuario.getNumeroDeCuenta();
+                String ultimosCuatroDigitos = numeroDeTarjetaCompleto.substring(numeroDeTarjetaCompleto.length() - 4);
+                return "· " + ultimosCuatroDigitos;
+            }
         } catch (NoResultException e) {
             // Manejar el caso en que no se encontró ningún usuario con el correo dado.
             System.out.println("no hay saldo");

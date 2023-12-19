@@ -2,6 +2,10 @@ package PersistenceJPA;
 
 import jakarta.persistence.*;
 
+/*
+ * Clase que representa la tabla "cuentas" de la base de datos
+ * y se usa para registrar los datos de las cuentas de los clientes
+ */
 @Entity
 @Table(name = "JPAcuentas")
 public class JpaCuentas {

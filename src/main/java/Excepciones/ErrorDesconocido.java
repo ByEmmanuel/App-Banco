@@ -9,6 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/*
+ * Excepcion para cuando ocurre o se desconoce un error en la app
+ */
 public class ErrorDesconocido extends RuntimeException {
 
     private static final Pane errorLayout = new Pane();

@@ -50,12 +50,9 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
     private void setupIU(){
         mainLayout1 = new Pane();
         mainLayout1.setId("Pane-Dashboard");
-        Button transferir = imagenes.transferir();
-        Button oportunidades = imagenes.oportunidades();
-        Button retiroSinTrjt = imagenes.retiroSinTrjt();
-        Button tresPuntos = imagenes.botonTresPuntos();
 
-        mainLayout1.getChildren().addAll(fondo(),diaAdia(),verMas(),ingresosLabel(),gastosLabel(),ingresos$(),gastos$(),label1(),transferir,oportunidades,retiroSinTrjt,tresPuntos,ingresos(),gastos(),hBox1(),hBox2());
+
+        mainLayout1.getChildren().addAll(fondo(),diaAdia(),verMas(),ingresosLabel(),gastosLabel(),ingresos$(),gastos$(),label1(),ingresos(),gastos(),hBox1(),hBox2());
         mainLayout1.setStyle("-fx-background-color: rgba(245,241,241,0.51);");
 
 

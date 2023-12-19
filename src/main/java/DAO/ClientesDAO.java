@@ -15,6 +15,11 @@ import javafx.scene.layout.Pane;
 
 import static Interfaces.MainInterfaceLogin.controller2;
 
+
+/*
+ * Esta clase se encarga de hacer las operaciones de la base de datos de parte de
+ * registro de usuarios
+ */
 public class ClientesDAO {
 
     private EntityManager em = JpaUtils.getEntityManager();
@@ -393,7 +398,7 @@ public class ClientesDAO {
          */
         //numeroDeTelefono = controller2.getNumeroDeCelular();
 
-        numeroDeTelefono = "111";
+        numeroDeTelefono = "11";
         String jpql = "SELECT u FROM JpaLoginUsuarios u WHERE u.numeroDeTelefono = :numeroDeTelefono";
         TypedQuery<JpaLoginUsuarios> query = em.createQuery(jpql, JpaLoginUsuarios.class);
         query.setParameter("numeroDeTelefono", numeroDeTelefono);

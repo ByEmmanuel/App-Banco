@@ -1,17 +1,21 @@
 package Interfaces;
 
 import UserRegistration.Animaciones;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import UserRegistration.Cargarimagenes;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.util.Duration;
 
-import static Interfaces.MainInterfaceLogin.mainLayout;
 import static Interfaces.MainInterfaceLogin.primaryStage;
+
+
+/**
+ * Esta interfaz contiene los metodos para cargar las pantallas del dashboard
+ * y la pantalla de carga que se muestra al cargar las pantallas que en realidad
+ * no carga solo porque tarde en cargar
+ */
 
 public interface MetodosUserDashBoard extends MainInterfaceUser {
 
@@ -20,14 +24,14 @@ public interface MetodosUserDashBoard extends MainInterfaceUser {
         //Establecer el titulo
         primaryStage.setTitle("Apple Bank");
         //Agregar Los Controles
-        StackPane StackPane = new StackPane();
+        Pane Pane = new Pane();
         //Agregar animaciones
         Animaciones animaciones = new Animaciones();
-        animaciones.animacionesDeCarga(StackPane);
+        animaciones.animacionesDeCarga(Pane);
 
-        StackPane.getChildren().addAll(ventanaDeCarga.getRoot());
+        Pane.getChildren().addAll(ventanaDeCarga.getRoot());
         //Crear La escena
-        Scene scene = new Scene(StackPane, 328, 636);
+        Scene scene = new Scene(Pane, 328, 636);
         //Agregar los estilos CSS
         String CSS = String.valueOf(MetodosRegistro.class.getResource("/Styles/styles.css"));
         scene.getStylesheets().add(CSS);
@@ -53,13 +57,19 @@ public interface MetodosUserDashBoard extends MainInterfaceUser {
                     //Establecer el titulo
                     primaryStage.setTitle("Apple Bank");
                     //Agregar Los Controles
-                    StackPane StackPane = new StackPane();
+                    Pane Pane = new Pane();
                     //Agregar animaciones
                     Animaciones animaciones = new Animaciones();
-                    animaciones.animacionesDashBoard(StackPane);
-                    StackPane.getChildren().addAll(dashBoard1.getRoot(),cargarPanelInferior());
+                    animaciones.animacionesDashBoard(Pane);
+                    Cargarimagenes imagenes = new Cargarimagenes();
+                    Button transferir = imagenes.transferir();
+                    Button oportunidades = imagenes.oportunidades();
+                    Button retiroSinTrjt = imagenes.retiroSinTrjt();
+                    Button tresPuntos = imagenes.botonTresPuntos();
+
+                    Pane.getChildren().addAll(dashBoard1.getRoot(),cargarPanelInferior(),transferir,oportunidades,retiroSinTrjt,tresPuntos);
                     //Crear La escena
-                    Scene scene = new Scene(StackPane, 328, 636);
+                    Scene scene = new Scene(Pane, 328, 636);
                     //Agregar los estilos CSS
                     String CSS = String.valueOf(MetodosRegistro.class.getResource("/Styles/styles.css"));
                     scene.getStylesheets().add(CSS);
@@ -216,4 +226,36 @@ public interface MetodosUserDashBoard extends MainInterfaceUser {
             });
         }).start();
     }
+default void cargarTransferir(){
+        ventanaDeCarga();
+        // Agrega un tiempo de espera en milisegundos (por ejemplo, 3000 ms = 3 segundos)
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000); // Espera durante el tiempo especificado
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Platform.runLater(() -> {
+                //mainLayout.getChildren().clear();
+                try {
+                    //Establecer el titulo
+                    primaryStage.setTitle("Apple Bank");
+                    //Agregar Los Controles
+                    Pane pane = new Pane();
+                    pane.getChildren().addAll(transferencias.getRoot());
+                    //Crear La escena
+                    Scene scene = new Scene(pane, 328, 636);
+                    //Agregar los estilos CSS
+                    String CSS = String.valueOf(MetodosRegistro.class.getResource("/Styles/styles.css"));
+                    scene.getStylesheets().add(CSS);
+                    //Mostrar La escena
+                    primaryStage.setScene(scene);
+                    primaryStage.show();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }).start();
+    }
+
 }

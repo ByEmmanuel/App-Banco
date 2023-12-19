@@ -16,7 +16,10 @@ import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import static Interfaces.MainInterfaceLogin.primaryStage;
-
+/*
+ * Esta es la ventana de carga dentro de la aplicacion
+ * para disimular la carga de elementos
+ */
 public class VentanaDeCarga {
 
     /*

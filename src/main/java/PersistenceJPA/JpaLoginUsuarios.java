@@ -2,6 +2,10 @@ package PersistenceJPA;
 
 import jakarta.persistence.*;
 
+/*
+ * Clase que representa la tabla "LoginUsuarios" de la base de datos
+ * y se usa para registrar los datos de los logins de los clientes
+ */
 @Entity
 @Table(name = "JPAloginUsuarios")
 public class JpaLoginUsuarios {

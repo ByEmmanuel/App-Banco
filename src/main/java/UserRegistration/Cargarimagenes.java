@@ -1,6 +1,7 @@
 package UserRegistration;
 
 import Interfaces.MetodosRegistro;
+import Interfaces.MetodosUserDashBoard;
 import UserDashboard.Transferencias;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
@@ -13,7 +14,7 @@ import java.net.URL;
 /**
  *  Clase que contiene los metodos para cargar las imagenes
  */
-public class Cargarimagenes implements MetodosRegistro {
+public class Cargarimagenes implements MetodosRegistro, MetodosUserDashBoard {
     Animaciones animaciones = new Animaciones();
     public ImageView bienvenidaLogo() {
         // Asumiendo que tu clase actual está en el mismo paquete que la carpeta "imagenes"
@@ -232,6 +233,7 @@ public class Cargarimagenes implements MetodosRegistro {
         ImgButton.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
         ImgButton.setOnAction(Event -> {
 
+            cargarTransferir();
             System.out.println("BOTON TRANSFERIR CLICKEADO");
 
         });
@@ -297,6 +299,46 @@ public class Cargarimagenes implements MetodosRegistro {
 
         return ImgButton;
     }
+
+    public Button botonNuevoContacto() {
+        Button ImgButton = new Button();
+        ImgButton.setId("Boton-Menu");
+        URL loginImgUrl = getClass().getResource("/imagenes/plus.png");
+        Image loginImage = new Image(loginImgUrl.toString(), 20, 20, false, true);
+        ImgButton.setGraphic(new ImageView(loginImage));
+        ImgButton.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
+        ImgButton.setOnAction(Event -> {
+
+
+            System.out.println("BOTON NUEVO CONTACTO CLICKEADO");
+        });
+        // Establecer las coordenadas x e y del botón en el Pane
+        ImgButton.setLayoutX(20); // Ajusta la coordenada x según sea necesario
+        ImgButton.setLayoutY(50); // Ajusta la coordenada y según sea necesario
+
+
+        return ImgButton;
+    }
+    public Button botonX() {
+        Button ImgButton = new Button();
+        ImgButton.setId("Boton-Menu");
+        URL loginImgUrl = getClass().getResource("/imagenes/xmark.png");
+        Image loginImage = new Image(loginImgUrl.toString(), 19, 19, false, true);
+        ImgButton.setGraphic(new ImageView(loginImage));
+        ImgButton.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
+        ImgButton.setOnAction(Event -> {
+
+
+            System.out.println("BOTON EXIT CLICKEADO");
+        });
+        // Establecer las coordenadas x e y del botón en el Pane
+        ImgButton.setLayoutX(290); // Ajusta la coordenada x según sea necesario
+        ImgButton.setLayoutY(10); // Ajusta la coordenada y según sea necesario
+
+
+        return ImgButton;
+    }
+
 
 
     public void setActualizarValorBoton(boolean booleano) {
