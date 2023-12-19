@@ -10,20 +10,21 @@
 
         <validation-mode>NONE</validation-mode>
 
-
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/AppleBank"/>
-            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="hibernate.connection.username" value="root"/>
-            <property name="hibernate.connection.password" value="@Jesus346728"/>
+            <property name="hibernate.connection.url" value="jdbc:mariadb://localhost:3306/AppleBank"/>
+            <property name="hibernate.connection.driver_class" value="org.mariadb.jdbc.Driver"/>
 
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="@161410"/>
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDBDialect"/>
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
-        </properties>
 
+
+        </properties>
 
     </persistence-unit>
 </persistence>
