@@ -7,6 +7,11 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/*
+ * Pantalla de carga principal de la aplicacion
+ * Muestra una pantalla de carga mientras se cargan los elementos
+ * Dando efecto de carga a la aplicacion
+ */
 public class Preloader extends javafx.application.Preloader implements MetodosRegistro {
 
     public Preloader() {

@@ -2,16 +2,11 @@ package Tests;
 
 
 
-import Cuentas.Cuenta;
-import Cuentas.CuentaClientes;
 import DAO.ClientesDAO;
-import PersistenceJPA.JpaLoginUsuarios;
 import PersistenceJPA.JpaUtils;
 import PersistenceJPA.JpaClientes;
-import applebank.appbancodefinitivo.HelloApplication;
 import jakarta.persistence.EntityManager;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 /**
  * Esta clase sera para hacer pruebas directo con la base de datos

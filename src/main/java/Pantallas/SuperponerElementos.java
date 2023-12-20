@@ -11,6 +11,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * Ejemplo de superposición de elementos
+ * @serial esta es una ventana de prueba
+ */
 public class SuperponerElementos extends Application {
 
 

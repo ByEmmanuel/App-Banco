@@ -7,6 +7,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Esta es la interfaz principal de login/registro Usuarios
+ * y aqui se cargan todas las clases que se van a utilizar
+ */
 public interface MainInterfaceLogin {
 
     /**

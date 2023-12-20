@@ -6,6 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/*
+ * Excepcion para cuando se realiza una accion con exito
+ */
 public class VentanaDeExito extends RuntimeException {
 
 

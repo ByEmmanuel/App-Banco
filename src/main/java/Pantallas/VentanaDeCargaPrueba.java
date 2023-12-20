@@ -6,7 +6,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-
+/*
+ * Esta ventana es de carga QUE ES DE PRUEBA
+ */
 public class VentanaDeCargaPrueba {
 
     Pane mainLayout;

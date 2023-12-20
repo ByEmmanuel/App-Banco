@@ -6,6 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/*
+ * Interfaz para los metodos de registro
+ */
 public interface MetodosRegistro extends MainInterfaceLogin {
 
     default Pane panelSuperior(){

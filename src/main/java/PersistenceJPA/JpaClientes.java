@@ -4,7 +4,10 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-
+/*
+ * Clase JPA para la tabla "clientes" de la base de datos
+ * con esta clase se crean los objetos que se van a guardar en la base de datos
+ */
 @Entity
 @Table(name = "JPAclientes")
 public class JpaClientes {
