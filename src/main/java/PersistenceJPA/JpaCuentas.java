@@ -27,6 +27,8 @@ public class JpaCuentas {
     private String nombre_usuario;
     //Este es el nombre del usuario que posee la cuenta y se introduce en el registro
     private String numeroDeTelefono;
+    //Este es el numero de telefono que posee el usuario
+    private String numeroCLABE;
 
 
     @Column(name = "numero_de_cuenta", length = 19)
@@ -41,9 +43,10 @@ public class JpaCuentas {
     }
 
 
-    public JpaCuentas(String numeroDeCuenta ,String numeroDeTarjeta, double saldo, String tipoDeCuenta,String firmaUsuario) {
+    public JpaCuentas(String numeroDeCuenta ,String numeroDeTarjeta, String CLABE, double saldo, String tipoDeCuenta,String firmaUsuario) {
         this.numeroDeCuenta = numeroDeCuenta;
         this.numeroDeTarjeta = numeroDeTarjeta;
+        this.numeroCLABE = CLABE;
         this.saldo = saldo;
         this.tipoDeCuenta = tipoDeCuenta;
         this.firmaUsuario = firmaUsuario;
@@ -67,6 +70,14 @@ public class JpaCuentas {
 
     public String getNumeroDeTarjeta() {
         return numeroDeTarjeta;
+    }
+
+    public String getCLABE() {
+        return numeroCLABE;
+    }
+
+    public void setCLABE(String CLABE) {
+        this.numeroCLABE = CLABE;
     }
 
     public void setNumeroDeTarjeta(String numeroDeTarjeta) {

@@ -135,7 +135,7 @@ public class Controller2 implements MetodosRegistro , MetodosUserDashBoard  {
 
                 System.out.println("Inicio de sesión exitoso");
 
-                cargarDashBoard();
+                cargarDashBoard(0);
                 /*
                 Animaciones animaciones = new Animaciones();
                 animaciones.animacionesDashBoard();

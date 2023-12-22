@@ -5,6 +5,7 @@ import Interfaces.MetodosRegistro;
 import Interfaces.MetodosUserDashBoard;
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -152,6 +153,32 @@ public class Animaciones implements MetodosRegistro, MainInterfaceUser {
         moveTransition = new TranslateTransition(Duration.seconds(0.5), pane);
         moveTransition.setFromX(-500);
         moveTransition.setToX(0);
+        moveTransition.play();
+    }
+    public void animacionesDeSalida(Pane pane){
+        moveTransition = new TranslateTransition(Duration.seconds(0.7), pane);
+        moveTransition.setFromY(0);
+        moveTransition.setToY(600);
+        moveTransition.play();
+        new Thread(() -> {
+            try {
+                Thread.sleep(100); // Espera durante el tiempo especificado
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Platform.runLater(() -> {
+                moveTransition.setFromY(700);
+                moveTransition.setToY(0);
+                moveTransition.play();
+            });
+        }).start();
+
+
+    }
+    public void resetPantallas(Pane pane){
+        moveTransition = new TranslateTransition(Duration.seconds(0.1), pane);
+        moveTransition.setFromY(600);
+        moveTransition.setToY(0);
         moveTransition.play();
     }
 

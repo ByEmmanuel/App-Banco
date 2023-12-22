@@ -151,7 +151,7 @@ public class CargarPantallaDirectamente extends Application implements MetodosRe
             Platform.runLater(() -> {
                 //mainLayout.getChildren().clear();
                 try {
-                    cargarDashBoard();
+                    cargarDashBoard(0);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

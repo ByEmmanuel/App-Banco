@@ -37,6 +37,7 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
 
     private static int gastosX;
     private static int gastosY;
+    private String ingresos = String.valueOf(operacionesDAO.BuscarSaldoPorTelefono(""));
 
     //private static String nombre;
     //private static final String nombre  = clientesDAO.BuscarNombrePorTelefono(mainLayout1,"11");
@@ -209,7 +210,7 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
     private Label labelCantidad(){
         Label label = new Label();
         //Esto esta puesto asi por si le tengo que pasar un valor
-        String ingresos = String.valueOf(operacionesDAO.BuscarSaldoPorTelefono(""));
+
         label.setText("$" + ingresos);
         label.setLayoutX(150);
         label.setLayoutY(30);
@@ -221,7 +222,7 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
         Label label = new Label();
         //Esto esta puesto asi por si le tengo que pasar un valor
         String numCuenta = operacionesDAO.BuscarNumCuentaPorTelefono("");
-        label.setText(numCuenta);
+        label.setText("·" + numCuenta);
         label.setLayoutX(15);
         label.setLayoutY(80);
         label.setStyle("-fx-font-size: 14px");
@@ -264,7 +265,7 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
         Label label = new Label();
         //Esto esta en comillas para que no me de error de momento
         String tarjeta = operacionesDAO.BuscarTarjetaPorTelefono("");
-        label.setText(tarjeta);
+        label.setText("·"+tarjeta);
         label.setLayoutX(15);
         label.setLayoutY(100);
         label.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
@@ -350,7 +351,9 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
 
     }
 
-
+    public String getSaldo() {
+        return ingresos;
+    }
 
     public Pane getRoot(){
 
