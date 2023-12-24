@@ -34,7 +34,7 @@ public class VentanaDeCarga {
     public VentanaDeCarga(){
 
         setupUI();
-
+        
     }
 
     private void setupUI(){

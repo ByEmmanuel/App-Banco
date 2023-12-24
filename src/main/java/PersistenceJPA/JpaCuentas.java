@@ -43,6 +43,15 @@ public class JpaCuentas {
     }
 
 
+    /**
+     * EL NOMBRE DE ESTOS PARAMETROS AL PARECER LOS TENGO QUE COLOCAR EN LOS METODOS DAO
+     * @param numeroDeCuenta
+     * @param numeroDeTarjeta
+     * @param CLABE
+     * @param saldo
+     * @param tipoDeCuenta
+     * @param firmaUsuario
+     */
     public JpaCuentas(String numeroDeCuenta ,String numeroDeTarjeta, String CLABE, double saldo, String tipoDeCuenta,String firmaUsuario) {
         this.numeroDeCuenta = numeroDeCuenta;
         this.numeroDeTarjeta = numeroDeTarjeta;

@@ -90,20 +90,21 @@ public class Destinatario {
                 //sistema de busqueda de destinatario con base de datos
                 System.out.println("BUSCAR CLICKEADO");
                 OperacionesDAO operacionesDAO = new OperacionesDAO();
+                String textFieldString = textFieldDatos.getText();
 
                 //TalVez puedo usar un while o un do while aqui
                 if (textFieldDatos.getText().matches("[0-9].{3,8}")){
                     System.out.println("NumeroDeCuenta");
-                    //operacionesDAO.BuscarUsuarioPorNumeroDeCuenta();
+                    operacionesDAO.BuscarUsuarioPorNumeroDeCuenta(textFieldString);
                 }else if (textFieldDatos.getText().matches("[0-9].{9}")) {
                     System.out.println("Telefono");
-                    //operacionesDAO.BuscarUsuarioPorTelefono();
+                    operacionesDAO.BuscarUsuarioPorTelefono(textFieldString);
                 }else if (textFieldDatos.getText().matches("[0-9].{15}")) {
                     System.out.println("Tarjeta");
-                    //operacionesDAO.BuscarUsuarioPorTarjeta();
+                    operacionesDAO.BuscarUsuarioPorTarjeta(textFieldString);
                 }else if (textFieldDatos.getText().matches("[0-9].{17}")) {
                     System.out.println("CLABE");
-                    //operacionesDAO.BuscarUsuarioPorCLABE();
+                    operacionesDAO.BuscarUsuarioPorCLABE(textFieldString);
                 }else {
                     throw new ErrorDesconocido(mainLayoutDestinatario,"No se encontro el destinatario");
                 }

@@ -297,4 +297,19 @@ default void cargarTransferir(){
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    default void cargarPaginaImporte(){
+        //Establecer el titulo
+        primaryStage.setTitle("Apple Bank");
+        //Agregar Los Controles
+        Pane pane = new Pane();
+        pane.getChildren().addAll(importe.getRoot());
+        //Crear La escena
+        Scene scene = new Scene(pane, 328, 636);
+        //Agregar los estilos CSS
+        String CSS = String.valueOf(MetodosRegistro.class.getResource("/Styles/styles.css"));
+        scene.getStylesheets().add(CSS);
+        //Mostrar La escena
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 }

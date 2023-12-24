@@ -33,7 +33,7 @@ public class Cuenta{
 
 
     //no retorna valor
-    public abstract void depositar(double valor);
+    public abstract void Depositar(double valor);
 
     public void retirar(double valor) throws Exception{
         if (this.saldo < valor ) {
@@ -47,7 +47,7 @@ public class Cuenta{
     public boolean transferir(double valor, Cuenta destino)throws Exception{
         if(this.saldo >= valor){
             this.retirar(valor);
-            destino.depositar(valor);
+            destino.Depositar(valor);
             System.out.println("Nuevo saldo en la cuenta; " + this.saldo );
             return true;
         }else{
@@ -106,7 +106,7 @@ public class Cuenta{
         return this.numeroDeCuenta == getnumero();
     }*/
 
-    //public abstract void depositar(double valor);
+    //public abstract void Depositar(double valor);
     public static String setNumeroDeCuenta() {
         String fixedDigits = "1000"; // Los primeros 4 dígitos que siempre serán los mismos
         Random random = new Random();

@@ -63,9 +63,8 @@ public interface MainInterfaceUser {
     Destinatario nuevoDestinatario = new Destinatario();
 
     /**
-     * este Pane se usara solo para obtener su pane
-     *
+     * Este controller se usa para reconocer el importe a Depositar del usuario
      */
 
-    Pane paneTransF = new Pane();
+    ImporteYConcepto importe = new ImporteYConcepto();
 }

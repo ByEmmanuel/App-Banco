@@ -77,10 +77,8 @@ public class Transferencias extends PaginaPrincipalDashboard implements MetodosU
     }
     private Label cuentaOrigenTarjeta(){
         Label label = new Label();
-        String numCuenta = operacionesDAO.BuscarNumCuentaPorTelefono("");
-        String tipoDeCuenta = operacionesDAO.BuscarTipoDeCuentaPorTelefono("");;
-        String numTarjeta = operacionesDAO.BuscarTarjetaPorTelefono("");
-        label.setText(numCuenta + tipoDeCuenta + numTarjeta);
+
+        label.setText(dashBoard1.obtenerDatosCuenta());
         label.setStyle("-fx-font-size: 16px; -fx-text-fill: #ffffff;");
         label.setLayoutX(20);
         label.setLayoutY(100);
