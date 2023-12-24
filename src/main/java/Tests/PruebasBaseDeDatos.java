@@ -3,6 +3,7 @@ package Tests;
 
 
 import DAO.ClientesDAO;
+import DAO.OperacionesDAO;
 import PersistenceJPA.JpaUtils;
 import PersistenceJPA.JpaClientes;
 import jakarta.persistence.EntityManager;
@@ -36,9 +37,15 @@ public class PruebasBaseDeDatos  {
         clientesDAO.RegistrarDatosBancariosUsuario("Admin", 199, "Ahorro", "miFirma");
          */
 
-        registrarTodoUnUsuario();
-
-
+        //registrarTodoUnUsuario();
+        
+        PruebaPanes pruebaPanes = new PruebaPanes();
+        //depositar(pruebaPanes.getRoot());
+        transferir(pruebaPanes.getRoot());
+        
+        //OperacionesDAO operacionesDAO = new OperacionesDAO();
+        //operacionesDAO.BuscarUsuarioPorNumeroDeCuenta("123456789012345678");
+        //operacionesDAO.depositarPruebaDos("0401001790222831", 9);
     }
 
     private static void buscarUsuarioPorNumero(Pane pane){
@@ -102,6 +109,19 @@ public class PruebasBaseDeDatos  {
         clientesDAO.RegistrarDatosUsuario("Nombre", "Apellido1", "Apellido2", "Nacionalidad", "Fecha", "Estado");
         clientesDAO.RegistrarDatosLoginUsuario("Email", "Contraseña", "Telefono", "Pregunta", "Respuesta");
         clientesDAO.RegistrarDatosBancariosUsuario("", 123, "Ahorro", "Firma");
+    }
+
+    private static void depositar(Pane pane){
+        OperacionesDAO operacionesDAO = new OperacionesDAO();
+        operacionesDAO.Depositar("1000545",200);
+        //operacionesDAO.depositarPrueba("1000545", 200);
+
+    }
+
+    private static void transferir(Pane pane){
+        OperacionesDAO operacionesDAO = new OperacionesDAO();
+        //operacionesDAO.transferir(pane,"", "", 200);
+        operacionesDAO.transferirDOS(pane,"", "", 200);
     }
 
 }

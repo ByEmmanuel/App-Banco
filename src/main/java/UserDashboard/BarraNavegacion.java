@@ -47,9 +47,10 @@ public class BarraNavegacion implements MetodosUserDashBoard {
         ImgButton.setGraphic(new ImageView(loginImage));
         ImgButton.setStyle("");
         ImgButton.setOnAction(Event -> {
-
-
-            cargarDashBoard();
+            /**
+             * 0 para cargar pantalla de carga
+             */
+            cargarDashBoard(0);
 
 
         });

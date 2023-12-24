@@ -83,7 +83,7 @@ public class Controller6 implements MetodosRegistro {
         campoSaldo.setPrefWidth(210);
         campoSaldo.getText().matches("^[0-9]$");
 
-        campoSaldo.setPromptText("Ingrese saldo a depositar");
+        campoSaldo.setPromptText("Ingrese saldo a Depositar");
         campoSaldo.setId("Campo-Saldo");
         campoSaldo.setStyle("-fx-text-fill: white;");
         campoSaldo.setLayoutX(60);

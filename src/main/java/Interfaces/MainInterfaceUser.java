@@ -3,10 +3,7 @@ package Interfaces;
 import Pantallas.VentanaDeCarga;
 import UserDashboard.*;
 import UserDashboard.PaginaPrincipalDashboard;
-import UserRegistration.Controller2;
-import javafx.scene.layout.VBox;
-
-import static Interfaces.MainInterfaceLogin.controller2;
+import javafx.scene.layout.Pane;
 
 /**
  * Esta es la interfaz principal de usuarios ya registrados
@@ -60,4 +57,14 @@ public interface MainInterfaceUser {
      */
     Transferencias transferencias = new Transferencias();
 
+    /*
+     * Este controller es en el que se registra un nuevo contacto para transferencias
+     */
+    Destinatario nuevoDestinatario = new Destinatario();
+
+    /**
+     * Este controller se usa para reconocer el importe a Depositar del usuario
+     */
+
+    ImporteYConcepto importe = new ImporteYConcepto();
 }

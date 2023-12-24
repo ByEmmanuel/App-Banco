@@ -3,6 +3,7 @@ package UserRegistration;
 import Interfaces.MetodosRegistro;
 import Interfaces.MetodosUserDashBoard;
 import UserDashboard.Transferencias;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
@@ -303,8 +304,8 @@ public class Cargarimagenes implements MetodosRegistro, MetodosUserDashBoard {
     public Button botonNuevoContacto() {
         Button ImgButton = new Button();
         ImgButton.setId("Boton-Menu");
-        URL loginImgUrl = getClass().getResource("/imagenes/plus.png");
-        Image loginImage = new Image(loginImgUrl.toString(), 20, 20, false, true);
+        URL loginImgUrl = getClass().getResource("/imagenes/nuevocontacto.png");
+        Image loginImage = new Image(loginImgUrl.toString(), 35,35, false, true);
         ImgButton.setGraphic(new ImageView(loginImage));
         ImgButton.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
         ImgButton.setOnAction(Event -> {
@@ -327,6 +328,23 @@ public class Cargarimagenes implements MetodosRegistro, MetodosUserDashBoard {
         ImgButton.setGraphic(new ImageView(loginImage));
         ImgButton.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
         ImgButton.setOnAction(Event -> {
+            animaciones.animacionesDeSalida(transferencias.getRoot());
+            new Thread(() -> {
+                try {
+                    Thread.sleep(700); // Espera durante el tiempo especificado
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Platform.runLater(() -> {
+                    //mainLayout.getChildren().clear();
+                    try {
+                        animaciones.resetPantallas(transferencias.getRoot());
+                        cargarDashBoard(1);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            }).start();
 
 
             System.out.println("BOTON EXIT CLICKEADO");

@@ -28,6 +28,7 @@ public class ClientesDAO {
     private long idUsuario;
     private String numeroDeCuenta;
     private String numeroDeTarjeta;
+    private String numeroCLABE;
     private static boolean validacion1 = false;
     private static boolean validacion2 = false;
 
@@ -213,11 +214,13 @@ public class ClientesDAO {
             try {
                 Cuenta cuenta = new Cuenta();
                 numeroDeCuenta = cuenta.setNumeroDeCuenta();
+                numeroCLABE = cuenta.setNumeroCLABE();
                 numeroDeTarjeta = cuenta.setNumeroDeTarjeta();
 
                 JpaCuentas cuentasClientes = new JpaCuentas(
                         numeroDeCuenta, // Añadido automaticamente
                         numeroDeTarjeta,
+                        numeroCLABE,
                         //titular, (es añadido automaticamente)
                         saldo, //El usuario debe ingresar un numero no mayor a 200
                         tipoDeCuenta, //El usuario debe ingresar un tipo de cuenta
@@ -289,6 +292,11 @@ public class ClientesDAO {
          */
     }
 
+    /**
+     * Este metodo esta desactualizado
+     * @deprecated
+     *
+     */
     public String BuscarPorNombre(String nombre) {
         nombre = Controller5.getNombre();
         String jpql = "SELECT u FROM JpaClientes u WHERE u.nombre = :nombre";
@@ -311,7 +319,7 @@ public class ClientesDAO {
     public String BuscarNombrePorEmail(String email) {
         /*
          * esto se usa para cuando se tenga que utilizar en un
-         * controller en especifico
+         * controller en especifíco
          */
         //email = Controller5.getNombre();
         String jpql = "SELECT u FROM JpaLoginUsuarios u WHERE u.email = :email";
@@ -396,9 +404,9 @@ public class ClientesDAO {
          *
          *
          */
-        //numeroDeTelefono = controller2.getNumeroDeCelular();
+        numeroDeTelefono = controller2.getNumeroDeCelular();
 
-        numeroDeTelefono = "11";
+        //numeroDeTelefono = "01";
         String jpql = "SELECT u FROM JpaLoginUsuarios u WHERE u.numeroDeTelefono = :numeroDeTelefono";
         TypedQuery<JpaLoginUsuarios> query = em.createQuery(jpql, JpaLoginUsuarios.class);
         query.setParameter("numeroDeTelefono", numeroDeTelefono);

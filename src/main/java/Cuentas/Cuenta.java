@@ -33,7 +33,7 @@ public class Cuenta{
 
 
     //no retorna valor
-    public abstract void depositar(double valor);
+    public abstract void Depositar(double valor);
 
     public void retirar(double valor) throws Exception{
         if (this.saldo < valor ) {
@@ -47,7 +47,7 @@ public class Cuenta{
     public boolean transferir(double valor, Cuenta destino)throws Exception{
         if(this.saldo >= valor){
             this.retirar(valor);
-            destino.depositar(valor);
+            destino.Depositar(valor);
             System.out.println("Nuevo saldo en la cuenta; " + this.saldo );
             return true;
         }else{
@@ -106,21 +106,44 @@ public class Cuenta{
         return this.numeroDeCuenta == getnumero();
     }*/
 
-    //public abstract void depositar(double valor);
-    public  String setNumeroDeCuenta() {
-        String fixedDigits = "1525"; // Los primeros 4 dígitos que siempre serán los mismos
+    //public abstract void Depositar(double valor);
+    public static String setNumeroDeCuenta() {
+        String fixedDigits = "1000"; // Los primeros 4 dígitos que siempre serán los mismos
         Random random = new Random();
-        long randomNumber = (long) (Math.pow(12, 13) * random.nextDouble());
-        String sixteenDigitNumber = fixedDigits + String.format("%012d", randomNumber);
+        long randomNumber = (long) (Math.pow(4,5) * random.nextDouble());
+        //String sixteenDigitNumber =  String.format("%12d", randomNumber)  ;
+        String sixteenDigitNumber =   String.valueOf(fixedDigits + randomNumber);
         System.out.println("Numero de cuenta; "+sixteenDigitNumber);
         return sixteenDigitNumber;
     }
-    public  String setNumeroDeTarjeta() {
+    public static String setNumeroCLABE() {
+    String CLABE;
+    do {
+        String fixedDigits = "1000"; // Los primeros 4 dígitos que siempre serán los mismos
+        Random random = new Random();
+        long randomNumber = (long) (Math.pow(12, 13) * random.nextDouble());
+        CLABE = fixedDigits + String.format("%012d", randomNumber);
+
+    } while (CLABE.length() < 17 && CLABE.length() >= 19);
+        System.out.println("Numero CLABE; "+ CLABE);
+        if (CLABE.length() > 18){
+            System.out.println("El numero es mayor a 18");
+            CLABE = CLABE.substring(0, 18);
+            System.out.println("Nuevo numero CLABE; "+ CLABE);
+        }
+        return CLABE;
+    }
+    public  static String setNumeroDeTarjeta() {
         String fixedDigits = "0401"; // Los primeros 4 dígitos que siempre serán los mismos
         Random random = new Random();
         long randomNumber = (long) (Math.pow(10, 11) * random.nextDouble());
         String sixteenDigitNumber = fixedDigits + String.format("%012d", randomNumber);
         System.out.println("Numero de tarjeta; "+sixteenDigitNumber);
+        if (sixteenDigitNumber.length() > 16 || sixteenDigitNumber.length() < 16){
+            System.out.println("El numero es mayor a 16");
+            sixteenDigitNumber = sixteenDigitNumber.substring(0, 16);
+            System.out.println("Nuevo numero de tarjeta; "+sixteenDigitNumber);
+        }
         return sixteenDigitNumber;
     }
 
@@ -128,5 +151,6 @@ public class Cuenta{
         public static void main(String[] args) {
             //System.out.println(setNumeroDeCuenta());
             //System.out.println(setNumeroDeTarjeta());
+            //System.out.println(setNumeroCLABE());
         }
 }

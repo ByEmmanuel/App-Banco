@@ -24,6 +24,8 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
     private static String telefono = null;
     static Cargarimagenes imagenes = new Cargarimagenes();
 
+    private String nombreUsuarioLogEd;
+
     //Estos valores son los que iran en el poligono de ingresos y siempre tienen que tener una distancia de 15
 //    private static int ingresosX = 280;
 //    private static int ingresosY = 265;
@@ -37,6 +39,7 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
 
     private static int gastosX;
     private static int gastosY;
+    private String ingresos = String.valueOf(operacionesDAO.BuscarSaldoPorTelefono(""));
 
     //private static String nombre;
     //private static final String nombre  = clientesDAO.BuscarNombrePorTelefono(mainLayout1,"11");
@@ -169,7 +172,8 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
          *  El parametro telefono llega null siempre por si despues tengo
          *  que hacer ajustes
          */
-        label.setText("Hola, " + clientesDAO.BuscarNombrePorTelefono(mainLayout1,telefono));
+        this.nombreUsuarioLogEd = clientesDAO.BuscarNombrePorTelefono(mainLayout1,telefono);
+        label.setText("Hola, " + nombreUsuarioLogEd);
         label.setLayoutX(100);
         label.setLayoutY(20);
 
@@ -202,18 +206,28 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
         //Pane.setBackground(background);
         // Configurar relleno programáticamente
         Pane.setPadding(new Insets(0, 140, 0, 15)); // Padding: arriba, derecha, abajo, izquierda
-        Pane.getChildren().addAll(label2(),labelCantidad(),labelNumCuenta());
+        Pane.getChildren().addAll(label2(),labelCantidad(),labelNumCuenta(),datosCuenta(),saldoDisponible());
 
         return Pane;
     }
     private Label labelCantidad(){
         Label label = new Label();
         //Esto esta puesto asi por si le tengo que pasar un valor
-        String ingresos = String.valueOf(operacionesDAO.BuscarSaldoPorTelefono(""));
+
         label.setText("$" + ingresos);
-        label.setLayoutX(150);
-        label.setLayoutY(30);
-        label.setStyle("-fx-font-size: 14px");
+        label.setLayoutX(190);
+        label.setLayoutY(50);
+        label.setStyle("-fx-font-size: 18px");
+
+        return label;
+    }
+    private Label datosCuenta(){
+        Label label = new Label();
+
+        label.setText(obtenerDatosCuenta());
+        label.setLayoutX(15);
+        label.setLayoutY(50);
+        label.setStyle("-fx-font-size: 18px; -fx-text-fill: #1b74bc");
 
         return label;
     }
@@ -221,10 +235,20 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
         Label label = new Label();
         //Esto esta puesto asi por si le tengo que pasar un valor
         String numCuenta = operacionesDAO.BuscarNumCuentaPorTelefono("");
-        label.setText(numCuenta);
+        label.setText("· " + numCuenta);
         label.setLayoutX(15);
-        label.setLayoutY(80);
+        label.setLayoutY(75);
         label.setStyle("-fx-font-size: 14px");
+
+        return label;
+    }
+    private Label saldoDisponible(){
+        Label label = new Label();
+
+        label.setText("Saldo Disponible");
+        label.setLayoutX(170);
+        label.setLayoutY(75);
+        label.setStyle("-fx-font-size: 12px");
 
         return label;
     }
@@ -246,7 +270,7 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
     Label label2(){
         Label label = new Label("Cuentas En Pesos");
         label.setLayoutX(15);
-        label.setLayoutY(30);
+        label.setLayoutY(20);
         label.setStyle("-fx-font-size: 14px");
 
         return label;
@@ -264,7 +288,7 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
         Label label = new Label();
         //Esto esta en comillas para que no me de error de momento
         String tarjeta = operacionesDAO.BuscarTarjetaPorTelefono("");
-        label.setText(tarjeta);
+        label.setText("· "+tarjeta);
         label.setLayoutX(15);
         label.setLayoutY(100);
         label.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
@@ -349,11 +373,29 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
         }
 
     }
+    public String obtenerDatosCuenta(){
+        //Esto esta puesto asi por si le tengo que pasar un valor
+        getNombreUsuarioLogEd();
+        String numCuenta = operacionesDAO.BuscarNumCuentaPorTelefono("");
+        String tipoDeCuenta = operacionesDAO.BuscarTipoDeCuentaPorTelefono("");;
+        String numTarjeta = operacionesDAO.BuscarTarjetaPorTelefono("");
+        String datos = numTarjeta + tipoDeCuenta + numCuenta;
+        return datos;
+    }
 
-
+    public String getSaldo() {
+        return ingresos;
+    }
 
     public Pane getRoot(){
 
         return mainLayout1;
+    }
+
+
+    public String getNombreUsuarioLogEd() {
+        operacionesDAO.inicioSesionUsuario(nombreUsuarioLogEd);
+        //System.out.println(nombreUsuarioLogEd);
+        return nombreUsuarioLogEd;
     }
 }
