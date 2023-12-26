@@ -138,7 +138,7 @@ public class Controller2 implements MetodosRegistro , MetodosUserDashBoard  {
                 cargarDashBoard(0);
                 /*
                 Animaciones animaciones = new Animaciones();
-                animaciones.animacionesDashBoard();
+                animaciones.animacionesEntrada();
                 */
             } else {
                 throw new ErrorDesconocido(mainLayout2,"Numero de celular invalido \n o el usuario no existe");

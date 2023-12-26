@@ -62,7 +62,7 @@ public interface MetodosUserDashBoard extends MainInterfaceUser {
                         Pane Pane = new Pane();
                         //Agregar animaciones
                         Animaciones animaciones = new Animaciones();
-                        animaciones.animacionesDashBoard(Pane);
+                        animaciones.animacionesDeEntrada(Pane);
                         Cargarimagenes imagenes = new Cargarimagenes();
                         Button transferir = imagenes.transferir();
                         Button oportunidades = imagenes.oportunidades();
@@ -302,6 +302,8 @@ default void cargarTransferir(){
         primaryStage.setTitle("Apple Bank");
         //Agregar Los Controles
         Pane pane = new Pane();
+        Animaciones animaciones = new Animaciones();
+        animaciones.animacionesDeEntrada(pane);
         pane.getChildren().addAll(importe.getRoot());
         //Crear La escena
         Scene scene = new Scene(pane, 328, 636);
