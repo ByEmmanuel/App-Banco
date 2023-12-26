@@ -1,6 +1,5 @@
 package DAO;
 
-import Excepciones.ErrorDesconocido;
 import Interfaces.MetodosUserDashBoard;
 import PersistenceJPA.JpaCuentas;
 import PersistenceJPA.JpaUtils;
@@ -52,7 +51,7 @@ public class OperacionesDAO implements MetodosUserDashBoard {
          * esto se usa para cuando se tenga que utilizar en un
          * controller en especifico
          */
-        //numeroDeTelefono = Controller2.controller2.getContraseña();
+        numeroDeTelefono = Controller2.controller2.getContraseña();
         String jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroDeTelefono = :numeroDeTelefono";
         TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
         query.setParameter("numeroDeTelefono", numeroDeTelefono);
@@ -169,16 +168,76 @@ public class OperacionesDAO implements MetodosUserDashBoard {
         }
     }
 
-    public void BuscarUsuarioPorTelefono(String numeroDeTelefono) {
+    public String BuscarUsuarioPorTelefono(String numeroDeTelefono) {
         System.out.println(numeroDeTelefono);
+        String jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroDeTelefono = :numeroDeTelefono";
+
+        TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
+        query.setParameter("numeroDeTelefono", numeroDeTelefono);
+        try {
+            JpaCuentas usuario = query.getSingleResult();
+            if (usuario.getNumeroDeCuenta() == null) {
+                return "No hay cuenta o ocurrio algún error";
+            } else {
+                cargarPaginaImporte();
+                String nombreUsuario = usuario.getNombre_usuario();
+                this.usuario[1] = nombreUsuario;
+                System.out.println(nombreUsuario);
+                return nombreUsuario;
+            }
+        } catch (NoResultException e) {
+            // Manejar el caso en que no se encontró ningún usuario con el correo dado.
+            System.out.println("no hay Numero de cuenta");
+            return "no hay usuario o ocurrio algún error";
+        }
     }
 
-    public void BuscarUsuarioPorTarjeta(String numeroDeTarjeta) {
+    public String BuscarUsuarioPorTarjeta(String numeroDeTarjeta) {
         System.out.println(numeroDeTarjeta);
+        String jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroDeTarjeta = :numeroDeTarjeta";
+
+        TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
+        query.setParameter("numeroDeTarjeta", numeroDeTarjeta);
+        try {
+            JpaCuentas usuario = query.getSingleResult();
+            if (usuario.getNumeroDeCuenta() == null) {
+                return "No hay cuenta o ocurrio algún error";
+            } else {
+                cargarPaginaImporte();
+                String nombreUsuario = usuario.getNombre_usuario();
+                this.usuario[1] = nombreUsuario;
+                System.out.println(nombreUsuario);
+                return nombreUsuario;
+            }
+        } catch (NoResultException e) {
+            // Manejar el caso en que no se encontró ningún usuario con el correo dado.
+            System.out.println("no hay Numero de cuenta");
+            return "no hay usuario o ocurrio algún error";
+        }
     }
 
-    public void BuscarUsuarioPorCLABE(String numeroCLABE) {
+    public String BuscarUsuarioPorCLABE(String numeroCLABE) {
         System.out.println(numeroCLABE);
+        String jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroCLABE = :numeroCLABE";
+
+        TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
+        query.setParameter("numeroCLABE", numeroCLABE);
+        try {
+            JpaCuentas usuario = query.getSingleResult();
+            if (usuario.getNumeroDeCuenta() == null) {
+                return "No hay cuenta o ocurrio algún error";
+            } else {
+                cargarPaginaImporte();
+                String nombreUsuario = usuario.getNombre_usuario();
+                this.usuario[1] = nombreUsuario;
+                System.out.println(nombreUsuario);
+                return nombreUsuario;
+            }
+        } catch (NoResultException e) {
+            // Manejar el caso en que no se encontró ningún usuario con el correo dado.
+            System.out.println("no hay Numero de cuenta");
+            return "no hay usuario o ocurrio algún error";
+        }
     }
 
     String jpql;

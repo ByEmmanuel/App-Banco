@@ -2,12 +2,10 @@ package UserRegistration;
 
 import Interfaces.MainInterfaceUser;
 import Interfaces.MetodosRegistro;
-import Interfaces.MetodosUserDashBoard;
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 public class Animaciones implements MetodosRegistro, MainInterfaceUser {
@@ -143,7 +141,7 @@ public class Animaciones implements MetodosRegistro, MainInterfaceUser {
 
     }
 
-    public void animacionesDashBoard(Pane pane){
+    public void animacionesDeEntrada(Pane pane){
         moveTransition = new TranslateTransition(Duration.seconds(0.7), pane);
         moveTransition.setFromY(600);
         moveTransition.setToY(0);

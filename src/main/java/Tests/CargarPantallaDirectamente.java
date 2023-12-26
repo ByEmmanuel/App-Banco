@@ -99,7 +99,7 @@ public class CargarPantallaDirectamente extends Application implements MetodosRe
 
         // Esto esta desactivado porque las animaciones se tienen que hacer a nivel directo de la clase
         // Animaciones animaciones = new Animaciones();
-        //animaciones.animacionesDashBoard();
+        //animaciones.animacionesEntrada();
 
        /*
         Polygon diagonal = new Polygon(
@@ -137,7 +137,9 @@ public class CargarPantallaDirectamente extends Application implements MetodosRe
         //timer();
         //cargarDashBoard();
 
-        cargarTransferir();
+        //cargarTransferir();
+
+        cargarPaginaImporte();
 
     }
     private void timer() {
