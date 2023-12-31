@@ -1,9 +1,7 @@
 package UserDashboard;
 
-import DAO.ClientesDAO;
 import DAO.OperacionesDAO;
 import Excepciones.ErrorDesconocido;
-import Interfaces.MetodosUserDashBoard;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -116,7 +114,7 @@ public class Destinatario {
         return button;
     }
 
-    public String getDatosTransferencia(){
+    public String getDatosTransferenciaDestino(){
         return textFieldDatos.getText();
     }
     public Pane getRoot(){

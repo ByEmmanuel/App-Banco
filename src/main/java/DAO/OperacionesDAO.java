@@ -1,9 +1,9 @@
 package DAO;
 
+import Interfaces.MetodosRegistro;
 import Interfaces.MetodosUserDashBoard;
 import PersistenceJPA.JpaCuentas;
 import PersistenceJPA.JpaUtils;
-import UserDashboard.ImporteYConcepto;
 import UserRegistration.Controller2;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -15,7 +15,7 @@ import javafx.scene.layout.Pane;
  * De parte de operaciones de los usuarios
  */
 
-public class OperacionesDAO implements MetodosUserDashBoard {
+public class OperacionesDAO implements MetodosUserDashBoard, MetodosRegistro {
 
     private EntityManager em = JpaUtils.getEntityManager();
 
@@ -25,12 +25,18 @@ public class OperacionesDAO implements MetodosUserDashBoard {
      * en la posicion 1 esta el usuario al que se le va a transferir
      */
     private final String[] usuario = new String[2];
-
-
+    /**
+     * En la posicion 0 está el número de tarjeta del usuarioOrigen
+     * En la posicion 1 esta el número de cuenta del usuario Destino
+     * En la posicion 2 esta el concepto del usuarioOrigen
+     *
+     */
+    private String[] datosTransferencia = new String[5];
 
     public void inicioSesionUsuario(String usuarioLogeado) {
         this.usuario[0] = usuarioLogeado;
         System.out.println(usuario[0]);
+
     }
 
     public String BuscarTarjetaPorTelefono(String numeroDeTelefono) {
@@ -168,7 +174,7 @@ public class OperacionesDAO implements MetodosUserDashBoard {
                 importe.setUsuarioDestino(nombreUsuario);
 
                 System.out.println(nombreUsuario);
-
+                datosTransferencia();
                 return nombreUsuario;
             }
         } catch (NoResultException e) {
@@ -193,7 +199,7 @@ public class OperacionesDAO implements MetodosUserDashBoard {
                 String nombreUsuario = usuario.getNombre_usuario();
                 importe.setUsuarioDestino(nombreUsuario);
                 System.out.println(nombreUsuario);
-
+                datosTransferencia();
                 return nombreUsuario;
             }
         } catch (NoResultException e) {
@@ -218,7 +224,7 @@ public class OperacionesDAO implements MetodosUserDashBoard {
                 String nombreUsuario = usuario.getNombre_usuario();
                 importe.setUsuarioDestino(nombreUsuario);
                 System.out.println(nombreUsuario);
-
+                datosTransferencia();
                 return nombreUsuario;
             }
         } catch (NoResultException e) {
@@ -243,7 +249,7 @@ public class OperacionesDAO implements MetodosUserDashBoard {
                 String nombreUsuario = usuario.getNombre_usuario();
                 importe.setUsuarioDestino(nombreUsuario);
                 System.out.println(nombreUsuario);
-
+                datosTransferencia();
                 return nombreUsuario;
             }
         } catch (NoResultException e) {
@@ -455,11 +461,26 @@ public class OperacionesDAO implements MetodosUserDashBoard {
 
     }
 
+    /**
+     * Este metodo es para transferir dinero a otra cuenta
+     * @param pane
+     * @param cuentaOrigen
+     * @param cuentaDestino
+     * @param cantidad
+     * @return
+     */
     public boolean transferirDOS(Pane pane, String cuentaOrigen, String cuentaDestino, double cantidad) {
         //String usuarioLogeado = usuario[0];
-        cuentaOrigen = "1234567899";
+        cuentaOrigen = datosTransferencia[0];
         //String numeroDeTarjeta  = "15252730163438050";
-        cuentaDestino = "100073606763642042";
+        cuentaDestino = datosTransferencia[1];
+        //
+        String numeroDeTelefonoOrigen = clientesDAO.getNumeroTelefonoUsuario();
+        if (cuentaOrigen == null || cuentaDestino == null){
+            cuentaOrigen = numeroDeTelefonoOrigen;
+            throw new RuntimeException();
+        }
+
 
         //cuentaOrigen = usuario[0];
         System.out.println(cuentaOrigen);
@@ -470,10 +491,122 @@ public class OperacionesDAO implements MetodosUserDashBoard {
          * medio de la cuenta origen como parametro :)
          * @deprecated
          */
-        double saldoActual = BuscarSaldoPorTelefono("1234567899");
+        double saldoActual = BuscarSaldoPorTelefono(numeroDeTelefonoOrigen);
         //Esto no tiene valores porque el metodo directamente llama a la base de datos y tiene parametros
         //solo por si necesito la funcion en otro metodo
-        if (cuentaOrigen.matches("[0-9].{3,8}")) {
+        if (cuentaOrigen.matches("[0-9].{1,8}")) {
+            String numeroDeCuenta = cuentaOrigen;
+            parametro = "numero_de_cuenta";
+            jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroDeCuenta = :numero_de_cuenta";
+            //jpql = "SELECT u FROM JpaCuentas u WHERE u."+numeroADepositar+" = :numero_de_cuenta";
+        } else if (cuentaOrigen.matches("[0-9].{9}")) {
+            String numeroDeTelefono = cuentaOrigen;
+            parametro = "numeroDeTelefono";
+            jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroDeTelefono = :numeroDeTelefono";
+        } else if (cuentaOrigen.matches("[0-9].{15}")) {
+            String numeroDeTarjeta = cuentaOrigen;
+            parametro = "numero_de_tarjeta";
+            jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroDeTarjeta = :numero_de_tarjeta";
+        } else if (cuentaOrigen.matches("[0-9].{17}")) {
+            String numeroCLABE = cuentaOrigen;
+            parametro = "numeroCLABE";
+            jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroCLABE = :numeroCLABE";
+        } else {
+            //throw new ErrorDesconocido(pane,"No se encontro el destinatario");
+            throw new RuntimeException();
+        }
+
+        /**
+         * CUENTA DESTINO
+         */
+
+        if (cuentaDestino.matches("[0-9].{3,8}")) {
+            String numeroDeCuenta = cuentaDestino;
+            parametro2 = "numero_de_cuenta";
+            jpql2 = "SELECT u FROM JpaCuentas u WHERE u.numeroDeCuenta = :numero_de_cuenta";
+            //jpql = "SELECT u FROM JpaCuentas u WHERE u."+numeroADepositar+" = :numero_de_cuenta";
+        } else if (cuentaDestino.matches("[0-9].{9}")) {
+            String numeroDeTelefono = cuentaDestino;
+            parametro2 = "numeroDeTelefono";
+            jpql2 = "SELECT u FROM JpaCuentas u WHERE u.numeroDeTelefono = :numeroDeTelefono";
+        } else if (cuentaDestino.matches("[0-9].{15}")) {
+            String numeroDeTarjeta = cuentaDestino;
+            parametro2 = "numero_de_tarjeta";
+            jpql2 = "SELECT u FROM JpaCuentas u WHERE u.numeroDeTarjeta = :numero_de_tarjeta";
+        } else if (cuentaDestino.matches("[0-9].{17}")) {
+            String numeroCLABE = cuentaDestino;
+            parametro2 = "numeroCLABE";
+            jpql2 = "SELECT u FROM JpaCuentas u WHERE u.numeroCLABE = :numeroCLABE";
+        } else {
+            //throw new ErrorDesconocido(pane,"No se encontro el destinatario");
+            throw new RuntimeException();
+        }
+
+        TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
+        query.setParameter(parametro, cuentaOrigen);
+        JpaCuentas cuentaOrigenEntity = query.getSingleResult();
+        //try {
+        if (cuentaOrigenEntity.getNumeroDeCuenta() == null) {
+            System.out.println("No hay cuenta o ocurrio algún error");
+            return false;
+        } else {
+            TypedQuery<JpaCuentas> query2 = em.createQuery(jpql2, JpaCuentas.class);
+            query2.setParameter(parametro2,cuentaDestino);
+            JpaCuentas cuentaDestinoEntity = query2.getSingleResult();
+            if (saldoActual > cantidad && saldoActual > 0 && cantidad > 0) {
+                // Realizar la transferencia
+
+                //cuentaOrigenEntity.setSaldo(cuentaOrigenEntity.getSaldo().subtract(cantidad));
+                //cuentaDestinoEntity.setSaldo(cuentaDestinoEntity.getSaldo().add(cantidad));
+                em.getTransaction().begin();
+
+                cuentaOrigenEntity.setSaldo(cuentaOrigenEntity.getSaldo() - cantidad);
+                cuentaDestinoEntity.setSaldo(cuentaDestinoEntity.getSaldo() + cantidad);
+
+                // Actualizar las entidades en la base de datos
+                em.merge(cuentaOrigenEntity);
+                em.merge(cuentaDestinoEntity);
+
+                // Confirmar la transacción
+                em.getTransaction().commit();
+
+                System.out.println("Transferencia exitosa");
+                return true;
+            } else {
+                System.out.println("Fondos insuficientes en la cuenta de origen");
+                return false;
+            }
+        }
+        /*
+        } catch (NoResultException e) {
+            // Manejar el caso en que no se encontró ningún usuario con el correo dado.
+            System.out.println("Ha Ocurrido Algún error");
+            return false;
+        }
+         */
+    }
+    public boolean transferirDOS(Pane pane,String cuentaOrigen,String cuentaDestino, double cantidad, Boolean transferir) {
+
+
+        //String cuentaOrigen = datosTransferencia[0];
+
+        //String cuentaDestino = datosTransferencia[1];
+        // Aqui se obtiene el numero de telefono del usuario logeado
+        String numeroDeTelefonoOrigen = clientesDAO.BuscarNombrePorTelefono(mainLayout,cuentaOrigen);
+
+        //cuentaOrigen = usuario[0];
+        System.out.println(cuentaOrigen);
+        String parametro;
+        String parametro2;
+        /**
+         * Buscar saldo por telefono lo tengo que cambiar a buscar saldo usuario por
+         * medio de la cuenta origen como parametro :)
+         * @deprecated
+         */
+        double saldoActual = BuscarSaldoPorTelefono(numeroDeTelefonoOrigen);
+        //Esto no tiene valores porque el metodo directamente llama a la base de datos y tiene parametros
+        //solo por si necesito la funcion en otro metodo
+        if (cuentaOrigen.matches("[0-9].{1,8}")) {
             String numeroDeCuenta = cuentaOrigen;
             parametro = "numero_de_cuenta";
             jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroDeCuenta = :numero_de_cuenta";
@@ -581,5 +714,14 @@ public class OperacionesDAO implements MetodosUserDashBoard {
             System.out.println(this.usuario[1]);
             return this.usuario[1];
         }
+    }
+
+    /**
+     * Este metodo no se ejecuta correectamente
+     * @deprecated
+     */
+    private void datosTransferencia(){
+        this.datosTransferencia[0] = controller2.getNumeroDeCelular();
+        this.datosTransferencia[1] = nuevoDestinatario.getDatosTransferenciaDestino();
     }
 }

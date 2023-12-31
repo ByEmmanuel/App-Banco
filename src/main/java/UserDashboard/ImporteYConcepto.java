@@ -331,7 +331,7 @@ public class ImporteYConcepto extends PaginaPrincipalDashboard implements Metodo
         labelPreview2.setStyle("-fx-text-fill: white; -fx-font-size: 15px;");
         labelPreview2.setLayoutX(80);
         labelPreview2.setLayoutY(80);
-        labelPreview2.setText(nuevoDestinatario.getDatosTransferencia());
+        labelPreview2.setText(nuevoDestinatario.getDatosTransferenciaDestino());
 
 
 
@@ -367,6 +367,10 @@ public class ImporteYConcepto extends PaginaPrincipalDashboard implements Metodo
         return previewCuatro;
     }
 
+    /**
+     * Este boton será temporalmente el boton de transferir
+     * @return
+     */
     private Button botonTransferir(){
 
         botonTransferir.setId("BotonContinuar");
@@ -375,7 +379,8 @@ public class ImporteYConcepto extends PaginaPrincipalDashboard implements Metodo
 
         botonTransferir.setOnAction(Event -> {
             System.out.println("BOTON TRANSFERIR CLICKEADO");
-
+            double cantidad = Double.parseDouble(importeField.getText());
+            operacionesDAO.transferirDOS(mainLayoutImporte,"","",cantidad);
         });
 
         return botonTransferir;

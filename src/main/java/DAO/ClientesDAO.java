@@ -36,7 +36,6 @@ public class ClientesDAO {
     //private static Long[] arrayIdUsuario2 = new Long[2];
 
 
-
     /**
      * @param nombre
      * @param primerApellido
@@ -389,6 +388,11 @@ public class ClientesDAO {
         }
     }
 
+    String datosUsuario;
+
+    public String getNumeroTelefonoUsuario() {
+        return datosUsuario;
+    }
 
     /*
      * este metodo se esta usando actualmente para fines de testeo en la
@@ -405,7 +409,7 @@ public class ClientesDAO {
          *
          */
         numeroDeTelefono = controller2.getNumeroDeCelular();
-
+        datosUsuario = numeroDeTelefono;
         //numeroDeTelefono = "01";
         String jpql = "SELECT u FROM JpaLoginUsuarios u WHERE u.numeroDeTelefono = :numeroDeTelefono";
         TypedQuery<JpaLoginUsuarios> query = em.createQuery(jpql, JpaLoginUsuarios.class);

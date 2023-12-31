@@ -41,7 +41,7 @@ public class PruebasBaseDeDatos  {
         
         PruebaPanes pruebaPanes = new PruebaPanes();
         //depositar(pruebaPanes.getRoot());
-        transferir(pruebaPanes.getRoot());
+        transferir(pruebaPanes.getRoot(),"01","00002",300,true);
         
         //OperacionesDAO operacionesDAO = new OperacionesDAO();
         //operacionesDAO.BuscarUsuarioPorNumeroDeCuenta("123456789012345678");
@@ -122,6 +122,11 @@ public class PruebasBaseDeDatos  {
         OperacionesDAO operacionesDAO = new OperacionesDAO();
         //operacionesDAO.transferir(pane,"", "", 200);
         operacionesDAO.transferirDOS(pane,"", "", 200);
+    }
+    private static void transferir(Pane pane,String numeroDeCuentaOrigen,String numeroDeCuentaDestino,double cantidad,boolean prueba){
+        OperacionesDAO operacionesDAO = new OperacionesDAO();
+        //operacionesDAO.transferir(pane,"", "", 200);
+        operacionesDAO.transferirDOS(pane,numeroDeCuentaOrigen, numeroDeCuentaDestino, cantidad,true);
     }
 
 }
