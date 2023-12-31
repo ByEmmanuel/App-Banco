@@ -3,6 +3,7 @@ package DAO;
 import Interfaces.MetodosUserDashBoard;
 import PersistenceJPA.JpaCuentas;
 import PersistenceJPA.JpaUtils;
+import UserDashboard.ImporteYConcepto;
 import UserRegistration.Controller2;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -18,7 +19,14 @@ public class OperacionesDAO implements MetodosUserDashBoard {
 
     private EntityManager em = JpaUtils.getEntityManager();
 
-    private String[] usuario = new String[2];
+
+    /**
+     * En la posicion 0 esta el usuario logeado
+     * en la posicion 1 esta el usuario al que se le va a transferir
+     */
+    private final String[] usuario = new String[2];
+
+
 
     public void inicioSesionUsuario(String usuarioLogeado) {
         this.usuario[0] = usuarioLogeado;
@@ -157,8 +165,10 @@ public class OperacionesDAO implements MetodosUserDashBoard {
             } else {
                 cargarPaginaImporte();
                 String nombreUsuario = usuario.getNombre_usuario();
-                this.usuario[1] = nombreUsuario;
+                importe.setUsuarioDestino(nombreUsuario);
+
                 System.out.println(nombreUsuario);
+
                 return nombreUsuario;
             }
         } catch (NoResultException e) {
@@ -181,8 +191,9 @@ public class OperacionesDAO implements MetodosUserDashBoard {
             } else {
                 cargarPaginaImporte();
                 String nombreUsuario = usuario.getNombre_usuario();
-                this.usuario[1] = nombreUsuario;
+                importe.setUsuarioDestino(nombreUsuario);
                 System.out.println(nombreUsuario);
+
                 return nombreUsuario;
             }
         } catch (NoResultException e) {
@@ -205,8 +216,9 @@ public class OperacionesDAO implements MetodosUserDashBoard {
             } else {
                 cargarPaginaImporte();
                 String nombreUsuario = usuario.getNombre_usuario();
-                this.usuario[1] = nombreUsuario;
+                importe.setUsuarioDestino(nombreUsuario);
                 System.out.println(nombreUsuario);
+
                 return nombreUsuario;
             }
         } catch (NoResultException e) {
@@ -229,8 +241,9 @@ public class OperacionesDAO implements MetodosUserDashBoard {
             } else {
                 cargarPaginaImporte();
                 String nombreUsuario = usuario.getNombre_usuario();
-                this.usuario[1] = nombreUsuario;
+                importe.setUsuarioDestino(nombreUsuario);
                 System.out.println(nombreUsuario);
+
                 return nombreUsuario;
             }
         } catch (NoResultException e) {
@@ -550,5 +563,23 @@ public class OperacionesDAO implements MetodosUserDashBoard {
             return false;
         }
          */
+    }
+
+    private void setUsuarioDestino(String usuarioDestino){
+
+    }
+    /**
+     *  Este metodo es para llamar al tipo de usuario al que quieres obtener el nombre
+     *
+     * @param usuario
+     * @return si es 0 es el usuario logeado, si es 1 es el usuario destino
+     */
+    public String getUsuario(int usuario) {
+        if (usuario == 0) {
+            return this.usuario[0];
+        } else{
+            System.out.println(this.usuario[1]);
+            return this.usuario[1];
+        }
     }
 }

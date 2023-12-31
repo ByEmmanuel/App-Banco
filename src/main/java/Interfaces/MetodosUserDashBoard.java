@@ -5,6 +5,7 @@ import UserRegistration.Cargarimagenes;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
 import static Interfaces.MainInterfaceLogin.primaryStage;
@@ -313,5 +314,28 @@ default void cargarTransferir(){
         //Mostrar La escena
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+    default Pane headerTransferencias(){
+        Pane header = new Pane();
+        header.setStyle("-fx-background-color: #04417c;");
+        header.setLayoutX(0);
+        header.setLayoutY(0);
+        header.setPrefSize(328, 50);
+        header.setId("Importe");
+        Label label = new Label("Transferir");
+        label.setStyle("-fx-text-fill: white; -fx-font-size: 17px;");
+        label.setLayoutX(130);
+        label.setLayoutY(15);
+        header.getChildren().addAll(label);
+        return header;
+    }
+
+    /**
+     * Este metodo reinicia todas las pantallas de la pantalla de UserDashBoard
+     * @hidden falta poner los metodos para todas las pantallas / controlladores
+     */
+    default void reiniciarPantallasUserDashBoard(){
+
+        importe.reiniciarPantallas();
     }
 }

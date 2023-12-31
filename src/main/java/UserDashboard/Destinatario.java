@@ -115,6 +115,10 @@ public class Destinatario {
         });
         return button;
     }
+
+    public String getDatosTransferencia(){
+        return textFieldDatos.getText();
+    }
     public Pane getRoot(){
         return mainLayoutDestinatario;
     }

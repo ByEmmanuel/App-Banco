@@ -179,6 +179,12 @@ public class Animaciones implements MetodosRegistro, MainInterfaceUser {
         moveTransition.setToY(0);
         moveTransition.play();
     }
+    public void animacionesVertical(Pane pane, int deY, int aY){
+        moveTransition = new TranslateTransition(Duration.seconds(0.5), pane);
+        moveTransition.setFromY(deY);
+        moveTransition.setToY(aY);
+        moveTransition.play();
+    }
 
     public void setEstadoBoton(boolean valor) {
         haciaIzquierda = valor;

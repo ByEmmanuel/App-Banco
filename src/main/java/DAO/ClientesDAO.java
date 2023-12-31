@@ -404,9 +404,9 @@ public class ClientesDAO {
          *
          *
          */
-        //numeroDeTelefono = controller2.getNumeroDeCelular();
+        numeroDeTelefono = controller2.getNumeroDeCelular();
 
-        numeroDeTelefono = "01";
+        //numeroDeTelefono = "01";
         String jpql = "SELECT u FROM JpaLoginUsuarios u WHERE u.numeroDeTelefono = :numeroDeTelefono";
         TypedQuery<JpaLoginUsuarios> query = em.createQuery(jpql, JpaLoginUsuarios.class);
         query.setParameter("numeroDeTelefono", numeroDeTelefono);
