@@ -1,0 +1,334 @@
+/*
+
+#Nombre{
+    -fx-text-fill: #C3C;
+    !* Fuente de 45*!
+    -fx-font-size: 45px;
+    -fx-font-family: "PixelifySans";
+}
+*/
+
+
+#h1{
+    -fx-font-size: 18px;
+    -fx-font-weight: bold 2%;
+    -fx-text-fill: rgb(255, 255, 255);
+
+}
+#LabelRegistro{
+    -fx-font-size: 20px;
+
+}
+/* no es label, es un textfield */
+#LabelInicio{
+
+    -fx-text-fill: #000000;
+    -fx-font-size: 15px;
+    -fx-prompt-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 0 0 1 0; /* Configura el grosor del borde inferior a 2px */
+    -fx-padding: 0 0 15 0;
+}
+#pregunta{
+    -fx-font-weight: bold;
+    -fx-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-scale: italic;
+
+}
+#PanelLogin{
+    -fx-opacity: 200%;
+    -fx-background-color: #04417c;
+}
+#BotonSuperior{
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-border-color: #1b74bc;
+    -fx-border: 50%;
+    -fx-border-radius: 0px;
+    -fx-display: flex;
+    -fx-background-color: #156baa;
+    -fx-border-width: 1px;
+    -fx-padding: 9 20 9 20; /* top, right, bottom, left */
+    -fx-font-size: 13px;
+}
+#BotonInferior {
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-border-color: #1b74bc;
+    -fx-border: 50%;
+    -fx-border-radius: 0px;
+    -fx-display: flex;
+    -fx-background-color: #156baa;
+    -fx-border-width: 1px;
+    -fx-padding: 9 9 9 9;
+    -fx-font-size: 13px;
+}
+#BotonEntrar{
+    -fx-font-weight: bold;
+
+    -fx-background-color: #799bc4;
+    -fx-text-fill: white;
+
+    -fx-border-color: #799bc4;
+
+    -fx-border: 50%;
+    -fx-border-radius: 0px;
+    -fx-padding: 12 43 12 43;
+    -fx-display: flex;
+    -fx-font-size: 14px;
+
+
+
+}
+#BotonOlvido{
+    -fx-background-color: transparent;
+    -fx-font-weight: bold;
+    -fx-border-width: 0;
+    -fx-text-fill: #FFFFFF;
+    -fx-padding: 10 10 10 10;
+
+    -fx-border-color: transparent;
+
+
+    -fx-border-radius: 8px;
+
+    -fx-display: flex;
+    -fx-font-size: 13px;
+
+}
+
+#Footer{
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+
+    -fx-padding: 10 10 10 10;
+
+    -fx-border-color: transparent;
+
+
+    -fx-border-radius: 8px;
+
+    -fx-display: flex;
+    -fx-font-size: 15px;
+}
+#Pane{
+-fx-background-color: rgba(180, 180, 180, 0.56);
+    -fx-font-weight: bold;
+}
+#Boton-Continuar-Registro{
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-border-color: #1b74bc;
+    -fx-border: 50%;
+    -fx-border-radius: 0px;
+    -fx-display: flex;
+    -fx-background-color: #156baa;
+    -fx-border-width: 1px;
+    -fx-padding: 10 70 10 70;
+    -fx-font-size: 13px;
+}
+#PaneSuperior{
+    -fx-background-color: #062540;
+    -fx-padding: 10px 200px -20px 10px;  /* top, right, bottom, left */
+    -fx-end-margin: 10px;
+}
+
+#PanelRegistroPersona{
+    -fx-background-color: rgba(0, 68, 129, 0.95);
+
+}
+#h1_Registro{
+    -fx-font-size: 17px;
+    -fx-font-weight: bold 0.5;
+    -fx-text-fill: white;
+}
+#h3-RegistroPersona{
+    -fx-font-size: 14px;
+    -fx-text-fill: #eff3f6;
+}
+#PanelIdentificate{
+    -fx-background-color: #043464;
+}
+
+#TextFieldNumeroCelularRegistro {
+    -fx-text-fill: #000000;
+    -fx-font-size: 13px;
+    -fx-prompt-text-fill: white;
+    -fx-background-color: rgba(20, 74, 127, 0.98);
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 0 0 1 0; /* Configura el grosor del borde inferior a 2px */
+    -fx-padding: 15 125 15 10;
+}
+
+#InfoRegistroPersona{
+    -fx-background-color: white;
+    -fx-shape: "M 0 50 C 0 22.3858 22.3858 0 50 0 C 77.6142 0 100 22.3858 100 50 C 100 77.6142 77.6142 100 50 100 C 22.3858 100 0 77.6142 0 50 Z";
+    -fx-background-radius: 5em;
+    -fx-min-width: 17px;
+    -fx-min-height: 17px;
+    -fx-max-width: 17px;
+    -fx-max-height: 17px;
+    -fx-padding: 0;
+}
+#BotonNoTengoTarjeta{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+#campoRegistroDatosUsuario{
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+    -fx-border-color: transparent transparent black transparent;
+    -fx-border-width: 0 0 1 0; /* Configura el grosor del borde inferior a 2px */
+
+    -fx-prompt-text-fill: black;
+    -fx-background-color: rgba(180, 180, 180, 0.32);
+    -fx-padding: 10 10 20 20; /* top, right, bottom, left */
+
+}
+#BotonContinuar{
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-border-color: #1b74bc;
+    -fx-border: 50%;
+    -fx-border-radius: 0px;
+    -fx-display: flex;
+    -fx-background-color: #156baa;
+    -fx-border-width: 1px;
+    -fx-padding: 12 43 12 43; /* top, right, bottom, left */
+    -fx-font-size: 13px;
+}
+
+
+
+#Boton-Registro-Tarjetas  {
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-prompt-text-fill: white;
+    -fx-background-color: rgba(20, 74, 127, 0.98);
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 0 0 1 0; /* Configura el grosor del borde inferior a 2px */
+    -fx-padding: 15 20 15 20;
+
+
+}
+
+    #Boton-Registro-Tarjetas .list-cell:hover {
+        -fx-background-color: #1b74bc; /* Estilo de fondo al pasar el ratón por encima de un elemento de la lista */
+    }
+
+
+    #Boton-Registro-Tarjetas.arrow-button {
+        -fx-background-color: black; /* Estilo de fondo del botón de flecha */
+    }
+
+    #Boton-Registro-Tarjetas.arrow {
+        -fx-background-color: #1b74bc; /* Estilo de fondo de la flecha en el botón */
+        -fx-shape: "M 0 0 L 5 5 L 10 0 Z"; /* Cambiar la forma de la flecha */
+    }
+
+
+#Boton-Registro-Tarjetas * {
+    -fx-text-fill: white;
+}
+
+#Boton-Registro-Tarjetas .list-cell{
+
+
+    -fx-background-color: rgba(20, 74, 127, 0.98);
+    -fx-text-fill: white;
+    /*-fx-border-color: red;*/
+    -fx-border-insets: 10px;
+    -fx-border: 80%;
+    -fx-border-radius: 0px;
+    -fx-display: flex;
+    -fx-border-width: 1px;
+
+    -fx-font-size: 13px;
+}
+#ErrorLayout-Mensaje , #MensajeExito{
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #156baa;
+    -fx-padding: 20px 20px 20px 20px;  /* top, right, bottom, left */
+}
+#Campo-Saldo{
+    -fx-text-fill: #000000;
+    -fx-font-size: 13px;
+    -fx-prompt-text-fill: white;
+    -fx-background-color: rgba(20, 74, 127, 0.98);
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 0 0 1 0; /* Configura el grosor del borde inferior a 2px */
+    -fx-padding: 15 20 15 20;
+}
+#CampoFirma{
+    -fx-text-fill: #000000;
+    -fx-font-size: 13px;
+    -fx-prompt-text-fill: white;
+    -fx-background-color: rgba(20, 74, 127, 0.98);
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 0 0 1 0; /* Configura el grosor del borde inferior a 2px */
+    -fx-padding: 15 10 15 10;
+}
+
+#Barra-Desplazamiento{
+
+   -fx-background-color: #156baa;
+
+
+}
+
+#Botones-Barra-Navegacion{
+    -fx-background-color: #b0d9ff;
+    -fx-spacing: 10px; /* Establece el espaciado entre elementos en píxeles */
+
+
+
+}
+
+#Pane-Dashboard{
+    -fx-padding: 10px 10px 10px 10px;  /* top, right, bottom, left */
+    -fx-end-margin: 10px;
+}
+
+#Pane-UserDashBoard{
+    -fx-background-color: #FFFFFF;
+
+    -fx-end-margin: 10px;
+}
+#PanelCarga{
+    -fx-background-color: rgba(255, 255, 255, 0.17);
+}
+#LabelNuevoDestinatario{
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: rgba(3, 3, 3, 0.56);
+    -fx-background-color: #ffffff;
+    -fx-border-color: transparent transparent #000000 transparent;
+    -fx-border-width: 0 0 1 0; /* Configura el grosor del borde inferior a 2px */
+    -fx-padding: 15 10 15 20;
+}
+#BotonBuscar{
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-border-color: #1b74bc;
+    -fx-border: 50%;
+    -fx-border-radius: 0px;
+    -fx-display: flex;
+    -fx-background-color: #156baa;
+    -fx-border-width: 1px;
+    -fx-padding: 10 30 10 30;
+    -fx-font-size: 13px;
+}
+
+#importeField{
+    -fx-text-fill: #000000;
+    -fx-font-size: 14px;
+    -fx-border-color: transparent transparent black transparent;
+    -fx-border-width: 0 0 1 0; /* Configura el grosor del borde inferior a 2px */
+
+    -fx-prompt-text-fill: black;
+    -fx-background-color: rgba(180, 180, 180, 0.32);
+    -fx-padding: 20 10 10 20; /* top, right, bottom, left */
+}
