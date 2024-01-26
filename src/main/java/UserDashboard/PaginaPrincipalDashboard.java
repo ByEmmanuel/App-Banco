@@ -56,7 +56,7 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
 
     public PaginaPrincipalDashboard(){
         tamañoDeLaBarra();
-        actualizarPantallas();
+        //actualizarPantallas();
         Platform.runLater(this::actualizarPantallas);
         setupIU();
     }
@@ -74,7 +74,8 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
 
 
 
-        mainLayoutDashboard.getChildren().addAll(fondo(),transferir,oportunidades,retiroSinTrjt,tresPuntos,
+
+        mainLayoutDashboard.getChildren().addAll(fondo(),transferir,oportunidades,retiroSinTrjt,tresPuntos,labelSaldo(),
                 diaAdia(),verMas(),ingresosLabel(),gastosLabel(),ingresos$(),gastos$(),label1(),ingresos(),gastos(),hBox1(),hBox2()
                 ,botonPrueba());
         mainLayoutDashboard.setStyle("-fx-background-color: rgba(245,241,241,0.51);");
@@ -257,6 +258,19 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
 
         return paneUno;
     }
+    private Label labelSaldo(){
+        Label label = new Label();
+        // Este metodo solo muestra el saldo del usuario solamente cuando se carga toda la applicacion,
+        // para fines de testeo esto se muestra como 0.00
+        String saldo = this.ingresos;
+        label.setText("$"+saldo);
+        label.setLayoutX(190);
+        label.setLayoutY(50);
+        label.setStyle("-fx-font-size: 18px");
+
+        return label;
+
+    }
     private Label datosCuenta(){
         Label label = new Label();
 
@@ -424,6 +438,7 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
         new Thread(() -> {
             try {
                 Thread.sleep(100);
+                System.out.println("El Hilo actual es; " + Thread.currentThread());
                 System.out.println("Espera completada");
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -450,14 +465,18 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
 
 
                     //labelSaldo2.setText("$"+ingresos);
+                    paneUno.getChildren().add(labelSaldo2);
                     labelSaldo2.setLayoutX(190);
                     labelSaldo2.setLayoutY(50);
                     labelSaldo2.setStyle("-fx-font-size: 18px");
 
                     labelSaldo2.setText("$" + operacionesDAO.BuscarSaldoPorNombre(nombreUsuarioLogEd));
-                    paneUno.getChildren().add(labelSaldo2);
 
                     //paneUno.getChildren().removeAll(labelSaldo);
+                    if (paneUno.getChildren().contains(labelSaldo)|| mainLayoutDashboard.getChildren().contains(labelSaldo)){
+                        paneUno.getChildren().remove(labelSaldo);
+                    }
+
 
 
                     System.out.println("El saldo del label es: " + labelSaldo2.getText());

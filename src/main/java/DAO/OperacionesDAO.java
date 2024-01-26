@@ -1,5 +1,6 @@
 package DAO;
 
+import Excepciones.VentanaDeExito;
 import Interfaces.MetodosRegistro;
 import Interfaces.MetodosUserDashBoard;
 import PersistenceJPA.JpaCuentas;
@@ -41,18 +42,22 @@ public class OperacionesDAO implements MetodosUserDashBoard, MetodosRegistro {
 
     public String BuscarTarjetaPorTelefono(String numeroDeTelefono) {
         numeroDeTelefono = Controller2.controller2.getNumeroDeCelular();
-        String jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroDeTelefono = :numeroDeTelefono";
-        TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
+        String jpql = "SELECT u.numeroDeTarjeta FROM JpaCuentas u WHERE u.numeroDeTelefono = :numeroDeTelefono";
+        TypedQuery<String> query = em.createQuery(jpql, String.class);
         query.setParameter("numeroDeTelefono", numeroDeTelefono);
         try {
-            JpaCuentas usuario = query.getSingleResult();
-            if (usuario.getNumeroDeTarjeta() == null) {
+            String numTarjeta = query.getSingleResult();
+            if (numTarjeta == null) {
                 return "no hay tarjeta registrada";
             } else {
-                String numeroDeTarjetaCompleto = usuario.getNumeroDeTarjeta();
+                String numeroDeTarjetaCompleto = numTarjeta;
+                /*
                 //Variable es redundante pero se usa para que sea más entendible
                 String ultimosCuatroDigitos = numeroDeTarjetaCompleto.substring(numeroDeTarjetaCompleto.length() - 4);
                 return ultimosCuatroDigitos;
+                */
+                return numeroDeTarjetaCompleto.substring(numeroDeTarjetaCompleto.length() - 4);
+
             }
         } catch (NoResultException e) {
             // Manejar el caso en que no se encontró ningún usuario con el correo dado.
@@ -71,45 +76,89 @@ public class OperacionesDAO implements MetodosUserDashBoard, MetodosRegistro {
          * controller en especifico
          */
         //numeroDeTelefono = Controller2.controller2.getNumeroDeCelular();
-        String jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroDeTelefono = :numeroDeTelefono";
-        TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
-        query.setParameter("numeroDeTelefono", numeroDeTelefono);
-        try {
-            JpaCuentas usuario = query.getSingleResult();
-            System.out.println("El saldo desde la base de datos es : "+usuario.getSaldo());
 
-            return usuario.getSaldo();
+        /*
+        String jpql = "SELECT u FROM JpaLoginUsuarios u WHERE u.numeroDeTelefono = :numeroDeTelefono";
+        TypedQuery<JpaLoginUsuarios> query = em.createQuery(jpql, JpaLoginUsuarios.class);
+
+        query.setParameter("numeroDeTelefono", numeroDeTelefono);
+
+try {
+    JpaLoginUsuarios usuario = query.getSingleResult();
+    em.refresh(usuario);  // Refrescar el objeto JpaLoginUsuarios
+    System.out.println("El saldo desde la base de datos es: " + usuario.getSaldo());
+
+    double saldo = usuario.getSaldo();
+
+    if (saldo == 0) {
+        System.out.println("El usuario no tiene saldo");
+        return 0;
+    } else {
+        return saldo;
+    }
+} catch (NoResultException e) {
+    System.out.println("Usuario no encontrado");
+    return 0;
+} */
+        String jpql = "SELECT u.saldo FROM JpaCuentas u WHERE u.numeroDeTelefono = :numeroDeTelefono";
+        TypedQuery<Object[]> query = em.createQuery(jpql, Object[].class);
+
+        query.setParameter("numeroDeTelefono", numeroDeTelefono);
+
+
+        try {
+            Object[] result = query.getSingleResult();
+            double saldo = (double) result[0];
+            System.out.println("El saldo desde la base de datos es: " + result[0]);
+
+            if (saldo == 0) {
+                System.out.println("El usuario no tiene saldo");
+                return 0;
+            } else {
+                return saldo;
+            }
         } catch (NoResultException e) {
-            // Manejar el caso en que no se encontró ningún usuario con el correo dado.
-            System.out.println("no hay saldo, o ocurrio algún error");
+            System.out.println("Usuario no encontrado");
             return 0;
         }
     }
+
+    /**
+     *  Esta funcion busca el saldo por el nombre del usuario
+     * @param nombre_usuario
+     * @return Saldo del usuario
+     */
     public double BuscarSaldoPorNombre(String nombre_usuario) {
         /*
          * esto se usa para cuando se tenga que utilizar en un
          * controller en especifico
+         * Esta funcion hace una consulta a toda la entidad para refrescar el saldo cada que
+         * Se hace una consulta y devolver el valor mas actualizado
          */
         try {
             // Inicia la transacción
-            em.getTransaction().begin();
-
+            if (!em.getTransaction().isActive()) {
+                em.getTransaction().begin();
+            }
             String jpql = "SELECT u FROM JpaCuentas u WHERE u.nombre_usuario = :nombre_usuario";
             TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
+
             query.setParameter("nombre_usuario", nombre_usuario);
+
 
             em.flush();
 
-
             JpaCuentas usuario = query.getSingleResult();
 
-            em.refresh(usuario);
-            System.out.println("El saldo desde la base de datos es: " + usuario.getSaldo());
+            em.refresh(usuario);  // Refrescar el objeto JpaLoginUsuarios
+
+            double saldoUsuario = usuario.getSaldo();
+            System.out.println("El saldo desde la base de datos es: " + saldoUsuario);
 
             // Commit de la transacción
             em.getTransaction().commit();
 
-            return usuario.getSaldo();
+            return saldoUsuario;
         } catch (NoResultException e) {
             // Manejar el caso en que no se encontró ningún usuario con el correo dado.
             System.out.println("No hay saldo o ocurrió algún error");
@@ -131,18 +180,21 @@ public class OperacionesDAO implements MetodosUserDashBoard, MetodosRegistro {
          * controller en especifico
          */
         numeroDeTelefono = Controller2.controller2.getNumeroDeCelular();
-        String jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroDeTelefono = :numeroDeTelefono";
-        TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
+        String jpql = "SELECT u.numeroDeCuenta FROM JpaCuentas u WHERE u.numeroDeTelefono = :numeroDeTelefono";
+        TypedQuery<String> query = em.createQuery(jpql, String.class);
         query.setParameter("numeroDeTelefono", numeroDeTelefono);
         try {
-            JpaCuentas usuario = query.getSingleResult();
-            if (usuario.getNumeroDeCuenta() == null) {
+            String numDeCuenta = query.getSingleResult();
+            if (numDeCuenta == null) {
                 return "no hay tarjeta registrada";
             } else {
-                String numeroDeTarjetaCompleto = usuario.getNumeroDeCuenta();
+                /*
+                String numeroDeTarjetaCompleto = numDeCuenta;
                 //Variable es redundante pero se usa para que sea más entendible
                 String ultimosCuatroDigitos = numeroDeTarjetaCompleto.substring(numeroDeTarjetaCompleto.length() - 4);
                 return ultimosCuatroDigitos;
+                */
+                return numDeCuenta.substring(numDeCuenta.length() - 4);
             }
         } catch (NoResultException e) {
             // Manejar el caso en que no se encontró ningún usuario con el correo dado.
@@ -157,15 +209,14 @@ public class OperacionesDAO implements MetodosUserDashBoard, MetodosRegistro {
          * controller en especifico
          */
         numeroDeTelefono = Controller2.controller2.getNumeroDeCelular();
-        String jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroDeTelefono = :numeroDeTelefono";
-        TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
+        String jpql = "SELECT u.tipoDeCuenta FROM JpaCuentas u WHERE u.numeroDeTelefono = :numeroDeTelefono";
+        TypedQuery<String> query = em.createQuery(jpql, String.class);
         query.setParameter("numeroDeTelefono", numeroDeTelefono);
         try {
-            JpaCuentas usuario = query.getSingleResult();
-            if (usuario.getNumeroDeCuenta() == null) {
+            String tipoDeCuenta = query.getSingleResult();
+            if (tipoDeCuenta == null) {
                 return "no hay tarjeta registrada";
             } else {
-                String tipoDeCuenta = usuario.getTipoDeCuenta();
                 String ultimasCuatroLetras = tipoDeCuenta.substring(tipoDeCuenta.length() - 4);
                 //Falta añadir los demás tipos de cuenta
                 switch (ultimasCuatroLetras) {
@@ -206,17 +257,17 @@ public class OperacionesDAO implements MetodosUserDashBoard, MetodosRegistro {
      */
     public String BuscarUsuarioPorNumeroDeCuenta(String numeroDeCuenta) {
         System.out.println(numeroDeCuenta);
-        String jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroDeCuenta = :numero_de_cuenta";
 
-        TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
+        String jpql = "SELECT u.nombre_usuario FROM JpaCuentas u WHERE u.numeroDeCuenta = :numero_de_cuenta";
+        TypedQuery<String> query = em.createQuery(jpql, String.class);
         query.setParameter("numero_de_cuenta", numeroDeCuenta);
         try {
-            JpaCuentas usuario = query.getSingleResult();
-            if (usuario.getNumeroDeCuenta() == null) {
+            String nombreUsuario = query.getSingleResult();
+            if (nombreUsuario == null) {
                 return "No hay cuenta o ocurrio algún error";
             } else {
                 cargarPaginaImporte();
-                String nombreUsuario = usuario.getNombre_usuario();
+
                 importe.setUsuarioDestino(nombreUsuario);
 
                 System.out.println(nombreUsuario);
@@ -232,17 +283,16 @@ public class OperacionesDAO implements MetodosUserDashBoard, MetodosRegistro {
 
     public String BuscarUsuarioPorTelefono(String numeroDeTelefono) {
         System.out.println(numeroDeTelefono);
-        String jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroDeTelefono = :numeroDeTelefono";
+        String jpql = "SELECT u.nombre_usuario FROM JpaCuentas u WHERE u.numeroDeTelefono = :numeroDeTelefono";
 
-        TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
+        TypedQuery<String> query = em.createQuery(jpql, String.class);
         query.setParameter("numeroDeTelefono", numeroDeTelefono);
         try {
-            JpaCuentas usuario = query.getSingleResult();
-            if (usuario.getNumeroDeCuenta() == null) {
+            String nombreUsuario = query.getSingleResult();
+            if (nombreUsuario == null) {
                 return "No hay cuenta o ocurrio algún error";
             } else {
                 cargarPaginaImporte();
-                String nombreUsuario = usuario.getNombre_usuario();
                 importe.setUsuarioDestino(nombreUsuario);
                 System.out.println(nombreUsuario);
                 datosTransferencia();
@@ -257,17 +307,16 @@ public class OperacionesDAO implements MetodosUserDashBoard, MetodosRegistro {
 
     public String BuscarUsuarioPorTarjeta(String numeroDeTarjeta) {
         System.out.println(numeroDeTarjeta);
-        String jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroDeTarjeta = :numeroDeTarjeta";
+        String jpql = "SELECT u.nombre_usuario FROM JpaCuentas u WHERE u.numeroDeTarjeta = :numeroDeTarjeta";
 
-        TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
+        TypedQuery<String> query = em.createQuery(jpql, String.class);
         query.setParameter("numeroDeTarjeta", numeroDeTarjeta);
         try {
-            JpaCuentas usuario = query.getSingleResult();
-            if (usuario.getNumeroDeCuenta() == null) {
+            String nombreUsuario = query.getSingleResult();
+            if (nombreUsuario == null) {
                 return "No hay cuenta o ocurrio algún error";
             } else {
                 cargarPaginaImporte();
-                String nombreUsuario = usuario.getNombre_usuario();
                 importe.setUsuarioDestino(nombreUsuario);
                 System.out.println(nombreUsuario);
                 datosTransferencia();
@@ -282,17 +331,16 @@ public class OperacionesDAO implements MetodosUserDashBoard, MetodosRegistro {
 
     public String BuscarUsuarioPorCLABE(String numeroCLABE) {
         System.out.println(numeroCLABE);
-        String jpql = "SELECT u FROM JpaCuentas u WHERE u.numeroCLABE = :numeroCLABE";
+        String jpql = "SELECT u.nombre_usuario FROM JpaCuentas u WHERE u.numeroCLABE = :numeroCLABE";
 
-        TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
+        TypedQuery<String> query = em.createQuery(jpql, String.class);
         query.setParameter("numeroCLABE", numeroCLABE);
         try {
-            JpaCuentas usuario = query.getSingleResult();
-            if (usuario.getNumeroDeCuenta() == null) {
+            String nombreUsuario = query.getSingleResult();
+            if (nombreUsuario == null) {
                 return "No hay cuenta o ocurrio algún error";
             } else {
                 cargarPaginaImporte();
-                String nombreUsuario = usuario.getNombre_usuario();
                 importe.setUsuarioDestino(nombreUsuario);
                 System.out.println(nombreUsuario);
                 datosTransferencia();
@@ -344,6 +392,7 @@ public class OperacionesDAO implements MetodosUserDashBoard, MetodosRegistro {
         query.setParameter(parametro, numeroADepositar);
         try {
             JpaCuentas usuario = query.getSingleResult();
+
             if (usuario.getNumeroDeCuenta() == null) {
                 System.out.println("No hay cuenta o ocurrio algún error");
             } else {
@@ -508,7 +557,7 @@ public class OperacionesDAO implements MetodosUserDashBoard, MetodosRegistro {
     }
 
     /**
-     * Este metodo es para transferir dinero a otra cuenta
+     * Este metodo es para transferir dinero a otra cuenta y no está en uso actualmente
      * @param pane
      * @param cuentaOrigen
      * @param cuentaDestino
@@ -655,7 +704,8 @@ public class OperacionesDAO implements MetodosUserDashBoard, MetodosRegistro {
              * medio de la cuenta origen como parametro :)
              * @deprecated
              */
-            double saldoActual = BuscarSaldoPorTelefono("0001");
+            //double saldoActual = BuscarSaldoPorTelefono("0001");
+
             //Esto no tiene valores porque el metodo directamente llama a la base de datos y tiene parametros
             //solo por si necesito la funcion en otro metodo
             if (cuentaOrigen.matches("[0-9].{0,8}")) {
@@ -709,46 +759,47 @@ public class OperacionesDAO implements MetodosUserDashBoard, MetodosRegistro {
             TypedQuery<JpaCuentas> query = em.createQuery(jpql, JpaCuentas.class);
             query.setParameter(parametro, cuentaOrigen);
             JpaCuentas cuentaOrigenEntity = query.getSingleResult();
-            //try {
-            if (cuentaOrigenEntity.getNumeroDeCuenta() == null) {
-                System.out.println("No hay cuenta o ocurrio algún error");
-                return false;
-            } else {
-                TypedQuery<JpaCuentas> query2 = em.createQuery(jpql2, JpaCuentas.class);
-                query2.setParameter(parametro2,cuentaDestino);
-                JpaCuentas cuentaDestinoEntity = query2.getSingleResult();
-                if (saldoActual > cantidad && saldoActual > 0 && cantidad > 0) {
-                    // Realizar la transferencia
-
-                    //cuentaOrigenEntity.setSaldo(cuentaOrigenEntity.getSaldo().subtract(cantidad));
-                    //cuentaDestinoEntity.setSaldo(cuentaDestinoEntity.getSaldo().add(cantidad));
-                    em.getTransaction().begin();
-
-                    cuentaOrigenEntity.setSaldo(cuentaOrigenEntity.getSaldo() - cantidad);
-                    cuentaDestinoEntity.setSaldo(cuentaDestinoEntity.getSaldo() + cantidad);
-
-                    // Actualizar las entidades en la base de datos
-                    em.merge(cuentaOrigenEntity);
-                    em.merge(cuentaDestinoEntity);
-
-                    // Confirmar la transacción
-                    em.flush();  // Hacer un flush para sincronizar con la base de datos
-                    em.getTransaction().commit();
-
-                    System.out.println("Transferencia exitosa");
-                    return true;
-                } else {
-                    System.out.println("Fondos insuficientes en la cuenta de origen");
+            try {
+                double saldoActual = cuentaOrigenEntity.getSaldo();
+                if (cuentaOrigenEntity.getNumeroDeCuenta() == null) {
+                    System.out.println("No hay cuenta o ocurrio algún error");
                     return false;
+                } else {
+                    TypedQuery<JpaCuentas> query2 = em.createQuery(jpql2, JpaCuentas.class);
+                    query2.setParameter(parametro2,cuentaDestino);
+                    JpaCuentas cuentaDestinoEntity = query2.getSingleResult();
+                    if (saldoActual > cantidad && saldoActual > 0 && cantidad > 0 || saldoActual == cantidad) {
+                        // Realizar la transferencia
+
+                        //cuentaOrigenEntity.setSaldo(cuentaOrigenEntity.getSaldo().subtract(cantidad));
+                        //cuentaDestinoEntity.setSaldo(cuentaDestinoEntity.getSaldo().add(cantidad));
+                        em.getTransaction().begin();
+
+                        cuentaOrigenEntity.setSaldo(cuentaOrigenEntity.getSaldo() - cantidad);
+                        cuentaDestinoEntity.setSaldo(cuentaDestinoEntity.getSaldo() + cantidad);
+
+                        // Actualizar las entidades en la base de datos
+                        em.merge(cuentaOrigenEntity);
+                        em.merge(cuentaDestinoEntity);
+
+                        // Confirmar la transacción
+                        em.flush();  // Hacer un flush para sincronizar con la base de datos
+                        em.getTransaction().commit();
+
+                        System.out.println("Transferencia exitosa");
+                        throw new VentanaDeExito(pane,"Transferencia exitosa");
+                    } else {
+                        System.out.println("Fondos insuficientes en la cuenta de origen");
+                        return false;
+                    }
                 }
-            }
-        /*
-        } catch (NoResultException e) {
+
+            } catch (VentanaDeExito e) {
             // Manejar el caso en que no se encontró ningún usuario con el correo dado.
-            System.out.println("Ha Ocurrido Algún error");
-            return false;
-        }
-         */
+
+            return true;
+            }
+
             /**
              * Este metodo hay que probarlo más ya qué está dentro de un if
              */
@@ -758,9 +809,6 @@ public class OperacionesDAO implements MetodosUserDashBoard, MetodosRegistro {
         }
     }
 
-    private void setUsuarioDestino(String usuarioDestino){
-
-    }
     /**
      *  Este metodo es para llamar al tipo de usuario al que quieres obtener el nombre
      *
