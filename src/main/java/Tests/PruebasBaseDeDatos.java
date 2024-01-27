@@ -121,7 +121,17 @@ public class PruebasBaseDeDatos  {
     private static void transferir(Pane pane){
         OperacionesDAO operacionesDAO = new OperacionesDAO();
         //operacionesDAO.transferir(pane,"", "", 200);
-        operacionesDAO.transferirDOS(pane,"", "", 200);
+        operacionesDAO.transferir(pane,"", "", 200);
+    }
+    private static void transferir(Pane pane,String numeroDeCuentaOrigen,String numeroDeCuentaDestino,double cantidad){
+        OperacionesDAO operacionesDAO = new OperacionesDAO();
+        //operacionesDAO.transferir(pane,"", "", 200);
+        operacionesDAO.transferirDOS(pane,numeroDeCuentaOrigen, numeroDeCuentaDestino, cantidad);
+    }
+    private static void transferir(Pane pane,String numeroDeCuentaOrigen,String numeroDeCuentaDestino,double cantidad,boolean prueba){
+        OperacionesDAO operacionesDAO = new OperacionesDAO();
+        //operacionesDAO.transferir(pane,"", "", 200);
+        operacionesDAO.transferirDOS(pane,numeroDeCuentaOrigen, numeroDeCuentaDestino, cantidad,prueba);
     }
 
 }

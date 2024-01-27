@@ -114,6 +114,7 @@ public class Controller2 implements MetodosRegistro , MetodosUserDashBoard  {
 
         });
 
+
         passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println("Contraseña en el PasswordField: " + newValue);
 

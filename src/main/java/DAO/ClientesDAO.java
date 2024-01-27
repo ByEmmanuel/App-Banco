@@ -13,6 +13,8 @@ import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import javafx.scene.layout.Pane;
 
+import java.util.List;
+
 import static Interfaces.MainInterfaceLogin.controller2;
 
 
@@ -31,10 +33,10 @@ public class ClientesDAO {
     private String numeroCLABE;
     private static boolean validacion1 = false;
     private static boolean validacion2 = false;
+    String datosUsuario;
 
     private static Long[] arrayIdUsuario = new Long[2];
     //private static Long[] arrayIdUsuario2 = new Long[2];
-
 
 
     /**
@@ -335,6 +337,13 @@ public class ClientesDAO {
 
         }
     }
+
+    /**
+     *
+     * @param panel
+     * @param numeroDeTelefono
+     * @deprecated
+     */
     public Boolean existeElUsuario(Pane panel,String numeroDeTelefono) {
 
         /*
@@ -362,6 +371,12 @@ public class ClientesDAO {
         }
     }
 
+    /**
+     *
+     * @param panel
+     * @param contraseña
+     * @deprecated
+     */
     public Boolean existeLaContraseña(Pane panel,String contraseña) {
 
         /*
@@ -389,6 +404,9 @@ public class ClientesDAO {
         }
     }
 
+    
+
+    
 
     /*
      * este metodo se esta usando actualmente para fines de testeo en la
@@ -404,19 +422,19 @@ public class ClientesDAO {
          *
          *
          */
-        //numeroDeTelefono = controller2.getNumeroDeCelular();
-
-        numeroDeTelefono = "01";
-        String jpql = "SELECT u FROM JpaLoginUsuarios u WHERE u.numeroDeTelefono = :numeroDeTelefono";
-        TypedQuery<JpaLoginUsuarios> query = em.createQuery(jpql, JpaLoginUsuarios.class);
+        numeroDeTelefono = controller2.getNumeroDeCelular();
+        datosUsuario = numeroDeTelefono;
+        //numeroDeTelefono = "01";
+        String jpql = "SELECT u.nombre_usuario FROM JpaLoginUsuarios u WHERE u.numeroDeTelefono = :numeroDeTelefono";
+        TypedQuery<String> query = em.createQuery(jpql, String.class);
         query.setParameter("numeroDeTelefono", numeroDeTelefono);
 
-            JpaLoginUsuarios usuario = query.getSingleResult();
+            String nombreUsuario = query.getSingleResult();
 
-            if (usuario.getNombre_usuario() == null){
+            if (nombreUsuario == null){
                 throw new ErrorDesconocido(panel,"No se encontro el usuario");
             }else {
-                return usuario.getNombre_usuario();
+                return nombreUsuario;
             }
 
             // Manejar el caso en que no se encontró ningún usuario con el correo dado.
@@ -437,40 +455,60 @@ public class ClientesDAO {
         numeroDeTelefono = controller2.getNumeroDeCelular();
         contraseña = controller2.getContraseña();
 
-        String jpql = "SELECT u FROM JpaLoginUsuarios u WHERE u.numeroDeTelefono = :numeroDeTelefono AND u.contraseña = :contraseña";
-        TypedQuery<JpaLoginUsuarios> query = em.createQuery(jpql, JpaLoginUsuarios.class);
-        query.setParameter("numeroDeTelefono", numeroDeTelefono);
-        query.setParameter("contraseña", contraseña);
+        //String jpql = "SELECT u FROM JpaLoginUsuarios u WHERE u.numeroDeTelefono = :numeroDeTelefono AND u.contraseña = :contraseña";
+//        TypedQuery<JpaLoginUsuarios> query = em.createQuery(jpql, JpaLoginUsuarios.class);
+//        query.setParameter("numeroDeTelefono", numeroDeTelefono);
+//        query.setParameter("contraseña", contraseña);
         try {
-            JpaLoginUsuarios usuario = query.getSingleResult();
+//            JpaLoginUsuarios usuario = query.getSingleResult();
+//
+//            if (usuario.getNombre_usuario() == null){
+//                throw new ErrorDesconocido(panel,"No se encontro el usuario");
+//            }else {
+//                return true;
+//            }
+//        }catch (Exception e){
+//            return false;
+//        }
 
-            if (usuario.getNombre_usuario() == null){
-                throw new ErrorDesconocido(panel,"No se encontro el usuario");
-            }else {
-                return true;
+            TypedQuery<Object[]> query = em.createQuery(
+                    "SELECT u.contraseña, u.numeroDeTelefono FROM JpaLoginUsuarios u WHERE u.numeroDeTelefono = :numeroDeTelefono AND u.contraseña = :contraseña",
+                    Object[].class
+            );
+            query.setParameter("numeroDeTelefono", numeroDeTelefono);
+            query.setParameter("contraseña", contraseña);
+
+            List<Object[]> resultados = query.getResultList();
+            String contraseñaResultado = "";
+            String emailResultado = "";
+            for (Object[] resultado : resultados) {
+                contraseñaResultado = (String) resultado[0];
+                emailResultado = (String) resultado[1];
             }
-        }catch (Exception e){
+            if (contraseñaResultado.equals(contraseña) && emailResultado.equals(numeroDeTelefono)) {
+                return true;
+            }else {
+                throw new ErrorDesconocido(panel,"No se encontro el usuario");
+            }
+        }catch (Exception e) {
             return false;
         }
-
 
     }
 
     public String BuscarPorID(long id) {
-        // No es necesario asignar id = idUsuario; ya que el parámetro id ya tiene el valor correcto
-
         // Utiliza try-with-resources para asegurar que EntityManager se cierre correctamente
         try {
             // No necesitas instanciar JpaClientes aquí
-            String jpql = "SELECT u FROM JpaClientes u WHERE u.id = :id";
-            TypedQuery<JpaClientes> query = em.createQuery(jpql, JpaClientes.class);
+            String jpql = "SELECT u.nombre FROM JpaClientes u WHERE u.id = :id";
+            TypedQuery<String> query = em.createQuery(jpql, String.class);
             query.setParameter("id", id);
 
-            // Siempre maneja las excepciones de manera adecuada
-            JpaClientes usuario = query.getSingleResult();
+            //Este metodo se usa para obtener el nombre del usuario y podria ser simplificado a retornar solo la query.SingleResult
+            String nombre = query.getSingleResult();
 
             // Retorna el nombre del usuario encontrado
-            return usuario.getNombre();
+            return nombre;
         } catch (NoResultException e) {
             // Manejar el caso en que no se encontró ningún usuario con el ID dado.
             // Puedes lanzar una excepción personalizada o devolver null según tus necesidades.
@@ -483,15 +521,15 @@ public class ClientesDAO {
         // Utiliza try-with-resources para asegurar que EntityManager se cierre correctamente
         try {
             // No necesitas instanciar JpaClientes aquí
-            String jpql = "SELECT u FROM JpaLoginUsuarios u WHERE u.id = :id";
-            TypedQuery<JpaLoginUsuarios> query = em.createQuery(jpql, JpaLoginUsuarios.class);
+            String jpql = "SELECT u.numeroDeTelefono FROM JpaLoginUsuarios u WHERE u.id = :id";
+            TypedQuery<String> query = em.createQuery(jpql, String.class);
             query.setParameter("id", id);
 
             // Siempre maneja las excepciones de manera adecuada
-            JpaLoginUsuarios usuario = query.getSingleResult();
+            String numeroDeTelefono = query.getSingleResult();
 
             // Retorna el nombre del usuario encontrado
-            return usuario.getNumeroDeTelefono();
+            return numeroDeTelefono;
         } catch (NoResultException e) {
             // Manejar el caso en que no se encontró ningún usuario con el ID dado.
             // Puedes lanzar una excepción personalizada o devolver null según tus necesidades.
@@ -553,5 +591,8 @@ public class ClientesDAO {
         }
 
 
+    }
+    public String getNumeroTelefonoUsuario() {
+        return datosUsuario;
     }
 }

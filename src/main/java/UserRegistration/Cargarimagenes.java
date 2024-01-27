@@ -2,7 +2,6 @@ package UserRegistration;
 
 import Interfaces.MetodosRegistro;
 import Interfaces.MetodosUserDashBoard;
-import UserDashboard.Transferencias;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
@@ -234,6 +233,7 @@ public class Cargarimagenes implements MetodosRegistro, MetodosUserDashBoard {
         ImgButton.setStyle("-fx-background-color: transparent; -fx-border-width: 0;");
         ImgButton.setOnAction(Event -> {
 
+            reiniciarPantallasUserDashBoard();
             cargarTransferir();
             System.out.println("BOTON TRANSFERIR CLICKEADO");
 
@@ -340,6 +340,7 @@ public class Cargarimagenes implements MetodosRegistro, MetodosUserDashBoard {
                     try {
                         animaciones.resetPantallas(transferencias.getRoot());
                         cargarDashBoard(1);
+                        dashBoard1.actualizarPantallas();
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -355,11 +356,5 @@ public class Cargarimagenes implements MetodosRegistro, MetodosUserDashBoard {
 
 
         return ImgButton;
-    }
-
-
-
-    public void setActualizarValorBoton(boolean booleano) {
-        botonSeleccionado = booleano;
     }
 }

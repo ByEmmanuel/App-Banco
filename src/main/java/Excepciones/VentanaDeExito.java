@@ -53,7 +53,9 @@ public class VentanaDeExito extends RuntimeException {
         errorLayout.getStylesheets().add(CSS);
 
         //Mostrar La escena
-
+        if(mainLayout.getChildren().contains(errorLayout) || mainLayout.getChildren().contains(vbox)){
+            mainLayout.getChildren().remove(errorLayout);
+        }
         mainLayout.getChildren().addAll(errorLayout);
 
     }

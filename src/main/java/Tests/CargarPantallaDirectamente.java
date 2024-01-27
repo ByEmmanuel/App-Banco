@@ -135,11 +135,12 @@ public class CargarPantallaDirectamente extends Application implements MetodosRe
         */
 
         //timer();
-        //cargarDashBoard();
+        //cargarDashBoard(1);
 
-        //cargarTransferir();
+        cargarTransferir();
 
-        cargarPaginaImporte();
+        //cargarPaginaImporte();
+
 
     }
     private void timer() {

@@ -4,6 +4,7 @@ import DAO.OperacionesDAO;
 import Interfaces.MainInterfaceUser;
 import UserRegistration.Animaciones;
 import UserRegistration.Cargarimagenes;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,6 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
 import static Interfaces.MainInterfaceLogin.clientesDAO;
+import static Interfaces.MainInterfaceLogin.controller2;
 
 
 public class PaginaPrincipalDashboard implements MainInterfaceUser {
@@ -19,12 +21,17 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
 
     Animaciones animaciones = new Animaciones();
     OperacionesDAO operacionesDAO = new OperacionesDAO();
-    private static Pane mainLayout1 = new Pane();
+    private static Pane mainLayoutDashboard = new Pane();
+    private Pane paneUno = new Pane();
+    private Pane paneDos = new Pane();
 
     private static String telefono = null;
     static Cargarimagenes imagenes = new Cargarimagenes();
 
     private String nombreUsuarioLogEd;
+    private Label labelSaldo = new Label();
+
+    private Label labelSaldo2 = new Label();
 
     //Estos valores son los que iran en el poligono de ingresos y siempre tienen que tener una distancia de 15
 //    private static int ingresosX = 280;
@@ -39,25 +46,39 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
 
     private static int gastosX;
     private static int gastosY;
-    private String ingresos = String.valueOf(operacionesDAO.BuscarSaldoPorTelefono(""));
+    private String numTelefonoLogeado = controller2.getNumeroDeCelular();
+    String ingresos = String.valueOf(operacionesDAO.BuscarSaldoPorTelefono(numTelefonoLogeado));
+
+
 
     //private static String nombre;
     //private static final String nombre  = clientesDAO.BuscarNombrePorTelefono(mainLayout1,"11");
 
     public PaginaPrincipalDashboard(){
         tamañoDeLaBarra();
-
+        //actualizarPantallas();
+        Platform.runLater(this::actualizarPantallas);
         setupIU();
     }
 
     private void setupIU(){
-        mainLayout1 = new Pane();
-        mainLayout1.setId("Pane-Dashboard");
+        Cargarimagenes imagenes = new Cargarimagenes();
+        Button transferir = imagenes.transferir();
+        Button oportunidades = imagenes.oportunidades();
+        Button retiroSinTrjt = imagenes.retiroSinTrjt();
+        Button tresPuntos = imagenes.botonTresPuntos();
 
 
-        mainLayout1.getChildren().addAll(fondo(),diaAdia(),verMas(),ingresosLabel(),gastosLabel(),ingresos$(),gastos$(),label1(),ingresos(),gastos(),hBox1(),hBox2());
-        mainLayout1.setStyle("-fx-background-color: rgba(245,241,241,0.51);");
+        mainLayoutDashboard = new Pane();
+        mainLayoutDashboard.setId("Pane-Dashboard");
 
+
+
+
+        mainLayoutDashboard.getChildren().addAll(fondo(),transferir,oportunidades,retiroSinTrjt,tresPuntos,labelSaldo(),
+                diaAdia(),verMas(),ingresosLabel(),gastosLabel(),ingresos$(),gastos$(),label1(),ingresos(),gastos(),hBox1(),hBox2()
+                ,botonPrueba());
+        mainLayoutDashboard.setStyle("-fx-background-color: rgba(245,241,241,0.51);");
 
     }
     private Label diaAdia(){
@@ -172,7 +193,7 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
          *  El parametro telefono llega null siempre por si despues tengo
          *  que hacer ajustes
          */
-        this.nombreUsuarioLogEd = clientesDAO.BuscarNombrePorTelefono(mainLayout1,telefono);
+        this.nombreUsuarioLogEd = clientesDAO.BuscarNombrePorTelefono(mainLayoutDashboard,telefono);
         label.setText("Hola, " + nombreUsuarioLogEd);
         label.setLayoutX(100);
         label.setLayoutY(20);
@@ -196,30 +217,59 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
         return diagonal;
     }
 
+    /**
+     * NO SE ACTUALIZA EL VALOR CUANDO LLAMO VARIAS VECES A LA BASE DE DATOS Y NO RESUELVE EL PROBLEMA
+     * DE ACTUALIZAR EL LABEL AL HACER UNA TRANSFERENCIA
+     * @return
+     */
     private Pane hBox1(){
-        Pane Pane = new Pane();
-        Pane.setLayoutX(20);
-        Pane.setLayoutY(280);
+
+        paneUno.setLayoutX(20);
+        paneUno.setLayoutY(280);
         //BackgroundFill backgroundFill = new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY);
         //Background background = new Background(backgroundFill);
-        Pane.setId("Pane-UserDashBoard");
+        paneUno.setId("Pane-UserDashBoard");
         //Pane.setBackground(background);
         // Configurar relleno programáticamente
-        Pane.setPadding(new Insets(0, 140, 0, 15)); // Padding: arriba, derecha, abajo, izquierda
-        Pane.getChildren().addAll(label2(),labelCantidad(),labelNumCuenta(),datosCuenta(),saldoDisponible());
 
-        return Pane;
-    }
-    private Label labelCantidad(){
-        Label label = new Label();
         //Esto esta puesto asi por si le tengo que pasar un valor
 
-        label.setText("$" + ingresos);
+
+//        labelSaldo.setText("$"+ingresos);
+//        labelSaldo.setLayoutX(190);
+//        labelSaldo.setLayoutY(50);
+//        labelSaldo.setStyle("-fx-font-size: 18px");
+
+        Label label2 = new Label("Cuentas En Pesos");
+        label2.setLayoutX(15);
+        label2.setLayoutY(20);
+        label2.setStyle("-fx-font-size: 14px");
+
+
+
+
+        actualizarPantallas();
+        paneUno.setPadding(new Insets(0, 140, 0, 15)); // Padding: arriba, derecha, abajo, izquierda
+        paneUno.getChildren().add(label2);
+        //paneUno.getChildren().add(labelSaldo);
+        paneUno.getChildren().add(labelNumCuenta());
+        paneUno.getChildren().add(datosCuenta());
+        paneUno.getChildren().add(saldoDisponible());
+
+        return paneUno;
+    }
+    private Label labelSaldo(){
+        Label label = new Label();
+        // Este metodo solo muestra el saldo del usuario solamente cuando se carga toda la applicacion,
+        // para fines de testeo esto se muestra como 0.00
+        String saldo = this.ingresos;
+        label.setText("$"+saldo);
         label.setLayoutX(190);
         label.setLayoutY(50);
         label.setStyle("-fx-font-size: 18px");
 
         return label;
+
     }
     private Label datosCuenta(){
         Label label = new Label();
@@ -253,27 +303,20 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
         return label;
     }
     private Pane hBox2(){
-        Pane Pane = new Pane();
-        Pane.setLayoutX(20);
-        Pane.setLayoutY(420);
+
+        actualizarPantallas();
+
+        paneDos.setLayoutX(20);
+        paneDos.setLayoutY(420);
         //BackgroundFill backgroundFill = new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY);
         //Background background = new Background(backgroundFill);
-        Pane.setId("Pane-UserDashBoard");
+        paneDos.setId("Pane-UserDashBoard");
         //Pane.setBackground(background);
         // Configurar relleno programáticamente
-        Pane.setPadding(new Insets(0, 140, 0, 15)); // Padding: arriba, derecha, abajo, izquierda
-        Pane.getChildren().addAll(label3(),tarjeta());
+        paneDos.setPadding(new Insets(0, 140, 0, 15)); // Padding: arriba, derecha, abajo, izquierda
+        paneDos.getChildren().addAll(label3(),tarjeta());
 
-        return Pane;
-    }
-
-    Label label2(){
-        Label label = new Label("Cuentas En Pesos");
-        label.setLayoutX(15);
-        label.setLayoutY(20);
-        label.setStyle("-fx-font-size: 14px");
-
-        return label;
+        return paneDos;
     }
 
     Label label3(){
@@ -383,13 +426,87 @@ public class PaginaPrincipalDashboard implements MainInterfaceUser {
         return datos;
     }
 
+    /**
+     * Este metodo no sirve :/
+     */
+    public void actualizarPantallas() {
+
+        //labelSaldo.setText("%");
+        //paneUno.getChildren().remove(labelSaldo);
+        System.out.println("Iniciando la actualización de pantallas...");
+    
+        new Thread(() -> {
+            try {
+                Thread.sleep(100);
+                System.out.println("El Hilo actual es; " + Thread.currentThread());
+                System.out.println("Espera completada");
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+    
+            try {
+
+                //System.out.println("Nuevo saldo obtenido: " );
+    
+                Platform.runLater(() -> {
+
+                    if(paneUno.getChildren().contains(labelSaldo2) || mainLayoutDashboard.getChildren().contains(labelSaldo2)){
+                        mainLayoutDashboard.getChildren().remove(labelSaldo2);
+                        paneUno.getChildren().remove(labelSaldo2);
+                    }
+
+                    //mainLayoutDashboard.getChildren().removeAll(labelSaldo,labelNumCuenta(),datosCuenta(),saldoDisponible());
+
+
+                    // Resto de la lógica de actualización...
+                    /**
+                     * LLAMANDO A LA BASE DE DATOS DESDE AQUI CON EL NOMBRE DE USUARIO
+                     */
+
+
+                    //labelSaldo2.setText("$"+ingresos);
+                    paneUno.getChildren().add(labelSaldo2);
+                    labelSaldo2.setLayoutX(190);
+                    labelSaldo2.setLayoutY(50);
+                    labelSaldo2.setStyle("-fx-font-size: 18px");
+
+                    labelSaldo2.setText("$" + operacionesDAO.BuscarSaldoPorNombre(nombreUsuarioLogEd));
+
+                    //paneUno.getChildren().removeAll(labelSaldo);
+                    if (paneUno.getChildren().contains(labelSaldo)|| mainLayoutDashboard.getChildren().contains(labelSaldo)){
+                        paneUno.getChildren().remove(labelSaldo);
+                    }
+
+
+
+                    System.out.println("El saldo del label es: " + labelSaldo2.getText());
+                    //paneUno.getChildren().add(labelSaldo);
+                });
+            } catch (Exception ex) {
+                ex.printStackTrace();  
+            }
+        }).start();
+    }
     public String getSaldo() {
         return ingresos;
     }
 
     public Pane getRoot(){
+        return mainLayoutDashboard;
+    }
 
-        return mainLayout1;
+    private Button botonPrueba(){
+        Button button = new Button("Prueba");
+        button.setLayoutX(50);
+        button.setLayoutY(50);
+
+        button.setOnAction(event -> {
+            //labelSaldo.setText("Prueba");
+            actualizarPantallas();
+            System.out.println("AAAAA");
+        });
+
+        return button;
     }
 
 

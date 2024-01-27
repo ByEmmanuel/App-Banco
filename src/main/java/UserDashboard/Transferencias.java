@@ -21,42 +21,35 @@ public class Transferencias extends PaginaPrincipalDashboard implements MetodosU
 
         mainLayoutTransferencias = new Pane();
         mainLayoutTransferencias.setId("PanelTransferencias");
-        mainLayoutTransferencias.getChildren().addAll(cuentasOrigen(),contactos(),x,saldo());
+        mainLayoutTransferencias.getChildren().addAll(headerTransferencias(),cuentasOrigen(),contactos(),x);
         mainLayoutTransferencias.setLayoutX(0);
         mainLayoutTransferencias.setLayoutY(0);
     }
 
-    private Pane cuentasOrigen(){
+    public Pane cuentasOrigen(){
         Pane pane = new Pane();
         pane.setStyle("-fx-background-color: #0d408c;");
         pane.setLayoutX(0);
-        pane.setLayoutY(0);
-        pane.setPadding(new Insets(3, 130, 10, 20)); // Padding: arriba, derecha, abajo, izquierda
+        pane.setLayoutY(50);
+        pane.setPadding(new Insets(0, 130, 10, 20)); // Padding: arriba, derecha, abajo, izquierda
         pane.setId("CuentasOrigen");
-        pane.getChildren().addAll(h1(),cambiarDeCuenta(), h2(),cuentaOrigenTarjeta(),tarjeta());
+        pane.getChildren().addAll(cambiarDeCuenta(), h2(),cuentaOrigenTarjeta(),tarjeta(),saldo());
         return pane;
     }
-    //Transferir
-    private Label h1(){
-        Label label = new Label("Transferir");
-        label.setStyle("-fx-font-size: 18px; -fx-text-fill: #ffffff;");
-        label.setLayoutX(125);
-        label.setLayoutY(10);
-        return label;
-    }
+
     //Cuenta Origen
     private Label h2(){
         Label label = new Label("Cuenta Origen");
         label.setStyle("-fx-font-size: 16px; -fx-text-fill: #ffffff;");
         label.setLayoutX(20);
-        label.setLayoutY(50);
+        label.setLayoutY(20);
         return label;
     }
     private Button cambiarDeCuenta(){
         Button button = new Button("Cambiar");
         button.setStyle("-fx-font-size: 16px; -fx-text-fill: #008bff;-fx-background-color: transparent; -fx-border-width: 0;");
         button.setLayoutX(230);
-        button.setLayoutY(50);
+        button.setLayoutY(15);
         button.setOnAction(Event -> {
 
             System.out.println("CAMBIAR DE CUENTA PARA DEPOSITAR CLICKEADO");
@@ -72,7 +65,7 @@ public class Transferencias extends PaginaPrincipalDashboard implements MetodosU
         label.setText("$"+saldo);
         label.setStyle("-fx-font-size: 16px; -fx-text-fill: #ffffff;");
         label.setLayoutX(240);
-        label.setLayoutY(90);
+        label.setLayoutY(50);
         return label;
     }
     private Label cuentaOrigenTarjeta(){
@@ -81,7 +74,7 @@ public class Transferencias extends PaginaPrincipalDashboard implements MetodosU
         label.setText(dashBoard1.obtenerDatosCuenta());
         label.setStyle("-fx-font-size: 16px; -fx-text-fill: #ffffff;");
         label.setLayoutX(20);
-        label.setLayoutY(100);
+        label.setLayoutY(50);
         return label;
     }
     private Label tarjeta(){
@@ -90,7 +83,7 @@ public class Transferencias extends PaginaPrincipalDashboard implements MetodosU
         label.setText("· " + numTarjeta);
         label.setStyle("-fx-font-size: 16px; -fx-text-fill: #ffffff;");
         label.setLayoutX(20);
-        label.setLayoutY(130);
+        label.setLayoutY(80);
         return label;
     }
 
