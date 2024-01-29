@@ -1,6 +1,7 @@
 package Pantallas;
 
 import javafx.animation.TranslateTransition;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -19,7 +20,7 @@ public class VentanaDeCargaPrueba {
 
     public VentanaDeCargaPrueba(){
         try {
-            setupID();
+            setupID2();
         } catch (Exception e) {}
 
     }
@@ -62,6 +63,48 @@ public class VentanaDeCargaPrueba {
         cuadrado.setFill(color);
         return cuadrado;
     }
+
+    private void setupID2() {
+
+        this.mainLayout = new Pane();
+
+        Label label = new Label("Apple");
+        label.setStyle("-fx-font-size: 24px;");
+        label.setLayoutX(100);
+        label.setLayoutY(250);
+
+        Label label2 = new Label("Bank");
+        label2.setStyle("-fx-font-size: 24px;");
+        label2.setLayoutX(180);
+        label2.setLayoutY(150);
+
+
+        mainLayout.getChildren().addAll(label,label2);
+
+        //TranslateTransition translateTransition1 = crearTransicion(cuadrado1, -150);
+        //TranslateTransition translateTransition2 = crearTransicion(cuadrado2, 150);
+
+        TranslateTransition translateTransition1 = new TranslateTransition(Duration.seconds(3), label);
+        translateTransition1.setFromX(0);   // Posición inicial en X
+        translateTransition1.setFromY(0);   // Posición inicial en Y
+        translateTransition1.setToX(0);   // Posición final en X
+        translateTransition1.setToY(0);   // Posición final en Y
+        translateTransition1.setCycleCount(TranslateTransition.INDEFINITE);
+        translateTransition1.setAutoReverse(false);
+
+        TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(1), label2);
+        translateTransition2.setFromX(0);  // Posición inicial en X
+        translateTransition2.setFromY(158);  // Posición inicial en Y
+        translateTransition2.setToX(0);     // Posición final en X
+        translateTransition2.setToY(80);     // Posición final en Y
+        translateTransition2.setCycleCount(TranslateTransition.INDEFINITE);
+        translateTransition2.setAutoReverse(false);
+
+
+        translateTransition1.play();
+        translateTransition2.play();
+    }
+
 
 
 
